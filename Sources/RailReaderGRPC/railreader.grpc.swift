@@ -15,25 +15,25 @@ import GRPCProtobuf
 
 /// Namespace containing generated types for the "RailReader" service.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
-internal enum RailReader {
+public enum RailReader {
     /// Service descriptor for the "RailReader" service.
-    internal static let descriptor = GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader")
+    public static let descriptor = GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader")
     /// Namespace for method metadata.
-    internal enum Method {
+    public enum Method {
         /// Namespace for "GetDepartures" metadata.
-        internal enum GetDepartures {
+        public enum GetDepartures {
             /// Request type for "GetDepartures".
-            internal typealias Input = DepartureRequest
+            public typealias Input = DepartureRequest
             /// Response type for "GetDepartures".
-            internal typealias Output = DepartureResponse
+            public typealias Output = DepartureResponse
             /// Descriptor for "GetDepartures".
-            internal static let descriptor = GRPCCore.MethodDescriptor(
+            public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
                 method: "GetDepartures"
             )
         }
         /// Descriptors for all methods in the "RailReader" service.
-        internal static let descriptors: [GRPCCore.MethodDescriptor] = [
+        public static let descriptors: [GRPCCore.MethodDescriptor] = [
             GetDepartures.descriptor
         ]
     }
@@ -42,7 +42,7 @@ internal enum RailReader {
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension GRPCCore.ServiceDescriptor {
     /// Service descriptor for the "RailReader" service.
-    internal static let RailReader = GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader")
+    public static let RailReader = GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader")
 }
 
 // MARK: RailReader (server)
@@ -59,7 +59,7 @@ extension RailReader {
     ///
     /// Where possible, prefer using the stricter, less-verbose ``ServiceProtocol``
     /// or ``SimpleServiceProtocol`` instead.
-    internal protocol StreamingServiceProtocol: GRPCCore.RegistrableRPCService {
+    public protocol StreamingServiceProtocol: GRPCCore.RegistrableRPCService {
         /// Handle the "GetDepartures" method.
         ///
         /// - Parameters:
@@ -82,7 +82,7 @@ extension RailReader {
     /// trailing response metadata. If you don't need these then consider using
     /// the ``SimpleServiceProtocol``. If you need fine grained control over your RPCs then
     /// use ``StreamingServiceProtocol``.
-    internal protocol ServiceProtocol: RailReader.StreamingServiceProtocol {
+    public protocol ServiceProtocol: RailReader.StreamingServiceProtocol {
         /// Handle the "GetDepartures" method.
         ///
         /// - Parameters:
@@ -103,7 +103,7 @@ extension RailReader {
     /// This is the highest level protocol for the service. The API is the easiest to use but
     /// doesn't provide access to request or response metadata. If you need access to these
     /// then use ``ServiceProtocol`` instead.
-    internal protocol SimpleServiceProtocol: RailReader.ServiceProtocol {
+    public protocol SimpleServiceProtocol: RailReader.ServiceProtocol {
         /// Handle the "GetDepartures" method.
         ///
         /// - Parameters:
@@ -124,7 +124,7 @@ extension RailReader {
 // Default implementation of 'registerMethods(with:)'.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension RailReader.StreamingServiceProtocol {
-    internal func registerMethods<Transport>(with router: inout GRPCCore.RPCRouter<Transport>) where Transport: GRPCCore.ServerTransport {
+    public func registerMethods<Transport>(with router: inout GRPCCore.RPCRouter<Transport>) where Transport: GRPCCore.ServerTransport {
         router.registerHandler(
             forMethod: RailReader.Method.GetDepartures.descriptor,
             deserializer: GRPCProtobuf.ProtobufDeserializer<DepartureRequest>(),
@@ -142,7 +142,7 @@ extension RailReader.StreamingServiceProtocol {
 // Default implementation of streaming methods from 'StreamingServiceProtocol'.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension RailReader.ServiceProtocol {
-    internal func getDepartures(
+    public func getDepartures(
         request: GRPCCore.StreamingServerRequest<DepartureRequest>,
         context: GRPCCore.ServerContext
     ) async throws -> GRPCCore.StreamingServerResponse<DepartureResponse> {
@@ -157,7 +157,7 @@ extension RailReader.ServiceProtocol {
 // Default implementation of methods from 'ServiceProtocol'.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension RailReader.SimpleServiceProtocol {
-    internal func getDepartures(
+    public func getDepartures(
         request: GRPCCore.ServerRequest<DepartureRequest>,
         context: GRPCCore.ServerContext
     ) async throws -> GRPCCore.StreamingServerResponse<DepartureResponse> {
@@ -183,7 +183,7 @@ extension RailReader {
     ///
     /// You don't need to implement this protocol directly, use the generated
     /// implementation, ``Client``.
-    internal protocol ClientProtocol: Sendable {
+    public protocol ClientProtocol: Sendable {
         /// Call the "GetDepartures" method.
         ///
         /// - Parameters:
@@ -209,14 +209,14 @@ extension RailReader {
     /// The ``Client`` provides an implementation of ``ClientProtocol`` which wraps
     /// a `GRPCCore.GRPCCClient`. The underlying `GRPCClient` provides the long-lived
     /// means of communication with the remote peer.
-    internal struct Client<Transport>: ClientProtocol where Transport: GRPCCore.ClientTransport {
+    public struct Client<Transport>: ClientProtocol where Transport: GRPCCore.ClientTransport {
         private let client: GRPCCore.GRPCClient<Transport>
 
         /// Creates a new client wrapping the provided `GRPCCore.GRPCClient`.
         ///
         /// - Parameters:
         ///   - client: A `GRPCCore.GRPCClient` providing a communication channel to the service.
-        internal init(wrapping client: GRPCCore.GRPCClient<Transport>) {
+        public init(wrapping client: GRPCCore.GRPCClient<Transport>) {
             self.client = client
         }
 
@@ -231,7 +231,7 @@ extension RailReader {
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
-        internal func getDepartures<Result>(
+        public func getDepartures<Result>(
             request: GRPCCore.ClientRequest<DepartureRequest>,
             serializer: some GRPCCore.MessageSerializer<DepartureRequest>,
             deserializer: some GRPCCore.MessageDeserializer<DepartureResponse>,
@@ -262,7 +262,7 @@ extension RailReader.ClientProtocol {
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    internal func getDepartures<Result>(
+    public func getDepartures<Result>(
         request: GRPCCore.ClientRequest<DepartureRequest>,
         options: GRPCCore.CallOptions = .defaults,
         onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DepartureResponse>) async throws -> Result
@@ -290,7 +290,7 @@ extension RailReader.ClientProtocol {
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    internal func getDepartures<Result>(
+    public func getDepartures<Result>(
         _ message: DepartureRequest,
         metadata: GRPCCore.Metadata = [:],
         options: GRPCCore.CallOptions = .defaults,
