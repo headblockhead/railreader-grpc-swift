@@ -9,9 +9,6 @@ jobs:
   generate-code:
     runs-on: macos-latest
     steps:  
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - name: Install protoc
         run: |
           brew install protobuf
@@ -19,6 +16,9 @@ jobs:
         run: |
           brew install swift-protobuf
           brew install protoc-gen-grpc-swift
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - name: Generate, commit, and push
         run: |
           ./gen.sh
