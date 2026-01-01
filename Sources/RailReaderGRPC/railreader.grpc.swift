@@ -15,13 +15,13 @@ import GRPCProtobuf
 
 /// Namespace containing generated types for the "RailReader" service.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
-public enum RailReader {
+public enum RailReader: Sendable {
     /// Service descriptor for the "RailReader" service.
     public static let descriptor = GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader")
     /// Namespace for method metadata.
-    public enum Method {
+    public enum Method: Sendable {
         /// Namespace for "GetDepartures" metadata.
-        public enum GetDepartures {
+        public enum GetDepartures: Sendable {
             /// Request type for "GetDepartures".
             public typealias Input = DepartureRequest
             /// Response type for "GetDepartures".
