@@ -1,0 +1,28 @@
+name: Generate code
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  generate-code:
+    runs-on: macos-latest
+    steps:  
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install protoc
+        run: |
+          brew install protobuf
+      - name: Install Swift protoc plugins
+        run: |
+          brew install swift-protobuf
+          brew install protoc-gen-grpc-swift
+      - name: Generate, commit, and push
+        run: |
+          ./gen.sh
+          git config user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -am "chore: regenerate code"
+          git push
