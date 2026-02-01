@@ -20,21 +20,21 @@ public enum RailReader: Sendable {
     public static let descriptor = GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader")
     /// Namespace for method metadata.
     public enum Method: Sendable {
-        /// Namespace for "GetDepartures" metadata.
-        public enum GetDepartures: Sendable {
-            /// Request type for "GetDepartures".
-            public typealias Input = DepartureRequest
-            /// Response type for "GetDepartures".
-            public typealias Output = DepartureResponse
-            /// Descriptor for "GetDepartures".
+        /// Namespace for "GetLocationUpdates" metadata.
+        public enum GetLocationUpdates: Sendable {
+            /// Request type for "GetLocationUpdates".
+            public typealias Input = LocationUpdatesRequest
+            /// Response type for "GetLocationUpdates".
+            public typealias Output = LocationUpdateResponse
+            /// Descriptor for "GetLocationUpdates".
             public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
-                method: "GetDepartures"
+                method: "GetLocationUpdates"
             )
         }
         /// Descriptors for all methods in the "RailReader" service.
         public static let descriptors: [GRPCCore.MethodDescriptor] = [
-            GetDepartures.descriptor
+            GetLocationUpdates.descriptor
         ]
     }
 }
@@ -60,19 +60,19 @@ extension RailReader {
     /// Where possible, prefer using the stricter, less-verbose ``ServiceProtocol``
     /// or ``SimpleServiceProtocol`` instead.
     public protocol StreamingServiceProtocol: GRPCCore.RegistrableRPCService {
-        /// Handle the "GetDepartures" method.
+        /// Handle the "GetLocationUpdates" method.
         ///
         /// - Parameters:
-        ///   - request: A streaming request of `DepartureRequest` messages.
+        ///   - request: A streaming request of `LocationUpdatesRequest` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        /// - Returns: A streaming response of `DepartureResponse` messages.
-        func getDepartures(
-            request: GRPCCore.StreamingServerRequest<DepartureRequest>,
+        /// - Returns: A streaming response of `LocationUpdateResponse` messages.
+        func getLocationUpdates(
+            request: GRPCCore.StreamingServerRequest<LocationUpdatesRequest>,
             context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.StreamingServerResponse<DepartureResponse>
+        ) async throws -> GRPCCore.StreamingServerResponse<LocationUpdateResponse>
     }
 
     /// Service protocol for the "RailReader" service.
@@ -83,19 +83,19 @@ extension RailReader {
     /// the ``SimpleServiceProtocol``. If you need fine grained control over your RPCs then
     /// use ``StreamingServiceProtocol``.
     public protocol ServiceProtocol: RailReader.StreamingServiceProtocol {
-        /// Handle the "GetDepartures" method.
+        /// Handle the "GetLocationUpdates" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `DepartureRequest` message.
+        ///   - request: A request containing a single `LocationUpdatesRequest` message.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        /// - Returns: A streaming response of `DepartureResponse` messages.
-        func getDepartures(
-            request: GRPCCore.ServerRequest<DepartureRequest>,
+        /// - Returns: A response containing a single `LocationUpdateResponse` message.
+        func getLocationUpdates(
+            request: GRPCCore.ServerRequest<LocationUpdatesRequest>,
             context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.StreamingServerResponse<DepartureResponse>
+        ) async throws -> GRPCCore.ServerResponse<LocationUpdateResponse>
     }
 
     /// Simple service protocol for the "RailReader" service.
@@ -104,20 +104,19 @@ extension RailReader {
     /// doesn't provide access to request or response metadata. If you need access to these
     /// then use ``ServiceProtocol`` instead.
     public protocol SimpleServiceProtocol: RailReader.ServiceProtocol {
-        /// Handle the "GetDepartures" method.
+        /// Handle the "GetLocationUpdates" method.
         ///
         /// - Parameters:
-        ///   - request: A `DepartureRequest` message.
-        ///   - response: A response stream of `DepartureResponse` messages.
+        ///   - request: A `LocationUpdatesRequest` message.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        func getDepartures(
-            request: DepartureRequest,
-            response: GRPCCore.RPCWriter<DepartureResponse>,
+        /// - Returns: A `LocationUpdateResponse` to respond with.
+        func getLocationUpdates(
+            request: LocationUpdatesRequest,
             context: GRPCCore.ServerContext
-        ) async throws
+        ) async throws -> LocationUpdateResponse
     }
 }
 
@@ -126,11 +125,11 @@ extension RailReader {
 extension RailReader.StreamingServiceProtocol {
     public func registerMethods<Transport>(with router: inout GRPCCore.RPCRouter<Transport>) where Transport: GRPCCore.ServerTransport {
         router.registerHandler(
-            forMethod: RailReader.Method.GetDepartures.descriptor,
-            deserializer: GRPCProtobuf.ProtobufDeserializer<DepartureRequest>(),
-            serializer: GRPCProtobuf.ProtobufSerializer<DepartureResponse>(),
+            forMethod: RailReader.Method.GetLocationUpdates.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<LocationUpdatesRequest>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<LocationUpdateResponse>(),
             handler: { request, context in
-                try await self.getDepartures(
+                try await self.getLocationUpdates(
                     request: request,
                     context: context
                 )
@@ -142,35 +141,31 @@ extension RailReader.StreamingServiceProtocol {
 // Default implementation of streaming methods from 'StreamingServiceProtocol'.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension RailReader.ServiceProtocol {
-    public func getDepartures(
-        request: GRPCCore.StreamingServerRequest<DepartureRequest>,
+    public func getLocationUpdates(
+        request: GRPCCore.StreamingServerRequest<LocationUpdatesRequest>,
         context: GRPCCore.ServerContext
-    ) async throws -> GRPCCore.StreamingServerResponse<DepartureResponse> {
-        let response = try await self.getDepartures(
+    ) async throws -> GRPCCore.StreamingServerResponse<LocationUpdateResponse> {
+        let response = try await self.getLocationUpdates(
             request: GRPCCore.ServerRequest(stream: request),
             context: context
         )
-        return response
+        return GRPCCore.StreamingServerResponse(single: response)
     }
 }
 
 // Default implementation of methods from 'ServiceProtocol'.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension RailReader.SimpleServiceProtocol {
-    public func getDepartures(
-        request: GRPCCore.ServerRequest<DepartureRequest>,
+    public func getLocationUpdates(
+        request: GRPCCore.ServerRequest<LocationUpdatesRequest>,
         context: GRPCCore.ServerContext
-    ) async throws -> GRPCCore.StreamingServerResponse<DepartureResponse> {
-        return GRPCCore.StreamingServerResponse<DepartureResponse>(
-            metadata: [:],
-            producer: { writer in
-                try await self.getDepartures(
-                    request: request.message,
-                    response: writer,
-                    context: context
-                )
-                return [:]
-            }
+    ) async throws -> GRPCCore.ServerResponse<LocationUpdateResponse> {
+        return GRPCCore.ServerResponse<LocationUpdateResponse>(
+            message: try await self.getLocationUpdates(
+                request: request.message,
+                context: context
+            ),
+            metadata: [:]
         )
     }
 }
@@ -184,23 +179,23 @@ extension RailReader {
     /// You don't need to implement this protocol directly, use the generated
     /// implementation, ``Client``.
     public protocol ClientProtocol: Sendable {
-        /// Call the "GetDepartures" method.
+        /// Call the "GetLocationUpdates" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `DepartureRequest` message.
-        ///   - serializer: A serializer for `DepartureRequest` messages.
-        ///   - deserializer: A deserializer for `DepartureResponse` messages.
+        ///   - request: A request containing a single `LocationUpdatesRequest` message.
+        ///   - serializer: A serializer for `LocationUpdatesRequest` messages.
+        ///   - deserializer: A deserializer for `LocationUpdateResponse` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
-        func getDepartures<Result>(
-            request: GRPCCore.ClientRequest<DepartureRequest>,
-            serializer: some GRPCCore.MessageSerializer<DepartureRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<DepartureResponse>,
+        func getLocationUpdates<Result>(
+            request: GRPCCore.ClientRequest<LocationUpdatesRequest>,
+            serializer: some GRPCCore.MessageSerializer<LocationUpdatesRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<LocationUpdateResponse>,
             options: GRPCCore.CallOptions,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DepartureResponse>) async throws -> Result
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<LocationUpdateResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
     }
 
@@ -220,27 +215,29 @@ extension RailReader {
             self.client = client
         }
 
-        /// Call the "GetDepartures" method.
+        /// Call the "GetLocationUpdates" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `DepartureRequest` message.
-        ///   - serializer: A serializer for `DepartureRequest` messages.
-        ///   - deserializer: A deserializer for `DepartureResponse` messages.
+        ///   - request: A request containing a single `LocationUpdatesRequest` message.
+        ///   - serializer: A serializer for `LocationUpdatesRequest` messages.
+        ///   - deserializer: A deserializer for `LocationUpdateResponse` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
-        public func getDepartures<Result>(
-            request: GRPCCore.ClientRequest<DepartureRequest>,
-            serializer: some GRPCCore.MessageSerializer<DepartureRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<DepartureResponse>,
+        public func getLocationUpdates<Result>(
+            request: GRPCCore.ClientRequest<LocationUpdatesRequest>,
+            serializer: some GRPCCore.MessageSerializer<LocationUpdatesRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<LocationUpdateResponse>,
             options: GRPCCore.CallOptions = .defaults,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DepartureResponse>) async throws -> Result
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<LocationUpdateResponse>) async throws -> Result = { response in
+                try response.message
+            }
         ) async throws -> Result where Result: Sendable {
-            try await self.client.serverStreaming(
+            try await self.client.unary(
                 request: request,
-                descriptor: RailReader.Method.GetDepartures.descriptor,
+                descriptor: RailReader.Method.GetLocationUpdates.descriptor,
                 serializer: serializer,
                 deserializer: deserializer,
                 options: options,
@@ -253,24 +250,26 @@ extension RailReader {
 // Helpers providing default arguments to 'ClientProtocol' methods.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension RailReader.ClientProtocol {
-    /// Call the "GetDepartures" method.
+    /// Call the "GetLocationUpdates" method.
     ///
     /// - Parameters:
-    ///   - request: A request containing a single `DepartureRequest` message.
+    ///   - request: A request containing a single `LocationUpdatesRequest` message.
     ///   - options: Options to apply to this RPC.
     ///   - handleResponse: A closure which handles the response, the result of which is
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    public func getDepartures<Result>(
-        request: GRPCCore.ClientRequest<DepartureRequest>,
+    public func getLocationUpdates<Result>(
+        request: GRPCCore.ClientRequest<LocationUpdatesRequest>,
         options: GRPCCore.CallOptions = .defaults,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DepartureResponse>) async throws -> Result
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<LocationUpdateResponse>) async throws -> Result = { response in
+            try response.message
+        }
     ) async throws -> Result where Result: Sendable {
-        try await self.getDepartures(
+        try await self.getLocationUpdates(
             request: request,
-            serializer: GRPCProtobuf.ProtobufSerializer<DepartureRequest>(),
-            deserializer: GRPCProtobuf.ProtobufDeserializer<DepartureResponse>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<LocationUpdatesRequest>(),
+            deserializer: GRPCProtobuf.ProtobufDeserializer<LocationUpdateResponse>(),
             options: options,
             onResponse: handleResponse
         )
@@ -280,7 +279,7 @@ extension RailReader.ClientProtocol {
 // Helpers providing sugared APIs for 'ClientProtocol' methods.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension RailReader.ClientProtocol {
-    /// Call the "GetDepartures" method.
+    /// Call the "GetLocationUpdates" method.
     ///
     /// - Parameters:
     ///   - message: request message to send.
@@ -290,17 +289,19 @@ extension RailReader.ClientProtocol {
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    public func getDepartures<Result>(
-        _ message: DepartureRequest,
+    public func getLocationUpdates<Result>(
+        _ message: LocationUpdatesRequest,
         metadata: GRPCCore.Metadata = [:],
         options: GRPCCore.CallOptions = .defaults,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DepartureResponse>) async throws -> Result
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<LocationUpdateResponse>) async throws -> Result = { response in
+            try response.message
+        }
     ) async throws -> Result where Result: Sendable {
-        let request = GRPCCore.ClientRequest<DepartureRequest>(
+        let request = GRPCCore.ClientRequest<LocationUpdatesRequest>(
             message: message,
             metadata: metadata
         )
-        return try await self.getDepartures(
+        return try await self.getLocationUpdates(
             request: request,
             options: options,
             onResponse: handleResponse
