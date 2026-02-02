@@ -24,4 +24,5 @@ jobs:
           ./gen.sh
           git config user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git diff --exit-code || (git add . && git commit -m "autoregenerate code from railreader-grpc submodule" && git push)
+          git add -N .
+          git diff --exit-code || (git commit -am "autoregenerate code from railreader-grpc submodule" && git push)
