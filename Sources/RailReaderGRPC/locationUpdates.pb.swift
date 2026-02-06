@@ -73,14 +73,7 @@ public struct LocationUpdate: Sendable {
   /// Clears the value of `tocID`. Subsequent reads from it will return its default value.
   public mutating func clearTocID() {self._tocID = nil}
 
-  public var name: String {
-    get {return _name ?? String()}
-    set {_name = newValue}
-  }
-  /// Returns true if `name` has been explicitly set.
-  public var hasName: Bool {return self._name != nil}
-  /// Clears the value of `name`. Subsequent reads from it will return its default value.
-  public mutating func clearName() {self._name = nil}
+  public var name: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -88,7 +81,6 @@ public struct LocationUpdate: Sendable {
 
   fileprivate var _crsID: String? = nil
   fileprivate var _tocID: String? = nil
-  fileprivate var _name: String? = nil
 }
 
 public struct LocationUpdateResponse: Sendable {
@@ -155,7 +147,7 @@ extension LocationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       case 1: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self._crsID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self._tocID) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self._name) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.isDeleted) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.referenceFileID) }()
       default: break
@@ -177,9 +169,9 @@ extension LocationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try { if let v = self._tocID {
       try visitor.visitSingularStringField(value: v, fieldNumber: 3)
     } }()
-    try { if let v = self._name {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
-    } }()
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 4)
+    }
     if self.isDeleted != false {
       try visitor.visitSingularBoolField(value: self.isDeleted, fieldNumber: 5)
     }
@@ -195,7 +187,7 @@ extension LocationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if lhs.isDeleted != rhs.isDeleted {return false}
     if lhs._crsID != rhs._crsID {return false}
     if lhs._tocID != rhs._tocID {return false}
-    if lhs._name != rhs._name {return false}
+    if lhs.name != rhs.name {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
