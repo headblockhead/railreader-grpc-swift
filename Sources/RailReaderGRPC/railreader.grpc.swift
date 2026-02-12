@@ -32,9 +32,22 @@ public enum RailReader: Sendable {
                 method: "GetLocationUpdates"
             )
         }
+        /// Namespace for "GetSchedulesAtLocation" metadata.
+        public enum GetSchedulesAtLocation: Sendable {
+            /// Request type for "GetSchedulesAtLocation".
+            public typealias Input = SchedulesAtLocationRequest
+            /// Response type for "GetSchedulesAtLocation".
+            public typealias Output = SchedulesAtLocationResponse
+            /// Descriptor for "GetSchedulesAtLocation".
+            public static let descriptor = GRPCCore.MethodDescriptor(
+                service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
+                method: "GetSchedulesAtLocation"
+            )
+        }
         /// Descriptors for all methods in the "RailReader" service.
         public static let descriptors: [GRPCCore.MethodDescriptor] = [
-            GetLocationUpdates.descriptor
+            GetLocationUpdates.descriptor,
+            GetSchedulesAtLocation.descriptor
         ]
     }
 }
@@ -73,6 +86,20 @@ extension RailReader {
             request: GRPCCore.StreamingServerRequest<LocationUpdatesRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<LocationUpdateResponse>
+
+        /// Handle the "GetSchedulesAtLocation" method.
+        ///
+        /// - Parameters:
+        ///   - request: A streaming request of `SchedulesAtLocationRequest` messages.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A streaming response of `SchedulesAtLocationResponse` messages.
+        func getSchedulesAtLocation(
+            request: GRPCCore.StreamingServerRequest<SchedulesAtLocationRequest>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.StreamingServerResponse<SchedulesAtLocationResponse>
     }
 
     /// Service protocol for the "RailReader" service.
@@ -96,6 +123,20 @@ extension RailReader {
             request: GRPCCore.ServerRequest<LocationUpdatesRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.ServerResponse<LocationUpdateResponse>
+
+        /// Handle the "GetSchedulesAtLocation" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `SchedulesAtLocationRequest` message.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A streaming response of `SchedulesAtLocationResponse` messages.
+        func getSchedulesAtLocation(
+            request: GRPCCore.ServerRequest<SchedulesAtLocationRequest>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.StreamingServerResponse<SchedulesAtLocationResponse>
     }
 
     /// Simple service protocol for the "RailReader" service.
@@ -117,6 +158,21 @@ extension RailReader {
             request: LocationUpdatesRequest,
             context: GRPCCore.ServerContext
         ) async throws -> LocationUpdateResponse
+
+        /// Handle the "GetSchedulesAtLocation" method.
+        ///
+        /// - Parameters:
+        ///   - request: A `SchedulesAtLocationRequest` message.
+        ///   - response: A response stream of `SchedulesAtLocationResponse` messages.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        func getSchedulesAtLocation(
+            request: SchedulesAtLocationRequest,
+            response: GRPCCore.RPCWriter<SchedulesAtLocationResponse>,
+            context: GRPCCore.ServerContext
+        ) async throws
     }
 }
 
@@ -130,6 +186,17 @@ extension RailReader.StreamingServiceProtocol {
             serializer: GRPCProtobuf.ProtobufSerializer<LocationUpdateResponse>(),
             handler: { request, context in
                 try await self.getLocationUpdates(
+                    request: request,
+                    context: context
+                )
+            }
+        )
+        router.registerHandler(
+            forMethod: RailReader.Method.GetSchedulesAtLocation.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<SchedulesAtLocationRequest>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<SchedulesAtLocationResponse>(),
+            handler: { request, context in
+                try await self.getSchedulesAtLocation(
                     request: request,
                     context: context
                 )
@@ -151,6 +218,17 @@ extension RailReader.ServiceProtocol {
         )
         return GRPCCore.StreamingServerResponse(single: response)
     }
+
+    public func getSchedulesAtLocation(
+        request: GRPCCore.StreamingServerRequest<SchedulesAtLocationRequest>,
+        context: GRPCCore.ServerContext
+    ) async throws -> GRPCCore.StreamingServerResponse<SchedulesAtLocationResponse> {
+        let response = try await self.getSchedulesAtLocation(
+            request: GRPCCore.ServerRequest(stream: request),
+            context: context
+        )
+        return response
+    }
 }
 
 // Default implementation of methods from 'ServiceProtocol'.
@@ -166,6 +244,23 @@ extension RailReader.SimpleServiceProtocol {
                 context: context
             ),
             metadata: [:]
+        )
+    }
+
+    public func getSchedulesAtLocation(
+        request: GRPCCore.ServerRequest<SchedulesAtLocationRequest>,
+        context: GRPCCore.ServerContext
+    ) async throws -> GRPCCore.StreamingServerResponse<SchedulesAtLocationResponse> {
+        return GRPCCore.StreamingServerResponse<SchedulesAtLocationResponse>(
+            metadata: [:],
+            producer: { writer in
+                try await self.getSchedulesAtLocation(
+                    request: request.message,
+                    response: writer,
+                    context: context
+                )
+                return [:]
+            }
         )
     }
 }
@@ -196,6 +291,25 @@ extension RailReader {
             deserializer: some GRPCCore.MessageDeserializer<LocationUpdateResponse>,
             options: GRPCCore.CallOptions,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<LocationUpdateResponse>) async throws -> Result
+        ) async throws -> Result where Result: Sendable
+
+        /// Call the "GetSchedulesAtLocation" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `SchedulesAtLocationRequest` message.
+        ///   - serializer: A serializer for `SchedulesAtLocationRequest` messages.
+        ///   - deserializer: A deserializer for `SchedulesAtLocationResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        func getSchedulesAtLocation<Result>(
+            request: GRPCCore.ClientRequest<SchedulesAtLocationRequest>,
+            serializer: some GRPCCore.MessageSerializer<SchedulesAtLocationRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<SchedulesAtLocationResponse>,
+            options: GRPCCore.CallOptions,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<SchedulesAtLocationResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
     }
 
@@ -244,6 +358,34 @@ extension RailReader {
                 onResponse: handleResponse
             )
         }
+
+        /// Call the "GetSchedulesAtLocation" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `SchedulesAtLocationRequest` message.
+        ///   - serializer: A serializer for `SchedulesAtLocationRequest` messages.
+        ///   - deserializer: A deserializer for `SchedulesAtLocationResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        public func getSchedulesAtLocation<Result>(
+            request: GRPCCore.ClientRequest<SchedulesAtLocationRequest>,
+            serializer: some GRPCCore.MessageSerializer<SchedulesAtLocationRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<SchedulesAtLocationResponse>,
+            options: GRPCCore.CallOptions = .defaults,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<SchedulesAtLocationResponse>) async throws -> Result
+        ) async throws -> Result where Result: Sendable {
+            try await self.client.serverStreaming(
+                request: request,
+                descriptor: RailReader.Method.GetSchedulesAtLocation.descriptor,
+                serializer: serializer,
+                deserializer: deserializer,
+                options: options,
+                onResponse: handleResponse
+            )
+        }
     }
 }
 
@@ -270,6 +412,29 @@ extension RailReader.ClientProtocol {
             request: request,
             serializer: GRPCProtobuf.ProtobufSerializer<LocationUpdatesRequest>(),
             deserializer: GRPCProtobuf.ProtobufDeserializer<LocationUpdateResponse>(),
+            options: options,
+            onResponse: handleResponse
+        )
+    }
+
+    /// Call the "GetSchedulesAtLocation" method.
+    ///
+    /// - Parameters:
+    ///   - request: A request containing a single `SchedulesAtLocationRequest` message.
+    ///   - options: Options to apply to this RPC.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    public func getSchedulesAtLocation<Result>(
+        request: GRPCCore.ClientRequest<SchedulesAtLocationRequest>,
+        options: GRPCCore.CallOptions = .defaults,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<SchedulesAtLocationResponse>) async throws -> Result
+    ) async throws -> Result where Result: Sendable {
+        try await self.getSchedulesAtLocation(
+            request: request,
+            serializer: GRPCProtobuf.ProtobufSerializer<SchedulesAtLocationRequest>(),
+            deserializer: GRPCProtobuf.ProtobufDeserializer<SchedulesAtLocationResponse>(),
             options: options,
             onResponse: handleResponse
         )
@@ -302,6 +467,33 @@ extension RailReader.ClientProtocol {
             metadata: metadata
         )
         return try await self.getLocationUpdates(
+            request: request,
+            options: options,
+            onResponse: handleResponse
+        )
+    }
+
+    /// Call the "GetSchedulesAtLocation" method.
+    ///
+    /// - Parameters:
+    ///   - message: request message to send.
+    ///   - metadata: Additional metadata to send, defaults to empty.
+    ///   - options: Options to apply to this RPC, defaults to `.defaults`.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    public func getSchedulesAtLocation<Result>(
+        _ message: SchedulesAtLocationRequest,
+        metadata: GRPCCore.Metadata = [:],
+        options: GRPCCore.CallOptions = .defaults,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<SchedulesAtLocationResponse>) async throws -> Result
+    ) async throws -> Result where Result: Sendable {
+        let request = GRPCCore.ClientRequest<SchedulesAtLocationRequest>(
+            message: message,
+            metadata: metadata
+        )
+        return try await self.getSchedulesAtLocation(
             request: request,
             options: options,
             onResponse: handleResponse
