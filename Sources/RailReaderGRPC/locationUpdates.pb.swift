@@ -27,11 +27,11 @@ public struct LocationUpdatesRequest: Sendable {
   // methods supported on all messages.
 
   public var fromReferenceFileID: String {
-    get {_fromReferenceFileID ?? String()}
+    get {return _fromReferenceFileID ?? String()}
     set {_fromReferenceFileID = newValue}
   }
   /// Returns true if `fromReferenceFileID` has been explicitly set.
-  public var hasFromReferenceFileID: Bool {self._fromReferenceFileID != nil}
+  public var hasFromReferenceFileID: Bool {return self._fromReferenceFileID != nil}
   /// Clears the value of `fromReferenceFileID`. Subsequent reads from it will return its default value.
   public mutating func clearFromReferenceFileID() {self._fromReferenceFileID = nil}
 
@@ -50,26 +50,25 @@ public struct LocationUpdate: Sendable {
   /// The reference_file_id at which this change occurred. 
   public var referenceFileID: String = String()
 
-  /// TIPLOC
   public var locationID: String = String()
 
   public var isDeleted: Bool = false
 
   public var crsID: String {
-    get {_crsID ?? String()}
+    get {return _crsID ?? String()}
     set {_crsID = newValue}
   }
   /// Returns true if `crsID` has been explicitly set.
-  public var hasCrsID: Bool {self._crsID != nil}
+  public var hasCrsID: Bool {return self._crsID != nil}
   /// Clears the value of `crsID`. Subsequent reads from it will return its default value.
   public mutating func clearCrsID() {self._crsID = nil}
 
   public var tocID: String {
-    get {_tocID ?? String()}
+    get {return _tocID ?? String()}
     set {_tocID = newValue}
   }
   /// Returns true if `tocID` has been explicitly set.
-  public var hasTocID: Bool {self._tocID != nil}
+  public var hasTocID: Bool {return self._tocID != nil}
   /// Clears the value of `tocID`. Subsequent reads from it will return its default value.
   public mutating func clearTocID() {self._tocID = nil}
 

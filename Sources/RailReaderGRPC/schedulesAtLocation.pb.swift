@@ -25,8 +25,11 @@ public struct SchedulesAtLocationRequest: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// TIPLOC                            
   public var locationID: String = String()
+
+  public var fromDate: String = String()
+
+  public var toDate: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -47,7 +50,6 @@ public struct SchedulesAtLocationResponse: Sendable {
 
   public var scheduleLocationUuid: String = String()
 
-  /// in YYYY-MM-DD format
   public var scheduledStartDate: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -59,7 +61,7 @@ public struct SchedulesAtLocationResponse: Sendable {
 
 extension SchedulesAtLocationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SchedulesAtLocationRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}from_date\0\u{3}to_date\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -68,6 +70,8 @@ extension SchedulesAtLocationRequest: SwiftProtobuf.Message, SwiftProtobuf._Mess
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.fromDate) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.toDate) }()
       default: break
       }
     }
@@ -77,11 +81,19 @@ extension SchedulesAtLocationRequest: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.locationID.isEmpty {
       try visitor.visitSingularStringField(value: self.locationID, fieldNumber: 1)
     }
+    if !self.fromDate.isEmpty {
+      try visitor.visitSingularStringField(value: self.fromDate, fieldNumber: 2)
+    }
+    if !self.toDate.isEmpty {
+      try visitor.visitSingularStringField(value: self.toDate, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: SchedulesAtLocationRequest, rhs: SchedulesAtLocationRequest) -> Bool {
     if lhs.locationID != rhs.locationID {return false}
+    if lhs.fromDate != rhs.fromDate {return false}
+    if lhs.toDate != rhs.toDate {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
