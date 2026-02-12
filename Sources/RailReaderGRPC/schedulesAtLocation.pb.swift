@@ -34,7 +34,7 @@ public struct SchedulesAtLocationRequest: Sendable {
 }
 
 /// This contains some minimal information about a schedule at the location requested.
-/// Designed to use very little bandwidth, but still be useful for displaying simple departure/arrival boards.
+/// Designed to use very little bandwidth.
 /// More (useful) data can be requested using the IDs provided.
 public struct SchedulesAtLocationResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -47,11 +47,8 @@ public struct SchedulesAtLocationResponse: Sendable {
 
   public var scheduleLocationUuid: String = String()
 
-  public var plannedArrivalTime: String = String()
-
-  public var plannedPassingTime: String = String()
-
-  public var plannedDepartureTime: String = String()
+  /// in YYYY-MM-DD format
+  public var scheduledStartDate: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -92,7 +89,7 @@ extension SchedulesAtLocationRequest: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension SchedulesAtLocationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SchedulesAtLocationResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_uuid\0\u{3}schedule_id\0\u{3}schedule_location_uuid\0\u{4}\u{3}planned_arrival_time\0\u{3}planned_passing_time\0\u{3}planned_departure_time\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_uuid\0\u{3}schedule_id\0\u{3}schedule_location_uuid\0\u{3}scheduled_start_date\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -103,9 +100,7 @@ extension SchedulesAtLocationResponse: SwiftProtobuf.Message, SwiftProtobuf._Mes
       case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleUuid) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.scheduleID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.scheduleLocationUuid) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.plannedArrivalTime) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.plannedPassingTime) }()
-      case 8: try { try decoder.decodeSingularStringField(value: &self.plannedDepartureTime) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.scheduledStartDate) }()
       default: break
       }
     }
@@ -121,14 +116,8 @@ extension SchedulesAtLocationResponse: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if !self.scheduleLocationUuid.isEmpty {
       try visitor.visitSingularStringField(value: self.scheduleLocationUuid, fieldNumber: 3)
     }
-    if !self.plannedArrivalTime.isEmpty {
-      try visitor.visitSingularStringField(value: self.plannedArrivalTime, fieldNumber: 6)
-    }
-    if !self.plannedPassingTime.isEmpty {
-      try visitor.visitSingularStringField(value: self.plannedPassingTime, fieldNumber: 7)
-    }
-    if !self.plannedDepartureTime.isEmpty {
-      try visitor.visitSingularStringField(value: self.plannedDepartureTime, fieldNumber: 8)
+    if !self.scheduledStartDate.isEmpty {
+      try visitor.visitSingularStringField(value: self.scheduledStartDate, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -137,9 +126,7 @@ extension SchedulesAtLocationResponse: SwiftProtobuf.Message, SwiftProtobuf._Mes
     if lhs.scheduleUuid != rhs.scheduleUuid {return false}
     if lhs.scheduleID != rhs.scheduleID {return false}
     if lhs.scheduleLocationUuid != rhs.scheduleLocationUuid {return false}
-    if lhs.plannedArrivalTime != rhs.plannedArrivalTime {return false}
-    if lhs.plannedPassingTime != rhs.plannedPassingTime {return false}
-    if lhs.plannedDepartureTime != rhs.plannedDepartureTime {return false}
+    if lhs.scheduledStartDate != rhs.scheduledStartDate {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
