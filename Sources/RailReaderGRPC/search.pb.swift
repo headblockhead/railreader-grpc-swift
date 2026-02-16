@@ -595,9 +595,9 @@ public struct SearchResponse: @unchecked Sendable {
   /// Clears the value of `length`. Subsequent reads from it will return its default value.
   public mutating func clearLength() {_uniqueStorage()._length = nil}
 
-  public var circularRoute: Bool {
-    get {_storage._circularRoute}
-    set {_uniqueStorage()._circularRoute = newValue}
+  public var isCircularRoute: Bool {
+    get {_storage._isCircularRoute}
+    set {_uniqueStorage()._isCircularRoute = newValue}
   }
 
   public var previousRoute: ServiceRoute {
@@ -716,24 +716,24 @@ public struct Schedule: @unchecked Sendable {
     set {_uniqueStorage()._categoryType = newValue}
   }
 
-  public var passenger: Bool {
-    get {_storage._passenger}
-    set {_uniqueStorage()._passenger = newValue}
+  public var isPassenger: Bool {
+    get {_storage._isPassenger}
+    set {_uniqueStorage()._isPassenger = newValue}
   }
 
-  public var active: Bool {
-    get {_storage._active}
-    set {_uniqueStorage()._active = newValue}
+  public var isActive: Bool {
+    get {_storage._isActive}
+    set {_uniqueStorage()._isActive = newValue}
   }
 
-  public var chartered: Bool {
-    get {_storage._chartered}
-    set {_uniqueStorage()._chartered = newValue}
+  public var isChartered: Bool {
+    get {_storage._isChartered}
+    set {_uniqueStorage()._isChartered = newValue}
   }
 
-  public var scheduleCancelled: Bool {
-    get {_storage._scheduleCancelled}
-    set {_uniqueStorage()._scheduleCancelled = newValue}
+  public var scheduleIsCancelled: Bool {
+    get {_storage._scheduleIsCancelled}
+    set {_uniqueStorage()._scheduleIsCancelled = newValue}
   }
 
   public var scheduleCancellationReason: DisruptionReason {
@@ -831,7 +831,7 @@ public struct ScheduleLocation: Sendable {
   /// in minutes
   public var routingDelay: UInt32 = 0
 
-  public var locationCancelled: Bool = false
+  public var locationIsCancelled: Bool = false
 
   public var locationCancellationReason: DisruptionReason {
     get {_locationCancellationReason ?? DisruptionReason()}
@@ -859,9 +859,9 @@ public struct Forecast: @unchecked Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var reverseFormation: Bool {
-    get {_storage._reverseFormation}
-    set {_uniqueStorage()._reverseFormation = newValue}
+  public var isReverseFormation: Bool {
+    get {_storage._isReverseFormation}
+    set {_uniqueStorage()._isReverseFormation = newValue}
   }
 
   public var scheduleLateReason: DisruptionReason {
@@ -900,23 +900,23 @@ public struct Forecast: @unchecked Sendable {
   /// Clears the value of `estimatedMinimumArrivalTime`. Subsequent reads from it will return its default value.
   public mutating func clearEstimatedMinimumArrivalTime() {_uniqueStorage()._estimatedMinimumArrivalTime = nil}
 
-  public var arrivalDelayed: Bool {
-    get {_storage._arrivalDelayed ?? false}
-    set {_uniqueStorage()._arrivalDelayed = newValue}
+  public var arrivalIsDelayed: Bool {
+    get {_storage._arrivalIsDelayed ?? false}
+    set {_uniqueStorage()._arrivalIsDelayed = newValue}
   }
-  /// Returns true if `arrivalDelayed` has been explicitly set.
-  public var hasArrivalDelayed: Bool {_storage._arrivalDelayed != nil}
-  /// Clears the value of `arrivalDelayed`. Subsequent reads from it will return its default value.
-  public mutating func clearArrivalDelayed() {_uniqueStorage()._arrivalDelayed = nil}
+  /// Returns true if `arrivalIsDelayed` has been explicitly set.
+  public var hasArrivalIsDelayed: Bool {_storage._arrivalIsDelayed != nil}
+  /// Clears the value of `arrivalIsDelayed`. Subsequent reads from it will return its default value.
+  public mutating func clearArrivalIsDelayed() {_uniqueStorage()._arrivalIsDelayed = nil}
 
-  public var arrivalDelayedByUnknownAmount: Bool {
-    get {_storage._arrivalDelayedByUnknownAmount ?? false}
-    set {_uniqueStorage()._arrivalDelayedByUnknownAmount = newValue}
+  public var arrivalIsDelayedByUnknownAmount: Bool {
+    get {_storage._arrivalIsDelayedByUnknownAmount ?? false}
+    set {_uniqueStorage()._arrivalIsDelayedByUnknownAmount = newValue}
   }
-  /// Returns true if `arrivalDelayedByUnknownAmount` has been explicitly set.
-  public var hasArrivalDelayedByUnknownAmount: Bool {_storage._arrivalDelayedByUnknownAmount != nil}
-  /// Clears the value of `arrivalDelayedByUnknownAmount`. Subsequent reads from it will return its default value.
-  public mutating func clearArrivalDelayedByUnknownAmount() {_uniqueStorage()._arrivalDelayedByUnknownAmount = nil}
+  /// Returns true if `arrivalIsDelayedByUnknownAmount` has been explicitly set.
+  public var hasArrivalIsDelayedByUnknownAmount: Bool {_storage._arrivalIsDelayedByUnknownAmount != nil}
+  /// Clears the value of `arrivalIsDelayedByUnknownAmount`. Subsequent reads from it will return its default value.
+  public mutating func clearArrivalIsDelayedByUnknownAmount() {_uniqueStorage()._arrivalIsDelayedByUnknownAmount = nil}
 
   public var estimatedPassingTime: String {
     get {_storage._estimatedPassingTime ?? String()}
@@ -936,23 +936,23 @@ public struct Forecast: @unchecked Sendable {
   /// Clears the value of `estimatedMinimumPassingTime`. Subsequent reads from it will return its default value.
   public mutating func clearEstimatedMinimumPassingTime() {_uniqueStorage()._estimatedMinimumPassingTime = nil}
 
-  public var passingDelayed: Bool {
-    get {_storage._passingDelayed ?? false}
-    set {_uniqueStorage()._passingDelayed = newValue}
+  public var passingIsDelayed: Bool {
+    get {_storage._passingIsDelayed ?? false}
+    set {_uniqueStorage()._passingIsDelayed = newValue}
   }
-  /// Returns true if `passingDelayed` has been explicitly set.
-  public var hasPassingDelayed: Bool {_storage._passingDelayed != nil}
-  /// Clears the value of `passingDelayed`. Subsequent reads from it will return its default value.
-  public mutating func clearPassingDelayed() {_uniqueStorage()._passingDelayed = nil}
+  /// Returns true if `passingIsDelayed` has been explicitly set.
+  public var hasPassingIsDelayed: Bool {_storage._passingIsDelayed != nil}
+  /// Clears the value of `passingIsDelayed`. Subsequent reads from it will return its default value.
+  public mutating func clearPassingIsDelayed() {_uniqueStorage()._passingIsDelayed = nil}
 
-  public var passingDelayedByUnknownAmount: Bool {
-    get {_storage._passingDelayedByUnknownAmount ?? false}
-    set {_uniqueStorage()._passingDelayedByUnknownAmount = newValue}
+  public var passingIsDelayedByUnknownAmount: Bool {
+    get {_storage._passingIsDelayedByUnknownAmount ?? false}
+    set {_uniqueStorage()._passingIsDelayedByUnknownAmount = newValue}
   }
-  /// Returns true if `passingDelayedByUnknownAmount` has been explicitly set.
-  public var hasPassingDelayedByUnknownAmount: Bool {_storage._passingDelayedByUnknownAmount != nil}
-  /// Clears the value of `passingDelayedByUnknownAmount`. Subsequent reads from it will return its default value.
-  public mutating func clearPassingDelayedByUnknownAmount() {_uniqueStorage()._passingDelayedByUnknownAmount = nil}
+  /// Returns true if `passingIsDelayedByUnknownAmount` has been explicitly set.
+  public var hasPassingIsDelayedByUnknownAmount: Bool {_storage._passingIsDelayedByUnknownAmount != nil}
+  /// Clears the value of `passingIsDelayedByUnknownAmount`. Subsequent reads from it will return its default value.
+  public mutating func clearPassingIsDelayedByUnknownAmount() {_uniqueStorage()._passingIsDelayedByUnknownAmount = nil}
 
   public var estimatedPublicDepartureTime: String {
     get {_storage._estimatedPublicDepartureTime ?? String()}
@@ -981,23 +981,23 @@ public struct Forecast: @unchecked Sendable {
   /// Clears the value of `estimatedMinimumDepartureTime`. Subsequent reads from it will return its default value.
   public mutating func clearEstimatedMinimumDepartureTime() {_uniqueStorage()._estimatedMinimumDepartureTime = nil}
 
-  public var departureDelayed: Bool {
-    get {_storage._departureDelayed ?? false}
-    set {_uniqueStorage()._departureDelayed = newValue}
+  public var departureIsDelayed: Bool {
+    get {_storage._departureIsDelayed ?? false}
+    set {_uniqueStorage()._departureIsDelayed = newValue}
   }
-  /// Returns true if `departureDelayed` has been explicitly set.
-  public var hasDepartureDelayed: Bool {_storage._departureDelayed != nil}
-  /// Clears the value of `departureDelayed`. Subsequent reads from it will return its default value.
-  public mutating func clearDepartureDelayed() {_uniqueStorage()._departureDelayed = nil}
+  /// Returns true if `departureIsDelayed` has been explicitly set.
+  public var hasDepartureIsDelayed: Bool {_storage._departureIsDelayed != nil}
+  /// Clears the value of `departureIsDelayed`. Subsequent reads from it will return its default value.
+  public mutating func clearDepartureIsDelayed() {_uniqueStorage()._departureIsDelayed = nil}
 
-  public var departureDelayedByUnknownAmount: Bool {
-    get {_storage._departureDelayedByUnknownAmount ?? false}
-    set {_uniqueStorage()._departureDelayedByUnknownAmount = newValue}
+  public var departureIsDelayedByUnknownAmount: Bool {
+    get {_storage._departureIsDelayedByUnknownAmount ?? false}
+    set {_uniqueStorage()._departureIsDelayedByUnknownAmount = newValue}
   }
-  /// Returns true if `departureDelayedByUnknownAmount` has been explicitly set.
-  public var hasDepartureDelayedByUnknownAmount: Bool {_storage._departureDelayedByUnknownAmount != nil}
-  /// Clears the value of `departureDelayedByUnknownAmount`. Subsequent reads from it will return its default value.
-  public mutating func clearDepartureDelayedByUnknownAmount() {_uniqueStorage()._departureDelayedByUnknownAmount = nil}
+  /// Returns true if `departureIsDelayedByUnknownAmount` has been explicitly set.
+  public var hasDepartureIsDelayedByUnknownAmount: Bool {_storage._departureIsDelayedByUnknownAmount != nil}
+  /// Clears the value of `departureIsDelayedByUnknownAmount`. Subsequent reads from it will return its default value.
+  public mutating func clearDepartureIsDelayedByUnknownAmount() {_uniqueStorage()._departureIsDelayedByUnknownAmount = nil}
 
   public var actualArrivalTime: String {
     get {_storage._actualArrivalTime ?? String()}
@@ -1144,23 +1144,23 @@ public struct Forecast: @unchecked Sendable {
   public mutating func clearAffectedBy() {_uniqueStorage()._affectedBy = nil}
 
   /// do not display platform information if true
-  public var platformSuppressed: Bool {
-    get {_storage._platformSuppressed ?? false}
-    set {_uniqueStorage()._platformSuppressed = newValue}
+  public var platformIsSuppressed: Bool {
+    get {_storage._platformIsSuppressed ?? false}
+    set {_uniqueStorage()._platformIsSuppressed = newValue}
   }
-  /// Returns true if `platformSuppressed` has been explicitly set.
-  public var hasPlatformSuppressed: Bool {_storage._platformSuppressed != nil}
-  /// Clears the value of `platformSuppressed`. Subsequent reads from it will return its default value.
-  public mutating func clearPlatformSuppressed() {_uniqueStorage()._platformSuppressed = nil}
+  /// Returns true if `platformIsSuppressed` has been explicitly set.
+  public var hasPlatformIsSuppressed: Bool {_storage._platformIsSuppressed != nil}
+  /// Clears the value of `platformIsSuppressed`. Subsequent reads from it will return its default value.
+  public mutating func clearPlatformIsSuppressed() {_uniqueStorage()._platformIsSuppressed = nil}
 
-  public var platformSuppressedByCis: Bool {
-    get {_storage._platformSuppressedByCis ?? false}
-    set {_uniqueStorage()._platformSuppressedByCis = newValue}
+  public var platformIsSuppressedByCis: Bool {
+    get {_storage._platformIsSuppressedByCis ?? false}
+    set {_uniqueStorage()._platformIsSuppressedByCis = newValue}
   }
-  /// Returns true if `platformSuppressedByCis` has been explicitly set.
-  public var hasPlatformSuppressedByCis: Bool {_storage._platformSuppressedByCis != nil}
-  /// Clears the value of `platformSuppressedByCis`. Subsequent reads from it will return its default value.
-  public mutating func clearPlatformSuppressedByCis() {_uniqueStorage()._platformSuppressedByCis = nil}
+  /// Returns true if `platformIsSuppressedByCis` has been explicitly set.
+  public var hasPlatformIsSuppressedByCis: Bool {_storage._platformIsSuppressedByCis != nil}
+  /// Clears the value of `platformIsSuppressedByCis`. Subsequent reads from it will return its default value.
+  public mutating func clearPlatformIsSuppressedByCis() {_uniqueStorage()._platformIsSuppressedByCis = nil}
 
   public var platformDataSource: PlatformDataSource {
     get {_storage._platformDataSource ?? .unknown}
@@ -1171,23 +1171,23 @@ public struct Forecast: @unchecked Sendable {
   /// Clears the value of `platformDataSource`. Subsequent reads from it will return its default value.
   public mutating func clearPlatformDataSource() {_uniqueStorage()._platformDataSource = nil}
 
-  public var platformConfirmed: Bool {
-    get {_storage._platformConfirmed ?? false}
-    set {_uniqueStorage()._platformConfirmed = newValue}
+  public var platformIsConfirmed: Bool {
+    get {_storage._platformIsConfirmed ?? false}
+    set {_uniqueStorage()._platformIsConfirmed = newValue}
   }
-  /// Returns true if `platformConfirmed` has been explicitly set.
-  public var hasPlatformConfirmed: Bool {_storage._platformConfirmed != nil}
-  /// Clears the value of `platformConfirmed`. Subsequent reads from it will return its default value.
-  public mutating func clearPlatformConfirmed() {_uniqueStorage()._platformConfirmed = nil}
+  /// Returns true if `platformIsConfirmed` has been explicitly set.
+  public var hasPlatformIsConfirmed: Bool {_storage._platformIsConfirmed != nil}
+  /// Clears the value of `platformIsConfirmed`. Subsequent reads from it will return its default value.
+  public mutating func clearPlatformIsConfirmed() {_uniqueStorage()._platformIsConfirmed = nil}
 
-  public var serviceSuppressed: Bool {
-    get {_storage._serviceSuppressed}
-    set {_uniqueStorage()._serviceSuppressed = newValue}
+  public var serviceIsSuppressed: Bool {
+    get {_storage._serviceIsSuppressed}
+    set {_uniqueStorage()._serviceIsSuppressed = newValue}
   }
 
-  public var detatchesFromFront: Bool {
-    get {_storage._detatchesFromFront}
-    set {_uniqueStorage()._detatchesFromFront = newValue}
+  public var serviceDetatchesFromFront: Bool {
+    get {_storage._serviceDetatchesFromFront}
+    set {_uniqueStorage()._serviceDetatchesFromFront = newValue}
   }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -1279,7 +1279,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 
 extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}schedule\0\u{3}schedule_location\0\u{1}forecast\0\u{1}platform\0\u{1}length\0\u{3}circular_route\0\u{3}previous_route\0\u{3}next_route\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}schedule\0\u{3}schedule_location\0\u{1}forecast\0\u{1}platform\0\u{1}length\0\u{3}is_circular_route\0\u{3}previous_route\0\u{3}next_route\0")
 
   fileprivate class _StorageClass {
     var _schedule: Schedule? = nil
@@ -1287,7 +1287,7 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     var _forecast: Forecast? = nil
     var _platform: String? = nil
     var _length: UInt32? = nil
-    var _circularRoute: Bool = false
+    var _isCircularRoute: Bool = false
     var _previousRoute: ServiceRoute? = nil
     var _nextRoute: ServiceRoute? = nil
 
@@ -1305,7 +1305,7 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       _forecast = source._forecast
       _platform = source._platform
       _length = source._length
-      _circularRoute = source._circularRoute
+      _isCircularRoute = source._isCircularRoute
       _previousRoute = source._previousRoute
       _nextRoute = source._nextRoute
     }
@@ -1331,7 +1331,7 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         case 3: try { try decoder.decodeSingularMessageField(value: &_storage._forecast) }()
         case 4: try { try decoder.decodeSingularStringField(value: &_storage._platform) }()
         case 5: try { try decoder.decodeSingularUInt32Field(value: &_storage._length) }()
-        case 6: try { try decoder.decodeSingularBoolField(value: &_storage._circularRoute) }()
+        case 6: try { try decoder.decodeSingularBoolField(value: &_storage._isCircularRoute) }()
         case 7: try { try decoder.decodeSingularMessageField(value: &_storage._previousRoute) }()
         case 8: try { try decoder.decodeSingularMessageField(value: &_storage._nextRoute) }()
         default: break
@@ -1361,8 +1361,8 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       try { if let v = _storage._length {
         try visitor.visitSingularUInt32Field(value: v, fieldNumber: 5)
       } }()
-      if _storage._circularRoute != false {
-        try visitor.visitSingularBoolField(value: _storage._circularRoute, fieldNumber: 6)
+      if _storage._isCircularRoute != false {
+        try visitor.visitSingularBoolField(value: _storage._isCircularRoute, fieldNumber: 6)
       }
       try { if let v = _storage._previousRoute {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
@@ -1384,7 +1384,7 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         if _storage._forecast != rhs_storage._forecast {return false}
         if _storage._platform != rhs_storage._platform {return false}
         if _storage._length != rhs_storage._length {return false}
-        if _storage._circularRoute != rhs_storage._circularRoute {return false}
+        if _storage._isCircularRoute != rhs_storage._isCircularRoute {return false}
         if _storage._previousRoute != rhs_storage._previousRoute {return false}
         if _storage._nextRoute != rhs_storage._nextRoute {return false}
         return true
@@ -1480,7 +1480,7 @@ extension DisruptionReason: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 
 extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "Schedule"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_id\0\u{1}uid\0\u{1}headcode\0\u{3}retail_service_id\0\u{3}toc_id\0\u{3}service_type\0\u{3}category_type\0\u{1}passenger\0\u{1}active\0\u{1}chartered\0\u{3}schedule_cancelled\0\u{3}schedule_cancellation_reason\0\u{3}schedule_diverted_via_location_id\0\u{3}schedule_diversion_reason\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_id\0\u{1}uid\0\u{1}headcode\0\u{3}retail_service_id\0\u{3}toc_id\0\u{3}service_type\0\u{3}category_type\0\u{3}is_passenger\0\u{3}is_active\0\u{3}is_chartered\0\u{3}schedule_is_cancelled\0\u{3}schedule_cancellation_reason\0\u{3}schedule_diverted_via_location_id\0\u{3}schedule_diversion_reason\0")
 
   fileprivate class _StorageClass {
     var _scheduleID: String = String()
@@ -1490,10 +1490,10 @@ extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     var _tocID: String = String()
     var _serviceType: ServiceType = .unknown
     var _categoryType: CategoryType = .unknown
-    var _passenger: Bool = false
-    var _active: Bool = false
-    var _chartered: Bool = false
-    var _scheduleCancelled: Bool = false
+    var _isPassenger: Bool = false
+    var _isActive: Bool = false
+    var _isChartered: Bool = false
+    var _scheduleIsCancelled: Bool = false
     var _scheduleCancellationReason: DisruptionReason? = nil
     var _scheduleDivertedViaLocationID: String? = nil
     var _scheduleDiversionReason: DisruptionReason? = nil
@@ -1514,10 +1514,10 @@ extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       _tocID = source._tocID
       _serviceType = source._serviceType
       _categoryType = source._categoryType
-      _passenger = source._passenger
-      _active = source._active
-      _chartered = source._chartered
-      _scheduleCancelled = source._scheduleCancelled
+      _isPassenger = source._isPassenger
+      _isActive = source._isActive
+      _isChartered = source._isChartered
+      _scheduleIsCancelled = source._scheduleIsCancelled
       _scheduleCancellationReason = source._scheduleCancellationReason
       _scheduleDivertedViaLocationID = source._scheduleDivertedViaLocationID
       _scheduleDiversionReason = source._scheduleDiversionReason
@@ -1546,10 +1546,10 @@ extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
         case 5: try { try decoder.decodeSingularStringField(value: &_storage._tocID) }()
         case 6: try { try decoder.decodeSingularEnumField(value: &_storage._serviceType) }()
         case 7: try { try decoder.decodeSingularEnumField(value: &_storage._categoryType) }()
-        case 8: try { try decoder.decodeSingularBoolField(value: &_storage._passenger) }()
-        case 9: try { try decoder.decodeSingularBoolField(value: &_storage._active) }()
-        case 10: try { try decoder.decodeSingularBoolField(value: &_storage._chartered) }()
-        case 11: try { try decoder.decodeSingularBoolField(value: &_storage._scheduleCancelled) }()
+        case 8: try { try decoder.decodeSingularBoolField(value: &_storage._isPassenger) }()
+        case 9: try { try decoder.decodeSingularBoolField(value: &_storage._isActive) }()
+        case 10: try { try decoder.decodeSingularBoolField(value: &_storage._isChartered) }()
+        case 11: try { try decoder.decodeSingularBoolField(value: &_storage._scheduleIsCancelled) }()
         case 12: try { try decoder.decodeSingularMessageField(value: &_storage._scheduleCancellationReason) }()
         case 13: try { try decoder.decodeSingularStringField(value: &_storage._scheduleDivertedViaLocationID) }()
         case 14: try { try decoder.decodeSingularMessageField(value: &_storage._scheduleDiversionReason) }()
@@ -1586,17 +1586,17 @@ extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       if _storage._categoryType != .unknown {
         try visitor.visitSingularEnumField(value: _storage._categoryType, fieldNumber: 7)
       }
-      if _storage._passenger != false {
-        try visitor.visitSingularBoolField(value: _storage._passenger, fieldNumber: 8)
+      if _storage._isPassenger != false {
+        try visitor.visitSingularBoolField(value: _storage._isPassenger, fieldNumber: 8)
       }
-      if _storage._active != false {
-        try visitor.visitSingularBoolField(value: _storage._active, fieldNumber: 9)
+      if _storage._isActive != false {
+        try visitor.visitSingularBoolField(value: _storage._isActive, fieldNumber: 9)
       }
-      if _storage._chartered != false {
-        try visitor.visitSingularBoolField(value: _storage._chartered, fieldNumber: 10)
+      if _storage._isChartered != false {
+        try visitor.visitSingularBoolField(value: _storage._isChartered, fieldNumber: 10)
       }
-      if _storage._scheduleCancelled != false {
-        try visitor.visitSingularBoolField(value: _storage._scheduleCancelled, fieldNumber: 11)
+      if _storage._scheduleIsCancelled != false {
+        try visitor.visitSingularBoolField(value: _storage._scheduleIsCancelled, fieldNumber: 11)
       }
       try { if let v = _storage._scheduleCancellationReason {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
@@ -1623,10 +1623,10 @@ extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
         if _storage._tocID != rhs_storage._tocID {return false}
         if _storage._serviceType != rhs_storage._serviceType {return false}
         if _storage._categoryType != rhs_storage._categoryType {return false}
-        if _storage._passenger != rhs_storage._passenger {return false}
-        if _storage._active != rhs_storage._active {return false}
-        if _storage._chartered != rhs_storage._chartered {return false}
-        if _storage._scheduleCancelled != rhs_storage._scheduleCancelled {return false}
+        if _storage._isPassenger != rhs_storage._isPassenger {return false}
+        if _storage._isActive != rhs_storage._isActive {return false}
+        if _storage._isChartered != rhs_storage._isChartered {return false}
+        if _storage._scheduleIsCancelled != rhs_storage._scheduleIsCancelled {return false}
         if _storage._scheduleCancellationReason != rhs_storage._scheduleCancellationReason {return false}
         if _storage._scheduleDivertedViaLocationID != rhs_storage._scheduleDivertedViaLocationID {return false}
         if _storage._scheduleDiversionReason != rhs_storage._scheduleDiversionReason {return false}
@@ -1641,7 +1641,7 @@ extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
 
 extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "ScheduleLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}activities\0\u{3}planned_activities\0\u{3}location_is_affected_by_diversion\0\u{3}location_type\0\u{3}scheduled_working_arrival_time\0\u{3}scheduled_working_passing_time\0\u{3}scheduled_working_departure_time\0\u{3}scheduled_public_arrival_time\0\u{3}scheduled_public_departure_time\0\u{3}routing_delay\0\u{3}location_cancelled\0\u{3}location_cancellation_reason\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}activities\0\u{3}planned_activities\0\u{3}location_is_affected_by_diversion\0\u{3}location_type\0\u{3}scheduled_working_arrival_time\0\u{3}scheduled_working_passing_time\0\u{3}scheduled_working_departure_time\0\u{3}scheduled_public_arrival_time\0\u{3}scheduled_public_departure_time\0\u{3}routing_delay\0\u{3}location_is_cancelled\0\u{3}location_cancellation_reason\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1659,7 +1659,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       case 8: try { try decoder.decodeSingularStringField(value: &self._scheduledPublicArrivalTime) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self._scheduledPublicDepartureTime) }()
       case 10: try { try decoder.decodeSingularUInt32Field(value: &self.routingDelay) }()
-      case 11: try { try decoder.decodeSingularBoolField(value: &self.locationCancelled) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.locationIsCancelled) }()
       case 12: try { try decoder.decodeSingularMessageField(value: &self._locationCancellationReason) }()
       default: break
       }
@@ -1701,8 +1701,8 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if self.routingDelay != 0 {
       try visitor.visitSingularUInt32Field(value: self.routingDelay, fieldNumber: 10)
     }
-    if self.locationCancelled != false {
-      try visitor.visitSingularBoolField(value: self.locationCancelled, fieldNumber: 11)
+    if self.locationIsCancelled != false {
+      try visitor.visitSingularBoolField(value: self.locationIsCancelled, fieldNumber: 11)
     }
     try { if let v = self._locationCancellationReason {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
@@ -1721,7 +1721,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs._scheduledPublicArrivalTime != rhs._scheduledPublicArrivalTime {return false}
     if lhs._scheduledPublicDepartureTime != rhs._scheduledPublicDepartureTime {return false}
     if lhs.routingDelay != rhs.routingDelay {return false}
-    if lhs.locationCancelled != rhs.locationCancelled {return false}
+    if lhs.locationIsCancelled != rhs.locationIsCancelled {return false}
     if lhs._locationCancellationReason != rhs._locationCancellationReason {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -1730,25 +1730,25 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 
 extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "Forecast"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}reverse_formation\0\u{3}schedule_late_reason\0\u{3}estimated_public_arrival_time\0\u{3}estimated_working_arrival_time\0\u{3}estimated_minimum_arrival_time\0\u{3}arrival_delayed\0\u{3}arrival_delayed_by_unknown_amount\0\u{3}estimated_passing_time\0\u{3}estimated_minimum_passing_time\0\u{3}passing_delayed\0\u{3}passing_delayed_by_unknown_amount\0\u{3}estimated_public_departure_time\0\u{3}estimated_working_departure_time\0\u{3}estimated_minimum_departure_time\0\u{3}departure_delayed\0\u{3}departure_delayed_by_unknown_amount\0\u{3}actual_arrival_time\0\u{3}actual_arrival_data_class\0\u{3}actual_arrival_data_source\0\u{3}actual_arrival_data_source_system\0\u{3}actual_passing_time\0\u{3}actual_passing_data_class\0\u{3}actual_passing_data_source\0\u{3}actual_passing_data_source_system\0\u{3}actual_departure_time\0\u{3}actual_departure_data_class\0\u{3}actual_departure_data_source\0\u{3}actual_departure_data_source_system\0\u{3}location_late_reason\0\u{3}location_disruption_risk\0\u{3}location_disruption_risk_reason\0\u{3}affected_by\0\u{3}platform_suppressed\0\u{3}platform_suppressed_by_cis\0\u{3}platform_data_source\0\u{3}platform_confirmed\0\u{3}service_suppressed\0\u{3}detatches_from_front\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}is_reverse_formation\0\u{3}schedule_late_reason\0\u{3}estimated_public_arrival_time\0\u{3}estimated_working_arrival_time\0\u{3}estimated_minimum_arrival_time\0\u{3}arrival_is_delayed\0\u{3}arrival_is_delayed_by_unknown_amount\0\u{3}estimated_passing_time\0\u{3}estimated_minimum_passing_time\0\u{3}passing_is_delayed\0\u{3}passing_is_delayed_by_unknown_amount\0\u{3}estimated_public_departure_time\0\u{3}estimated_working_departure_time\0\u{3}estimated_minimum_departure_time\0\u{3}departure_is_delayed\0\u{3}departure_is_delayed_by_unknown_amount\0\u{3}actual_arrival_time\0\u{3}actual_arrival_data_class\0\u{3}actual_arrival_data_source\0\u{3}actual_arrival_data_source_system\0\u{3}actual_passing_time\0\u{3}actual_passing_data_class\0\u{3}actual_passing_data_source\0\u{3}actual_passing_data_source_system\0\u{3}actual_departure_time\0\u{3}actual_departure_data_class\0\u{3}actual_departure_data_source\0\u{3}actual_departure_data_source_system\0\u{3}location_late_reason\0\u{3}location_disruption_risk\0\u{3}location_disruption_risk_reason\0\u{3}affected_by\0\u{3}platform_is_suppressed\0\u{3}platform_is_suppressed_by_cis\0\u{3}platform_data_source\0\u{3}platform_is_confirmed\0\u{3}service_is_suppressed\0\u{3}service_detatches_from_front\0")
 
   fileprivate class _StorageClass {
-    var _reverseFormation: Bool = false
+    var _isReverseFormation: Bool = false
     var _scheduleLateReason: DisruptionReason? = nil
     var _estimatedPublicArrivalTime: String? = nil
     var _estimatedWorkingArrivalTime: String? = nil
     var _estimatedMinimumArrivalTime: String? = nil
-    var _arrivalDelayed: Bool? = nil
-    var _arrivalDelayedByUnknownAmount: Bool? = nil
+    var _arrivalIsDelayed: Bool? = nil
+    var _arrivalIsDelayedByUnknownAmount: Bool? = nil
     var _estimatedPassingTime: String? = nil
     var _estimatedMinimumPassingTime: String? = nil
-    var _passingDelayed: Bool? = nil
-    var _passingDelayedByUnknownAmount: Bool? = nil
+    var _passingIsDelayed: Bool? = nil
+    var _passingIsDelayedByUnknownAmount: Bool? = nil
     var _estimatedPublicDepartureTime: String? = nil
     var _estimatedWorkingDepartureTime: String? = nil
     var _estimatedMinimumDepartureTime: String? = nil
-    var _departureDelayed: Bool? = nil
-    var _departureDelayedByUnknownAmount: Bool? = nil
+    var _departureIsDelayed: Bool? = nil
+    var _departureIsDelayedByUnknownAmount: Bool? = nil
     var _actualArrivalTime: String? = nil
     var _actualArrivalDataClass: String? = nil
     var _actualArrivalDataSource: String? = nil
@@ -1765,12 +1765,12 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     var _locationDisruptionRisk: String? = nil
     var _locationDisruptionRiskReason: DisruptionReason? = nil
     var _affectedBy: String? = nil
-    var _platformSuppressed: Bool? = nil
-    var _platformSuppressedByCis: Bool? = nil
+    var _platformIsSuppressed: Bool? = nil
+    var _platformIsSuppressedByCis: Bool? = nil
     var _platformDataSource: PlatformDataSource? = nil
-    var _platformConfirmed: Bool? = nil
-    var _serviceSuppressed: Bool = false
-    var _detatchesFromFront: Bool = false
+    var _platformIsConfirmed: Bool? = nil
+    var _serviceIsSuppressed: Bool = false
+    var _serviceDetatchesFromFront: Bool = false
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -1781,22 +1781,22 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     private init() {}
 
     init(copying source: _StorageClass) {
-      _reverseFormation = source._reverseFormation
+      _isReverseFormation = source._isReverseFormation
       _scheduleLateReason = source._scheduleLateReason
       _estimatedPublicArrivalTime = source._estimatedPublicArrivalTime
       _estimatedWorkingArrivalTime = source._estimatedWorkingArrivalTime
       _estimatedMinimumArrivalTime = source._estimatedMinimumArrivalTime
-      _arrivalDelayed = source._arrivalDelayed
-      _arrivalDelayedByUnknownAmount = source._arrivalDelayedByUnknownAmount
+      _arrivalIsDelayed = source._arrivalIsDelayed
+      _arrivalIsDelayedByUnknownAmount = source._arrivalIsDelayedByUnknownAmount
       _estimatedPassingTime = source._estimatedPassingTime
       _estimatedMinimumPassingTime = source._estimatedMinimumPassingTime
-      _passingDelayed = source._passingDelayed
-      _passingDelayedByUnknownAmount = source._passingDelayedByUnknownAmount
+      _passingIsDelayed = source._passingIsDelayed
+      _passingIsDelayedByUnknownAmount = source._passingIsDelayedByUnknownAmount
       _estimatedPublicDepartureTime = source._estimatedPublicDepartureTime
       _estimatedWorkingDepartureTime = source._estimatedWorkingDepartureTime
       _estimatedMinimumDepartureTime = source._estimatedMinimumDepartureTime
-      _departureDelayed = source._departureDelayed
-      _departureDelayedByUnknownAmount = source._departureDelayedByUnknownAmount
+      _departureIsDelayed = source._departureIsDelayed
+      _departureIsDelayedByUnknownAmount = source._departureIsDelayedByUnknownAmount
       _actualArrivalTime = source._actualArrivalTime
       _actualArrivalDataClass = source._actualArrivalDataClass
       _actualArrivalDataSource = source._actualArrivalDataSource
@@ -1813,12 +1813,12 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       _locationDisruptionRisk = source._locationDisruptionRisk
       _locationDisruptionRiskReason = source._locationDisruptionRiskReason
       _affectedBy = source._affectedBy
-      _platformSuppressed = source._platformSuppressed
-      _platformSuppressedByCis = source._platformSuppressedByCis
+      _platformIsSuppressed = source._platformIsSuppressed
+      _platformIsSuppressedByCis = source._platformIsSuppressedByCis
       _platformDataSource = source._platformDataSource
-      _platformConfirmed = source._platformConfirmed
-      _serviceSuppressed = source._serviceSuppressed
-      _detatchesFromFront = source._detatchesFromFront
+      _platformIsConfirmed = source._platformIsConfirmed
+      _serviceIsSuppressed = source._serviceIsSuppressed
+      _serviceDetatchesFromFront = source._serviceDetatchesFromFront
     }
   }
 
@@ -1837,22 +1837,22 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1: try { try decoder.decodeSingularBoolField(value: &_storage._reverseFormation) }()
+        case 1: try { try decoder.decodeSingularBoolField(value: &_storage._isReverseFormation) }()
         case 2: try { try decoder.decodeSingularMessageField(value: &_storage._scheduleLateReason) }()
         case 3: try { try decoder.decodeSingularStringField(value: &_storage._estimatedPublicArrivalTime) }()
         case 4: try { try decoder.decodeSingularStringField(value: &_storage._estimatedWorkingArrivalTime) }()
         case 5: try { try decoder.decodeSingularStringField(value: &_storage._estimatedMinimumArrivalTime) }()
-        case 6: try { try decoder.decodeSingularBoolField(value: &_storage._arrivalDelayed) }()
-        case 7: try { try decoder.decodeSingularBoolField(value: &_storage._arrivalDelayedByUnknownAmount) }()
+        case 6: try { try decoder.decodeSingularBoolField(value: &_storage._arrivalIsDelayed) }()
+        case 7: try { try decoder.decodeSingularBoolField(value: &_storage._arrivalIsDelayedByUnknownAmount) }()
         case 8: try { try decoder.decodeSingularStringField(value: &_storage._estimatedPassingTime) }()
         case 9: try { try decoder.decodeSingularStringField(value: &_storage._estimatedMinimumPassingTime) }()
-        case 10: try { try decoder.decodeSingularBoolField(value: &_storage._passingDelayed) }()
-        case 11: try { try decoder.decodeSingularBoolField(value: &_storage._passingDelayedByUnknownAmount) }()
+        case 10: try { try decoder.decodeSingularBoolField(value: &_storage._passingIsDelayed) }()
+        case 11: try { try decoder.decodeSingularBoolField(value: &_storage._passingIsDelayedByUnknownAmount) }()
         case 12: try { try decoder.decodeSingularStringField(value: &_storage._estimatedPublicDepartureTime) }()
         case 13: try { try decoder.decodeSingularStringField(value: &_storage._estimatedWorkingDepartureTime) }()
         case 14: try { try decoder.decodeSingularStringField(value: &_storage._estimatedMinimumDepartureTime) }()
-        case 15: try { try decoder.decodeSingularBoolField(value: &_storage._departureDelayed) }()
-        case 16: try { try decoder.decodeSingularBoolField(value: &_storage._departureDelayedByUnknownAmount) }()
+        case 15: try { try decoder.decodeSingularBoolField(value: &_storage._departureIsDelayed) }()
+        case 16: try { try decoder.decodeSingularBoolField(value: &_storage._departureIsDelayedByUnknownAmount) }()
         case 17: try { try decoder.decodeSingularStringField(value: &_storage._actualArrivalTime) }()
         case 18: try { try decoder.decodeSingularStringField(value: &_storage._actualArrivalDataClass) }()
         case 19: try { try decoder.decodeSingularStringField(value: &_storage._actualArrivalDataSource) }()
@@ -1869,12 +1869,12 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
         case 30: try { try decoder.decodeSingularStringField(value: &_storage._locationDisruptionRisk) }()
         case 31: try { try decoder.decodeSingularMessageField(value: &_storage._locationDisruptionRiskReason) }()
         case 32: try { try decoder.decodeSingularStringField(value: &_storage._affectedBy) }()
-        case 33: try { try decoder.decodeSingularBoolField(value: &_storage._platformSuppressed) }()
-        case 34: try { try decoder.decodeSingularBoolField(value: &_storage._platformSuppressedByCis) }()
+        case 33: try { try decoder.decodeSingularBoolField(value: &_storage._platformIsSuppressed) }()
+        case 34: try { try decoder.decodeSingularBoolField(value: &_storage._platformIsSuppressedByCis) }()
         case 35: try { try decoder.decodeSingularEnumField(value: &_storage._platformDataSource) }()
-        case 36: try { try decoder.decodeSingularBoolField(value: &_storage._platformConfirmed) }()
-        case 37: try { try decoder.decodeSingularBoolField(value: &_storage._serviceSuppressed) }()
-        case 38: try { try decoder.decodeSingularBoolField(value: &_storage._detatchesFromFront) }()
+        case 36: try { try decoder.decodeSingularBoolField(value: &_storage._platformIsConfirmed) }()
+        case 37: try { try decoder.decodeSingularBoolField(value: &_storage._serviceIsSuppressed) }()
+        case 38: try { try decoder.decodeSingularBoolField(value: &_storage._serviceDetatchesFromFront) }()
         default: break
         }
       }
@@ -1887,8 +1887,8 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       // allocates stack space for every if/case branch local when no optimizations
       // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
       // https://github.com/apple/swift-protobuf/issues/1182
-      if _storage._reverseFormation != false {
-        try visitor.visitSingularBoolField(value: _storage._reverseFormation, fieldNumber: 1)
+      if _storage._isReverseFormation != false {
+        try visitor.visitSingularBoolField(value: _storage._isReverseFormation, fieldNumber: 1)
       }
       try { if let v = _storage._scheduleLateReason {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
@@ -1902,10 +1902,10 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       try { if let v = _storage._estimatedMinimumArrivalTime {
         try visitor.visitSingularStringField(value: v, fieldNumber: 5)
       } }()
-      try { if let v = _storage._arrivalDelayed {
+      try { if let v = _storage._arrivalIsDelayed {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 6)
       } }()
-      try { if let v = _storage._arrivalDelayedByUnknownAmount {
+      try { if let v = _storage._arrivalIsDelayedByUnknownAmount {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 7)
       } }()
       try { if let v = _storage._estimatedPassingTime {
@@ -1914,10 +1914,10 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       try { if let v = _storage._estimatedMinimumPassingTime {
         try visitor.visitSingularStringField(value: v, fieldNumber: 9)
       } }()
-      try { if let v = _storage._passingDelayed {
+      try { if let v = _storage._passingIsDelayed {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 10)
       } }()
-      try { if let v = _storage._passingDelayedByUnknownAmount {
+      try { if let v = _storage._passingIsDelayedByUnknownAmount {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 11)
       } }()
       try { if let v = _storage._estimatedPublicDepartureTime {
@@ -1929,10 +1929,10 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       try { if let v = _storage._estimatedMinimumDepartureTime {
         try visitor.visitSingularStringField(value: v, fieldNumber: 14)
       } }()
-      try { if let v = _storage._departureDelayed {
+      try { if let v = _storage._departureIsDelayed {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 15)
       } }()
-      try { if let v = _storage._departureDelayedByUnknownAmount {
+      try { if let v = _storage._departureIsDelayedByUnknownAmount {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 16)
       } }()
       try { if let v = _storage._actualArrivalTime {
@@ -1983,23 +1983,23 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       try { if let v = _storage._affectedBy {
         try visitor.visitSingularStringField(value: v, fieldNumber: 32)
       } }()
-      try { if let v = _storage._platformSuppressed {
+      try { if let v = _storage._platformIsSuppressed {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 33)
       } }()
-      try { if let v = _storage._platformSuppressedByCis {
+      try { if let v = _storage._platformIsSuppressedByCis {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 34)
       } }()
       try { if let v = _storage._platformDataSource {
         try visitor.visitSingularEnumField(value: v, fieldNumber: 35)
       } }()
-      try { if let v = _storage._platformConfirmed {
+      try { if let v = _storage._platformIsConfirmed {
         try visitor.visitSingularBoolField(value: v, fieldNumber: 36)
       } }()
-      if _storage._serviceSuppressed != false {
-        try visitor.visitSingularBoolField(value: _storage._serviceSuppressed, fieldNumber: 37)
+      if _storage._serviceIsSuppressed != false {
+        try visitor.visitSingularBoolField(value: _storage._serviceIsSuppressed, fieldNumber: 37)
       }
-      if _storage._detatchesFromFront != false {
-        try visitor.visitSingularBoolField(value: _storage._detatchesFromFront, fieldNumber: 38)
+      if _storage._serviceDetatchesFromFront != false {
+        try visitor.visitSingularBoolField(value: _storage._serviceDetatchesFromFront, fieldNumber: 38)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -2010,22 +2010,22 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._reverseFormation != rhs_storage._reverseFormation {return false}
+        if _storage._isReverseFormation != rhs_storage._isReverseFormation {return false}
         if _storage._scheduleLateReason != rhs_storage._scheduleLateReason {return false}
         if _storage._estimatedPublicArrivalTime != rhs_storage._estimatedPublicArrivalTime {return false}
         if _storage._estimatedWorkingArrivalTime != rhs_storage._estimatedWorkingArrivalTime {return false}
         if _storage._estimatedMinimumArrivalTime != rhs_storage._estimatedMinimumArrivalTime {return false}
-        if _storage._arrivalDelayed != rhs_storage._arrivalDelayed {return false}
-        if _storage._arrivalDelayedByUnknownAmount != rhs_storage._arrivalDelayedByUnknownAmount {return false}
+        if _storage._arrivalIsDelayed != rhs_storage._arrivalIsDelayed {return false}
+        if _storage._arrivalIsDelayedByUnknownAmount != rhs_storage._arrivalIsDelayedByUnknownAmount {return false}
         if _storage._estimatedPassingTime != rhs_storage._estimatedPassingTime {return false}
         if _storage._estimatedMinimumPassingTime != rhs_storage._estimatedMinimumPassingTime {return false}
-        if _storage._passingDelayed != rhs_storage._passingDelayed {return false}
-        if _storage._passingDelayedByUnknownAmount != rhs_storage._passingDelayedByUnknownAmount {return false}
+        if _storage._passingIsDelayed != rhs_storage._passingIsDelayed {return false}
+        if _storage._passingIsDelayedByUnknownAmount != rhs_storage._passingIsDelayedByUnknownAmount {return false}
         if _storage._estimatedPublicDepartureTime != rhs_storage._estimatedPublicDepartureTime {return false}
         if _storage._estimatedWorkingDepartureTime != rhs_storage._estimatedWorkingDepartureTime {return false}
         if _storage._estimatedMinimumDepartureTime != rhs_storage._estimatedMinimumDepartureTime {return false}
-        if _storage._departureDelayed != rhs_storage._departureDelayed {return false}
-        if _storage._departureDelayedByUnknownAmount != rhs_storage._departureDelayedByUnknownAmount {return false}
+        if _storage._departureIsDelayed != rhs_storage._departureIsDelayed {return false}
+        if _storage._departureIsDelayedByUnknownAmount != rhs_storage._departureIsDelayedByUnknownAmount {return false}
         if _storage._actualArrivalTime != rhs_storage._actualArrivalTime {return false}
         if _storage._actualArrivalDataClass != rhs_storage._actualArrivalDataClass {return false}
         if _storage._actualArrivalDataSource != rhs_storage._actualArrivalDataSource {return false}
@@ -2042,12 +2042,12 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
         if _storage._locationDisruptionRisk != rhs_storage._locationDisruptionRisk {return false}
         if _storage._locationDisruptionRiskReason != rhs_storage._locationDisruptionRiskReason {return false}
         if _storage._affectedBy != rhs_storage._affectedBy {return false}
-        if _storage._platformSuppressed != rhs_storage._platformSuppressed {return false}
-        if _storage._platformSuppressedByCis != rhs_storage._platformSuppressedByCis {return false}
+        if _storage._platformIsSuppressed != rhs_storage._platformIsSuppressed {return false}
+        if _storage._platformIsSuppressedByCis != rhs_storage._platformIsSuppressedByCis {return false}
         if _storage._platformDataSource != rhs_storage._platformDataSource {return false}
-        if _storage._platformConfirmed != rhs_storage._platformConfirmed {return false}
-        if _storage._serviceSuppressed != rhs_storage._serviceSuppressed {return false}
-        if _storage._detatchesFromFront != rhs_storage._detatchesFromFront {return false}
+        if _storage._platformIsConfirmed != rhs_storage._platformIsConfirmed {return false}
+        if _storage._serviceIsSuppressed != rhs_storage._serviceIsSuppressed {return false}
+        if _storage._serviceDetatchesFromFront != rhs_storage._serviceDetatchesFromFront {return false}
         return true
       }
       if !storagesAreEqual {return false}
