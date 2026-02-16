@@ -238,7 +238,7 @@ public enum CategoryType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
 public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case none // = 0
+  case unknown // = 0
   case trainBegins // = 1
   case trainFinishes // = 2
   case stopsToTakeUpAndSetDownPassengers // = 3
@@ -251,7 +251,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case stopsToChangeTrainCrew // = 10
   case stopsToDetatchVehicles // = 11
   case stopsForExamination // = 12
-  case nationalRailTimetableDataToadd // = 13
+  case nationalRailTimetableDataToAdd // = 13
   case notionalActivityToPreventWttTimingColumnsMerge // = 14
   case notionalActivityToPreventWttTimingColumnsMergeTwice // = 15
   case passengerCountPoint // = 16
@@ -277,12 +277,12 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .none
+    self = .unknown
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .none
+    case 0: self = .unknown
     case 1: self = .trainBegins
     case 2: self = .trainFinishes
     case 3: self = .stopsToTakeUpAndSetDownPassengers
@@ -295,7 +295,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 10: self = .stopsToChangeTrainCrew
     case 11: self = .stopsToDetatchVehicles
     case 12: self = .stopsForExamination
-    case 13: self = .nationalRailTimetableDataToadd
+    case 13: self = .nationalRailTimetableDataToAdd
     case 14: self = .notionalActivityToPreventWttTimingColumnsMerge
     case 15: self = .notionalActivityToPreventWttTimingColumnsMergeTwice
     case 16: self = .passengerCountPoint
@@ -324,7 +324,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   public var rawValue: Int {
     switch self {
-    case .none: return 0
+    case .unknown: return 0
     case .trainBegins: return 1
     case .trainFinishes: return 2
     case .stopsToTakeUpAndSetDownPassengers: return 3
@@ -337,7 +337,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .stopsToChangeTrainCrew: return 10
     case .stopsToDetatchVehicles: return 11
     case .stopsForExamination: return 12
-    case .nationalRailTimetableDataToadd: return 13
+    case .nationalRailTimetableDataToAdd: return 13
     case .notionalActivityToPreventWttTimingColumnsMerge: return 14
     case .notionalActivityToPreventWttTimingColumnsMergeTwice: return 15
     case .passengerCountPoint: return 16
@@ -366,7 +366,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [ActivityType] = [
-    .none,
+    .unknown,
     .trainBegins,
     .trainFinishes,
     .stopsToTakeUpAndSetDownPassengers,
@@ -379,7 +379,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .stopsToChangeTrainCrew,
     .stopsToDetatchVehicles,
     .stopsForExamination,
-    .nationalRailTimetableDataToadd,
+    .nationalRailTimetableDataToAdd,
     .notionalActivityToPreventWttTimingColumnsMerge,
     .notionalActivityToPreventWttTimingColumnsMergeTwice,
     .passengerCountPoint,
@@ -1212,7 +1212,7 @@ extension CategoryType: SwiftProtobuf._ProtoNameProviding {
 }
 
 extension ActivityType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_NONE\0\u{1}ACTIVITY_TYPE_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_STOPS_FOR_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_NATIONAL_RAIL_TIMETABLE_DATA_TOADD\0\u{1}ACTIVITY_TYPE_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_STOPS_FOR_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_UNKNOWN\0\u{1}ACTIVITY_TYPE_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_STOPS_FOR_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_NATIONAL_RAIL_TIMETABLE_DATA_TO_ADD\0\u{1}ACTIVITY_TYPE_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_STOPS_FOR_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
 }
 
 extension LocationType: SwiftProtobuf._ProtoNameProviding {
