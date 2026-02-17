@@ -22,7 +22,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 public enum SearchType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case returnNone // = 0
+  case returnUnspecified // = 0
   case returnDepartures // = 1
   case returnPassing // = 2
   case returnPassingAndDepartures // = 3
@@ -33,12 +33,12 @@ public enum SearchType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .returnNone
+    self = .returnUnspecified
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .returnNone
+    case 0: self = .returnUnspecified
     case 1: self = .returnDepartures
     case 2: self = .returnPassing
     case 3: self = .returnPassingAndDepartures
@@ -52,7 +52,7 @@ public enum SearchType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   public var rawValue: Int {
     switch self {
-    case .returnNone: return 0
+    case .returnUnspecified: return 0
     case .returnDepartures: return 1
     case .returnPassing: return 2
     case .returnPassingAndDepartures: return 3
@@ -66,7 +66,7 @@ public enum SearchType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [SearchType] = [
-    .returnNone,
+    .returnUnspecified,
     .returnDepartures,
     .returnPassing,
     .returnPassingAndDepartures,
@@ -80,58 +80,58 @@ public enum SearchType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
 public enum LocationType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case unknown // = 0
-  case origin // = 1
-  case operationalOrigin // = 2
-  case intermediate // = 3
-  case operationalIntermediate // = 4
-  case intermediatePassing // = 5
-  case destination // = 6
-  case operationalDestination // = 7
+  case scheduleUnknown // = 0
+  case scheduleOrigin // = 1
+  case scheduleOperationalOrigin // = 2
+  case scheduleIntermediate // = 3
+  case scheduleOperationalIntermediate // = 4
+  case scheduleIntermediatePassing // = 5
+  case scheduleDestination // = 6
+  case scheduleOperationalDestination // = 7
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .unknown
+    self = .scheduleUnknown
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .unknown
-    case 1: self = .origin
-    case 2: self = .operationalOrigin
-    case 3: self = .intermediate
-    case 4: self = .operationalIntermediate
-    case 5: self = .intermediatePassing
-    case 6: self = .destination
-    case 7: self = .operationalDestination
+    case 0: self = .scheduleUnknown
+    case 1: self = .scheduleOrigin
+    case 2: self = .scheduleOperationalOrigin
+    case 3: self = .scheduleIntermediate
+    case 4: self = .scheduleOperationalIntermediate
+    case 5: self = .scheduleIntermediatePassing
+    case 6: self = .scheduleDestination
+    case 7: self = .scheduleOperationalDestination
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .unknown: return 0
-    case .origin: return 1
-    case .operationalOrigin: return 2
-    case .intermediate: return 3
-    case .operationalIntermediate: return 4
-    case .intermediatePassing: return 5
-    case .destination: return 6
-    case .operationalDestination: return 7
+    case .scheduleUnknown: return 0
+    case .scheduleOrigin: return 1
+    case .scheduleOperationalOrigin: return 2
+    case .scheduleIntermediate: return 3
+    case .scheduleOperationalIntermediate: return 4
+    case .scheduleIntermediatePassing: return 5
+    case .scheduleDestination: return 6
+    case .scheduleOperationalDestination: return 7
     case .UNRECOGNIZED(let i): return i
     }
   }
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [LocationType] = [
-    .unknown,
-    .origin,
-    .operationalOrigin,
-    .intermediate,
-    .operationalIntermediate,
-    .intermediatePassing,
-    .destination,
-    .operationalDestination,
+    .scheduleUnknown,
+    .scheduleOrigin,
+    .scheduleOperationalOrigin,
+    .scheduleIntermediate,
+    .scheduleOperationalIntermediate,
+    .scheduleIntermediatePassing,
+    .scheduleDestination,
+    .scheduleOperationalDestination,
   ]
 
 }
@@ -183,7 +183,7 @@ public struct SearchRequest: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var searchType: SearchType = .returnNone
+  public var searchType: SearchType = .returnUnspecified
 
   public var locationID: String {
     get {_locationID ?? String()}
@@ -453,7 +453,7 @@ public struct ScheduleLocation: Sendable {
 
   public var locationIsAffectedByDiversion: Bool = false
 
-  public var locationType: LocationType = .unknown
+  public var locationType: LocationType = .scheduleUnknown
 
   public var scheduledWorkingArrivalTime: String {
     get {_scheduledWorkingArrivalTime ?? String()}
@@ -872,11 +872,11 @@ public struct Forecast: @unchecked Sendable {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension SearchType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SEARCH_TYPE_RETURN_NONE\0\u{1}SEARCH_TYPE_RETURN_DEPARTURES\0\u{1}SEARCH_TYPE_RETURN_PASSING\0\u{1}SEARCH_TYPE_RETURN_PASSING_AND_DEPARTURES\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS_AND_DEPARTURES\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS_AND_PASSING\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS_AND_PASSING_AND_DEPARTURES\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SEARCH_TYPE_RETURN_UNSPECIFIED\0\u{1}SEARCH_TYPE_RETURN_DEPARTURES\0\u{1}SEARCH_TYPE_RETURN_PASSING\0\u{1}SEARCH_TYPE_RETURN_PASSING_AND_DEPARTURES\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS_AND_DEPARTURES\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS_AND_PASSING\0\u{1}SEARCH_TYPE_RETURN_ARRIVALS_AND_PASSING_AND_DEPARTURES\0")
 }
 
 extension LocationType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0LOCATION_TYPE_UNKNOWN\0\u{1}LOCATION_TYPE_ORIGIN\0\u{1}LOCATION_TYPE_OPERATIONAL_ORIGIN\0\u{1}LOCATION_TYPE_INTERMEDIATE\0\u{1}LOCATION_TYPE_OPERATIONAL_INTERMEDIATE\0\u{1}LOCATION_TYPE_INTERMEDIATE_PASSING\0\u{1}LOCATION_TYPE_DESTINATION\0\u{1}LOCATION_TYPE_OPERATIONAL_DESTINATION\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0LOCATION_TYPE_SCHEDULE_UNKNOWN\0\u{1}LOCATION_TYPE_SCHEDULE_ORIGIN\0\u{1}LOCATION_TYPE_SCHEDULE_OPERATIONAL_ORIGIN\0\u{1}LOCATION_TYPE_SCHEDULE_INTERMEDIATE\0\u{1}LOCATION_TYPE_SCHEDULE_OPERATIONAL_INTERMEDIATE\0\u{1}LOCATION_TYPE_SCHEDULE_INTERMEDIATE_PASSING\0\u{1}LOCATION_TYPE_SCHEDULE_DESTINATION\0\u{1}LOCATION_TYPE_SCHEDULE_OPERATIONAL_DESTINATION\0")
 }
 
 extension PlatformDataSource: SwiftProtobuf._ProtoNameProviding {
@@ -908,7 +908,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if self.searchType != .returnNone {
+    if self.searchType != .returnUnspecified {
       try visitor.visitSingularEnumField(value: self.searchType, fieldNumber: 1)
     }
     try { if let v = self._locationID {
@@ -1340,7 +1340,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if self.locationIsAffectedByDiversion != false {
       try visitor.visitSingularBoolField(value: self.locationIsAffectedByDiversion, fieldNumber: 3)
     }
-    if self.locationType != .unknown {
+    if self.locationType != .scheduleUnknown {
       try visitor.visitSingularEnumField(value: self.locationType, fieldNumber: 4)
     }
     try { if let v = self._scheduledWorkingArrivalTime {

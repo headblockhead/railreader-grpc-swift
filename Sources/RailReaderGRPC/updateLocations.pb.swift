@@ -42,6 +42,21 @@ public struct UpdateLocationsRequest: Sendable {
   fileprivate var _fromReferenceFileID: String? = nil
 }
 
+public struct UpdateLocationsResponse: Sendable {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The lastest reference_file_id equivalent you will have after applying all updates.
+  public var toReferenceFileID: String = String()
+
+  public var updates: [LocationUpdate] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 public struct LocationUpdate: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -82,21 +97,6 @@ public struct LocationUpdate: Sendable {
   fileprivate var _tocID: String? = nil
 }
 
-public struct UpdateLocationsResponse: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  /// The lastest reference_file_id equivalent you will have after applying all updates.
-  public var toReferenceFileID: String = String()
-
-  public var updates: [LocationUpdate] = []
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension UpdateLocationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -128,6 +128,41 @@ extension UpdateLocationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 
   public static func ==(lhs: UpdateLocationsRequest, rhs: UpdateLocationsRequest) -> Bool {
     if lhs._fromReferenceFileID != rhs._fromReferenceFileID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension UpdateLocationsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = "UpdateLocationsResponse"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}to_reference_file_id\0\u{1}updates\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.toReferenceFileID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.updates) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.toReferenceFileID.isEmpty {
+      try visitor.visitSingularStringField(value: self.toReferenceFileID, fieldNumber: 1)
+    }
+    if !self.updates.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.updates, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: UpdateLocationsResponse, rhs: UpdateLocationsResponse) -> Bool {
+    if lhs.toReferenceFileID != rhs.toReferenceFileID {return false}
+    if lhs.updates != rhs.updates {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -187,41 +222,6 @@ extension LocationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if lhs._crsID != rhs._crsID {return false}
     if lhs._tocID != rhs._tocID {return false}
     if lhs.name != rhs.name {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension UpdateLocationsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "UpdateLocationsResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}to_reference_file_id\0\u{1}updates\0")
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.toReferenceFileID) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.updates) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.toReferenceFileID.isEmpty {
-      try visitor.visitSingularStringField(value: self.toReferenceFileID, fieldNumber: 1)
-    }
-    if !self.updates.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.updates, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: UpdateLocationsResponse, rhs: UpdateLocationsResponse) -> Bool {
-    if lhs.toReferenceFileID != rhs.toReferenceFileID {return false}
-    if lhs.updates != rhs.updates {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
