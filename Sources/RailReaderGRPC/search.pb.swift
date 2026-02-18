@@ -26,7 +26,7 @@ public struct SearchRequest: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var locationID: [String] = []
+  public var locationIds: [String] = []
 
   public var fromTime: String = String()
 
@@ -41,6 +41,11 @@ public struct SearchResponse: @unchecked Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
+
+  public var locationID: String {
+    get {_storage._locationID}
+    set {_uniqueStorage()._locationID = newValue}
+  }
 
   public var schedule: Schedule {
     get {_storage._schedule ?? Schedule()}
@@ -806,7 +811,7 @@ public struct DisruptionReason: Sendable {
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}from_time\0\u{3}to_time\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_ids\0\u{3}from_time\0\u{3}to_time\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -814,7 +819,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedStringField(value: &self.locationID) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.locationIds) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.fromTime) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.toTime) }()
       default: break
@@ -823,8 +828,8 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.locationID.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.locationID, fieldNumber: 1)
+    if !self.locationIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.locationIds, fieldNumber: 1)
     }
     if !self.fromTime.isEmpty {
       try visitor.visitSingularStringField(value: self.fromTime, fieldNumber: 2)
@@ -836,7 +841,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 
   public static func ==(lhs: SearchRequest, rhs: SearchRequest) -> Bool {
-    if lhs.locationID != rhs.locationID {return false}
+    if lhs.locationIds != rhs.locationIds {return false}
     if lhs.fromTime != rhs.fromTime {return false}
     if lhs.toTime != rhs.toTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -846,9 +851,10 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 
 extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}schedule\0\u{3}schedule_location\0\u{1}forecast\0\u{1}platform\0\u{1}length\0\u{3}is_circular_route\0\u{3}previous_route\0\u{3}next_route\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{1}schedule\0\u{3}schedule_location\0\u{1}forecast\0\u{2}\u{6}platform\0\u{1}length\0\u{3}is_circular_route\0\u{3}previous_route\0\u{3}next_route\0\u{c}\u{5}\u{5}")
 
   fileprivate class _StorageClass {
+    var _locationID: String = String()
     var _schedule: Schedule? = nil
     var _scheduleLocation: ScheduleLocation? = nil
     var _forecast: Forecast? = nil
@@ -867,6 +873,7 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     private init() {}
 
     init(copying source: _StorageClass) {
+      _locationID = source._locationID
       _schedule = source._schedule
       _scheduleLocation = source._scheduleLocation
       _forecast = source._forecast
@@ -893,14 +900,15 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._schedule) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._scheduleLocation) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._forecast) }()
-        case 4: try { try decoder.decodeSingularStringField(value: &_storage._platform) }()
-        case 5: try { try decoder.decodeSingularUInt32Field(value: &_storage._length) }()
-        case 6: try { try decoder.decodeSingularBoolField(value: &_storage._isCircularRoute) }()
-        case 7: try { try decoder.decodeSingularMessageField(value: &_storage._previousRoute) }()
-        case 8: try { try decoder.decodeSingularMessageField(value: &_storage._nextRoute) }()
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._locationID) }()
+        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._schedule) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._scheduleLocation) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._forecast) }()
+        case 10: try { try decoder.decodeSingularStringField(value: &_storage._platform) }()
+        case 11: try { try decoder.decodeSingularUInt32Field(value: &_storage._length) }()
+        case 12: try { try decoder.decodeSingularBoolField(value: &_storage._isCircularRoute) }()
+        case 13: try { try decoder.decodeSingularMessageField(value: &_storage._previousRoute) }()
+        case 14: try { try decoder.decodeSingularMessageField(value: &_storage._nextRoute) }()
         default: break
         }
       }
@@ -913,29 +921,32 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       // allocates stack space for every if/case branch local when no optimizations
       // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
       // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._locationID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._locationID, fieldNumber: 1)
+      }
       try { if let v = _storage._schedule {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._scheduleLocation {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       } }()
-      try { if let v = _storage._forecast {
+      try { if let v = _storage._scheduleLocation {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       } }()
+      try { if let v = _storage._forecast {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      } }()
       try { if let v = _storage._platform {
-        try visitor.visitSingularStringField(value: v, fieldNumber: 4)
+        try visitor.visitSingularStringField(value: v, fieldNumber: 10)
       } }()
       try { if let v = _storage._length {
-        try visitor.visitSingularUInt32Field(value: v, fieldNumber: 5)
+        try visitor.visitSingularUInt32Field(value: v, fieldNumber: 11)
       } }()
       if _storage._isCircularRoute != false {
-        try visitor.visitSingularBoolField(value: _storage._isCircularRoute, fieldNumber: 6)
+        try visitor.visitSingularBoolField(value: _storage._isCircularRoute, fieldNumber: 12)
       }
       try { if let v = _storage._previousRoute {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
       } }()
       try { if let v = _storage._nextRoute {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
       } }()
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -946,6 +957,7 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
+        if _storage._locationID != rhs_storage._locationID {return false}
         if _storage._schedule != rhs_storage._schedule {return false}
         if _storage._scheduleLocation != rhs_storage._scheduleLocation {return false}
         if _storage._forecast != rhs_storage._forecast {return false}
