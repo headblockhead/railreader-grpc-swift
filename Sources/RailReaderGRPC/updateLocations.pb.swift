@@ -20,26 +20,26 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-/// To get changes to the locations list from the start of availiable data, call without including a from_reference_file_id.
 public struct UpdateLocationsRequest: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var fromReferenceFileID: String {
-    get {_fromReferenceFileID ?? String()}
-    set {_fromReferenceFileID = newValue}
+  /// If not specified, all updates will be returned.
+  public var currentReferenceFileID: String {
+    get {_currentReferenceFileID ?? String()}
+    set {_currentReferenceFileID = newValue}
   }
-  /// Returns true if `fromReferenceFileID` has been explicitly set.
-  public var hasFromReferenceFileID: Bool {self._fromReferenceFileID != nil}
-  /// Clears the value of `fromReferenceFileID`. Subsequent reads from it will return its default value.
-  public mutating func clearFromReferenceFileID() {self._fromReferenceFileID = nil}
+  /// Returns true if `currentReferenceFileID` has been explicitly set.
+  public var hasCurrentReferenceFileID: Bool {self._currentReferenceFileID != nil}
+  /// Clears the value of `currentReferenceFileID`. Subsequent reads from it will return its default value.
+  public mutating func clearCurrentReferenceFileID() {self._currentReferenceFileID = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _fromReferenceFileID: String? = nil
+  fileprivate var _currentReferenceFileID: String? = nil
 }
 
 public struct UpdateLocationsResponse: Sendable {
@@ -47,25 +47,29 @@ public struct UpdateLocationsResponse: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The lastest reference_file_id equivalent you will have after applying all updates.
-  public var toReferenceFileID: String = String()
-
+  /// All (if any) updates between the current_reference_file_id in UpdateLocationsRequest and the new_reference_file_id in this response.
   public var updates: [LocationUpdate] = []
+
+  /// The lastest reference_file_id equivalent you will have after applying all updates.
+  public var newReferenceFileID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
+/// An update made to a location at a point in time.
+/// Provides the new state for a given location_id, and the reference_file_id at which this change occurred.
 public struct LocationUpdate: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// The location_id affected
+  public var locationID: String = String()
+
   /// The reference_file_id at which this change occurred. 
   public var referenceFileID: String = String()
-
-  public var locationID: String = String()
 
   public var isDeleted: Bool = false
 
@@ -101,7 +105,7 @@ public struct LocationUpdate: Sendable {
 
 extension UpdateLocationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "UpdateLocationsRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}from_reference_file_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}current_reference_file_id\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -109,7 +113,7 @@ extension UpdateLocationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self._fromReferenceFileID) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self._currentReferenceFileID) }()
       default: break
       }
     }
@@ -120,14 +124,14 @@ extension UpdateLocationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._fromReferenceFileID {
+    try { if let v = self._currentReferenceFileID {
       try visitor.visitSingularStringField(value: v, fieldNumber: 1)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: UpdateLocationsRequest, rhs: UpdateLocationsRequest) -> Bool {
-    if lhs._fromReferenceFileID != rhs._fromReferenceFileID {return false}
+    if lhs._currentReferenceFileID != rhs._currentReferenceFileID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -135,7 +139,7 @@ extension UpdateLocationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 
 extension UpdateLocationsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "UpdateLocationsResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}to_reference_file_id\0\u{1}updates\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}updates\0\u{3}new_reference_file_id\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -143,26 +147,26 @@ extension UpdateLocationsResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.toReferenceFileID) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.updates) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.updates) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.newReferenceFileID) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.toReferenceFileID.isEmpty {
-      try visitor.visitSingularStringField(value: self.toReferenceFileID, fieldNumber: 1)
-    }
     if !self.updates.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.updates, fieldNumber: 2)
+      try visitor.visitRepeatedMessageField(value: self.updates, fieldNumber: 1)
+    }
+    if !self.newReferenceFileID.isEmpty {
+      try visitor.visitSingularStringField(value: self.newReferenceFileID, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: UpdateLocationsResponse, rhs: UpdateLocationsResponse) -> Bool {
-    if lhs.toReferenceFileID != rhs.toReferenceFileID {return false}
     if lhs.updates != rhs.updates {return false}
+    if lhs.newReferenceFileID != rhs.newReferenceFileID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -170,7 +174,7 @@ extension UpdateLocationsResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
 
 extension LocationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "LocationUpdate"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}crs_id\0\u{3}toc_id\0\u{1}name\0\u{3}is_deleted\0\u{3}reference_file_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}reference_file_id\0\u{3}is_deleted\0\u{3}crs_id\0\u{3}toc_id\0\u{1}name\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -179,11 +183,11 @@ extension LocationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self._crsID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self._tocID) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 5: try { try decoder.decodeSingularBoolField(value: &self.isDeleted) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.referenceFileID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.referenceFileID) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.isDeleted) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self._crsID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self._tocID) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.name) }()
       default: break
       }
     }
@@ -197,27 +201,27 @@ extension LocationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if !self.locationID.isEmpty {
       try visitor.visitSingularStringField(value: self.locationID, fieldNumber: 1)
     }
-    try { if let v = self._crsID {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    } }()
-    try { if let v = self._tocID {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    } }()
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 4)
+    if !self.referenceFileID.isEmpty {
+      try visitor.visitSingularStringField(value: self.referenceFileID, fieldNumber: 2)
     }
     if self.isDeleted != false {
-      try visitor.visitSingularBoolField(value: self.isDeleted, fieldNumber: 5)
+      try visitor.visitSingularBoolField(value: self.isDeleted, fieldNumber: 3)
     }
-    if !self.referenceFileID.isEmpty {
-      try visitor.visitSingularStringField(value: self.referenceFileID, fieldNumber: 6)
+    try { if let v = self._crsID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
+    } }()
+    try { if let v = self._tocID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 5)
+    } }()
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: LocationUpdate, rhs: LocationUpdate) -> Bool {
-    if lhs.referenceFileID != rhs.referenceFileID {return false}
     if lhs.locationID != rhs.locationID {return false}
+    if lhs.referenceFileID != rhs.referenceFileID {return false}
     if lhs.isDeleted != rhs.isDeleted {return false}
     if lhs._crsID != rhs._crsID {return false}
     if lhs._tocID != rhs._tocID {return false}

@@ -22,328 +22,328 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 public enum ServiceType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case unknown // = 0
-  case train // = 1
-  case shortTermPlannedTrain // = 2
-  case bus // = 3
-  case shortTermPlannedBus // = 4
-  case ship // = 5
+  case serviceUnknown // = 0
+  case serviceTrain // = 1
+  case serviceShortTermPlannedTrain // = 2
+  case serviceBus // = 3
+  case serviceShortTermPlannedBus // = 4
+  case serviceShip // = 5
 
   /// Trip and Freight types ommitted as they are not tracked by Darwin
-  case shortTermPlannedShip // = 6
+  case serviceShortTermPlannedShip // = 6
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .unknown
+    self = .serviceUnknown
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .unknown
-    case 1: self = .train
-    case 2: self = .shortTermPlannedTrain
-    case 3: self = .bus
-    case 4: self = .shortTermPlannedBus
-    case 5: self = .ship
-    case 6: self = .shortTermPlannedShip
+    case 0: self = .serviceUnknown
+    case 1: self = .serviceTrain
+    case 2: self = .serviceShortTermPlannedTrain
+    case 3: self = .serviceBus
+    case 4: self = .serviceShortTermPlannedBus
+    case 5: self = .serviceShip
+    case 6: self = .serviceShortTermPlannedShip
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .unknown: return 0
-    case .train: return 1
-    case .shortTermPlannedTrain: return 2
-    case .bus: return 3
-    case .shortTermPlannedBus: return 4
-    case .ship: return 5
-    case .shortTermPlannedShip: return 6
+    case .serviceUnknown: return 0
+    case .serviceTrain: return 1
+    case .serviceShortTermPlannedTrain: return 2
+    case .serviceBus: return 3
+    case .serviceShortTermPlannedBus: return 4
+    case .serviceShip: return 5
+    case .serviceShortTermPlannedShip: return 6
     case .UNRECOGNIZED(let i): return i
     }
   }
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [ServiceType] = [
-    .unknown,
-    .train,
-    .shortTermPlannedTrain,
-    .bus,
-    .shortTermPlannedBus,
-    .ship,
-    .shortTermPlannedShip,
+    .serviceUnknown,
+    .serviceTrain,
+    .serviceShortTermPlannedTrain,
+    .serviceBus,
+    .serviceShortTermPlannedBus,
+    .serviceShip,
+    .serviceShortTermPlannedShip,
   ]
 
 }
 
 public enum CategoryType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case unknown // = 0
-  case undergroundOrMetro // = 1
-  case unadvertisedPassenger // = 2
-  case passenger // = 3
-  case staff // = 4
-  case mixed // = 5
-  case channelTunnel // = 6
-  case sleeper // = 7
-  case international // = 8
-  case motorail // = 9
-  case unadvertisedExpress // = 10
-  case express // = 11
-  case sleeperDomestic // = 12
-  case busReplacement // = 13
-  case busService // = 14
-  case ship // = 15
-  case emptyCoachingStock // = 16
-  case emptyCoachingStockUndergroundOrMetro // = 17
-  case emptyCoachingStockOrStaff // = 18
+  case categoryUnknown // = 0
+  case categoryUndergroundOrMetro // = 1
+  case categoryUnadvertisedPassenger // = 2
+  case categoryPassenger // = 3
+  case categoryStaff // = 4
+  case categoryMixed // = 5
+  case categoryChannelTunnel // = 6
+  case categorySleeper // = 7
+  case categoryInternational // = 8
+  case categoryMotorail // = 9
+  case categoryUnadvertisedExpress // = 10
+  case categoryExpress // = 11
+  case categorySleeperDomestic // = 12
+  case categoryBusReplacement // = 13
+  case categoryBusService // = 14
+  case categoryShip // = 15
+  case categoryEmptyCoachingStock // = 16
+  case categoryEmptyCoachingStockUndergroundOrMetro // = 17
+  case categoryEmptyCoachingStockOrStaff // = 18
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .unknown
+    self = .categoryUnknown
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .unknown
-    case 1: self = .undergroundOrMetro
-    case 2: self = .unadvertisedPassenger
-    case 3: self = .passenger
-    case 4: self = .staff
-    case 5: self = .mixed
-    case 6: self = .channelTunnel
-    case 7: self = .sleeper
-    case 8: self = .international
-    case 9: self = .motorail
-    case 10: self = .unadvertisedExpress
-    case 11: self = .express
-    case 12: self = .sleeperDomestic
-    case 13: self = .busReplacement
-    case 14: self = .busService
-    case 15: self = .ship
-    case 16: self = .emptyCoachingStock
-    case 17: self = .emptyCoachingStockUndergroundOrMetro
-    case 18: self = .emptyCoachingStockOrStaff
+    case 0: self = .categoryUnknown
+    case 1: self = .categoryUndergroundOrMetro
+    case 2: self = .categoryUnadvertisedPassenger
+    case 3: self = .categoryPassenger
+    case 4: self = .categoryStaff
+    case 5: self = .categoryMixed
+    case 6: self = .categoryChannelTunnel
+    case 7: self = .categorySleeper
+    case 8: self = .categoryInternational
+    case 9: self = .categoryMotorail
+    case 10: self = .categoryUnadvertisedExpress
+    case 11: self = .categoryExpress
+    case 12: self = .categorySleeperDomestic
+    case 13: self = .categoryBusReplacement
+    case 14: self = .categoryBusService
+    case 15: self = .categoryShip
+    case 16: self = .categoryEmptyCoachingStock
+    case 17: self = .categoryEmptyCoachingStockUndergroundOrMetro
+    case 18: self = .categoryEmptyCoachingStockOrStaff
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .unknown: return 0
-    case .undergroundOrMetro: return 1
-    case .unadvertisedPassenger: return 2
-    case .passenger: return 3
-    case .staff: return 4
-    case .mixed: return 5
-    case .channelTunnel: return 6
-    case .sleeper: return 7
-    case .international: return 8
-    case .motorail: return 9
-    case .unadvertisedExpress: return 10
-    case .express: return 11
-    case .sleeperDomestic: return 12
-    case .busReplacement: return 13
-    case .busService: return 14
-    case .ship: return 15
-    case .emptyCoachingStock: return 16
-    case .emptyCoachingStockUndergroundOrMetro: return 17
-    case .emptyCoachingStockOrStaff: return 18
+    case .categoryUnknown: return 0
+    case .categoryUndergroundOrMetro: return 1
+    case .categoryUnadvertisedPassenger: return 2
+    case .categoryPassenger: return 3
+    case .categoryStaff: return 4
+    case .categoryMixed: return 5
+    case .categoryChannelTunnel: return 6
+    case .categorySleeper: return 7
+    case .categoryInternational: return 8
+    case .categoryMotorail: return 9
+    case .categoryUnadvertisedExpress: return 10
+    case .categoryExpress: return 11
+    case .categorySleeperDomestic: return 12
+    case .categoryBusReplacement: return 13
+    case .categoryBusService: return 14
+    case .categoryShip: return 15
+    case .categoryEmptyCoachingStock: return 16
+    case .categoryEmptyCoachingStockUndergroundOrMetro: return 17
+    case .categoryEmptyCoachingStockOrStaff: return 18
     case .UNRECOGNIZED(let i): return i
     }
   }
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [CategoryType] = [
-    .unknown,
-    .undergroundOrMetro,
-    .unadvertisedPassenger,
-    .passenger,
-    .staff,
-    .mixed,
-    .channelTunnel,
-    .sleeper,
-    .international,
-    .motorail,
-    .unadvertisedExpress,
-    .express,
-    .sleeperDomestic,
-    .busReplacement,
-    .busService,
-    .ship,
-    .emptyCoachingStock,
-    .emptyCoachingStockUndergroundOrMetro,
-    .emptyCoachingStockOrStaff,
+    .categoryUnknown,
+    .categoryUndergroundOrMetro,
+    .categoryUnadvertisedPassenger,
+    .categoryPassenger,
+    .categoryStaff,
+    .categoryMixed,
+    .categoryChannelTunnel,
+    .categorySleeper,
+    .categoryInternational,
+    .categoryMotorail,
+    .categoryUnadvertisedExpress,
+    .categoryExpress,
+    .categorySleeperDomestic,
+    .categoryBusReplacement,
+    .categoryBusService,
+    .categoryShip,
+    .categoryEmptyCoachingStock,
+    .categoryEmptyCoachingStockUndergroundOrMetro,
+    .categoryEmptyCoachingStockOrStaff,
   ]
 
 }
 
 public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
-  case unknown // = 0
-  case trainBegins // = 1
-  case trainFinishes // = 2
-  case stopsToTakeUpAndSetDownPassengers // = 3
-  case stopsToTakeUpPassengers // = 4
-  case stopsToSetDownPassengers // = 5
-  case stopsOrShuntsForOtherTrainsToPass // = 6
-  case stopsToAttachOrDetachAssistingLocomotive // = 7
-  case showsAsXOnArrival // = 8
-  case stopsForBankingLocomotive // = 9
-  case stopsToChangeTrainCrew // = 10
-  case stopsToDetatchVehicles // = 11
-  case stopsForExamination // = 12
-  case nationalRailTimetableDataToAdd // = 13
-  case notionalActivityToPreventWttTimingColumnsMerge // = 14
-  case notionalActivityToPreventWttTimingColumnsMergeTwice // = 15
-  case passengerCountPoint // = 16
-  case ticketCollectionAndExaminationPoint // = 17
-  case ticketExaminationPoint // = 18
-  case ticketExaminationPointFirstClassOnly // = 19
-  case ticketExaminationPointSelective // = 20
-  case stopsToChangeLocomotives // = 21
-  case stopNotAdvertised // = 22
-  case stopsForOtherOperatingReasons // = 23
-  case trainLocomotiveOnRear // = 24
-  case propellingBetweenPointsShown // = 25
-  case stopsWhenRequired // = 26
-  case stopsForReversingMovementOrDriverEndChange // = 27
-  case stopsForLocomotiveToRunRound // = 28
-  case stopsForRailwayPersonellOnly // = 29
-  case stopsToAttachAndDetachVehicles // = 30
-  case detailConsistForTopsDirect // = 31
-  case stopsOrPassesForTabletStaffOrToken // = 32
-  case stopsToAttachVehicles // = 33
-  case stopsForWateringOfCoaches // = 34
-  case passesAnotherTrainAtCrossingPointOnSingleLine // = 35
+  case activityUnknown // = 0
+  case activityTrainBegins // = 1
+  case activityTrainFinishes // = 2
+  case activityStopsToTakeUpAndSetDownPassengers // = 3
+  case activityStopsToTakeUpPassengers // = 4
+  case activityStopsToSetDownPassengers // = 5
+  case activityStopsOrShuntsForOtherTrainsToPass // = 6
+  case activityStopsToAttachOrDetachAssistingLocomotive // = 7
+  case activityShowsAsXOnArrival // = 8
+  case activityStopsForBankingLocomotive // = 9
+  case activityStopsToChangeTrainCrew // = 10
+  case activityStopsToDetatchVehicles // = 11
+  case activityStopsForExamination // = 12
+  case activityNationalRailTimetableDataToAdd // = 13
+  case activityNotionalActivityToPreventWttTimingColumnsMerge // = 14
+  case activityNotionalActivityToPreventWttTimingColumnsMergeTwice // = 15
+  case activityPassengerCountPoint // = 16
+  case activityTicketCollectionAndExaminationPoint // = 17
+  case activityTicketExaminationPoint // = 18
+  case activityTicketExaminationPointFirstClassOnly // = 19
+  case activityTicketExaminationPointSelective // = 20
+  case activityStopsToChangeLocomotives // = 21
+  case activityStopNotAdvertised // = 22
+  case activityStopsForOtherOperatingReasons // = 23
+  case activityTrainLocomotiveOnRear // = 24
+  case activityPropellingBetweenPointsShown // = 25
+  case activityStopsWhenRequired // = 26
+  case activityStopsForReversingMovementOrDriverEndChange // = 27
+  case activityStopsForLocomotiveToRunRound // = 28
+  case activityStopsForRailwayPersonellOnly // = 29
+  case activityStopsToAttachAndDetachVehicles // = 30
+  case activityDetailConsistForTopsDirect // = 31
+  case activityStopsOrPassesForTabletStaffOrToken // = 32
+  case activityStopsToAttachVehicles // = 33
+  case activityStopsForWateringOfCoaches // = 34
+  case activityPassesAnotherTrainAtCrossingPointOnSingleLine // = 35
   case UNRECOGNIZED(Int)
 
   public init() {
-    self = .unknown
+    self = .activityUnknown
   }
 
   public init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .unknown
-    case 1: self = .trainBegins
-    case 2: self = .trainFinishes
-    case 3: self = .stopsToTakeUpAndSetDownPassengers
-    case 4: self = .stopsToTakeUpPassengers
-    case 5: self = .stopsToSetDownPassengers
-    case 6: self = .stopsOrShuntsForOtherTrainsToPass
-    case 7: self = .stopsToAttachOrDetachAssistingLocomotive
-    case 8: self = .showsAsXOnArrival
-    case 9: self = .stopsForBankingLocomotive
-    case 10: self = .stopsToChangeTrainCrew
-    case 11: self = .stopsToDetatchVehicles
-    case 12: self = .stopsForExamination
-    case 13: self = .nationalRailTimetableDataToAdd
-    case 14: self = .notionalActivityToPreventWttTimingColumnsMerge
-    case 15: self = .notionalActivityToPreventWttTimingColumnsMergeTwice
-    case 16: self = .passengerCountPoint
-    case 17: self = .ticketCollectionAndExaminationPoint
-    case 18: self = .ticketExaminationPoint
-    case 19: self = .ticketExaminationPointFirstClassOnly
-    case 20: self = .ticketExaminationPointSelective
-    case 21: self = .stopsToChangeLocomotives
-    case 22: self = .stopNotAdvertised
-    case 23: self = .stopsForOtherOperatingReasons
-    case 24: self = .trainLocomotiveOnRear
-    case 25: self = .propellingBetweenPointsShown
-    case 26: self = .stopsWhenRequired
-    case 27: self = .stopsForReversingMovementOrDriverEndChange
-    case 28: self = .stopsForLocomotiveToRunRound
-    case 29: self = .stopsForRailwayPersonellOnly
-    case 30: self = .stopsToAttachAndDetachVehicles
-    case 31: self = .detailConsistForTopsDirect
-    case 32: self = .stopsOrPassesForTabletStaffOrToken
-    case 33: self = .stopsToAttachVehicles
-    case 34: self = .stopsForWateringOfCoaches
-    case 35: self = .passesAnotherTrainAtCrossingPointOnSingleLine
+    case 0: self = .activityUnknown
+    case 1: self = .activityTrainBegins
+    case 2: self = .activityTrainFinishes
+    case 3: self = .activityStopsToTakeUpAndSetDownPassengers
+    case 4: self = .activityStopsToTakeUpPassengers
+    case 5: self = .activityStopsToSetDownPassengers
+    case 6: self = .activityStopsOrShuntsForOtherTrainsToPass
+    case 7: self = .activityStopsToAttachOrDetachAssistingLocomotive
+    case 8: self = .activityShowsAsXOnArrival
+    case 9: self = .activityStopsForBankingLocomotive
+    case 10: self = .activityStopsToChangeTrainCrew
+    case 11: self = .activityStopsToDetatchVehicles
+    case 12: self = .activityStopsForExamination
+    case 13: self = .activityNationalRailTimetableDataToAdd
+    case 14: self = .activityNotionalActivityToPreventWttTimingColumnsMerge
+    case 15: self = .activityNotionalActivityToPreventWttTimingColumnsMergeTwice
+    case 16: self = .activityPassengerCountPoint
+    case 17: self = .activityTicketCollectionAndExaminationPoint
+    case 18: self = .activityTicketExaminationPoint
+    case 19: self = .activityTicketExaminationPointFirstClassOnly
+    case 20: self = .activityTicketExaminationPointSelective
+    case 21: self = .activityStopsToChangeLocomotives
+    case 22: self = .activityStopNotAdvertised
+    case 23: self = .activityStopsForOtherOperatingReasons
+    case 24: self = .activityTrainLocomotiveOnRear
+    case 25: self = .activityPropellingBetweenPointsShown
+    case 26: self = .activityStopsWhenRequired
+    case 27: self = .activityStopsForReversingMovementOrDriverEndChange
+    case 28: self = .activityStopsForLocomotiveToRunRound
+    case 29: self = .activityStopsForRailwayPersonellOnly
+    case 30: self = .activityStopsToAttachAndDetachVehicles
+    case 31: self = .activityDetailConsistForTopsDirect
+    case 32: self = .activityStopsOrPassesForTabletStaffOrToken
+    case 33: self = .activityStopsToAttachVehicles
+    case 34: self = .activityStopsForWateringOfCoaches
+    case 35: self = .activityPassesAnotherTrainAtCrossingPointOnSingleLine
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   public var rawValue: Int {
     switch self {
-    case .unknown: return 0
-    case .trainBegins: return 1
-    case .trainFinishes: return 2
-    case .stopsToTakeUpAndSetDownPassengers: return 3
-    case .stopsToTakeUpPassengers: return 4
-    case .stopsToSetDownPassengers: return 5
-    case .stopsOrShuntsForOtherTrainsToPass: return 6
-    case .stopsToAttachOrDetachAssistingLocomotive: return 7
-    case .showsAsXOnArrival: return 8
-    case .stopsForBankingLocomotive: return 9
-    case .stopsToChangeTrainCrew: return 10
-    case .stopsToDetatchVehicles: return 11
-    case .stopsForExamination: return 12
-    case .nationalRailTimetableDataToAdd: return 13
-    case .notionalActivityToPreventWttTimingColumnsMerge: return 14
-    case .notionalActivityToPreventWttTimingColumnsMergeTwice: return 15
-    case .passengerCountPoint: return 16
-    case .ticketCollectionAndExaminationPoint: return 17
-    case .ticketExaminationPoint: return 18
-    case .ticketExaminationPointFirstClassOnly: return 19
-    case .ticketExaminationPointSelective: return 20
-    case .stopsToChangeLocomotives: return 21
-    case .stopNotAdvertised: return 22
-    case .stopsForOtherOperatingReasons: return 23
-    case .trainLocomotiveOnRear: return 24
-    case .propellingBetweenPointsShown: return 25
-    case .stopsWhenRequired: return 26
-    case .stopsForReversingMovementOrDriverEndChange: return 27
-    case .stopsForLocomotiveToRunRound: return 28
-    case .stopsForRailwayPersonellOnly: return 29
-    case .stopsToAttachAndDetachVehicles: return 30
-    case .detailConsistForTopsDirect: return 31
-    case .stopsOrPassesForTabletStaffOrToken: return 32
-    case .stopsToAttachVehicles: return 33
-    case .stopsForWateringOfCoaches: return 34
-    case .passesAnotherTrainAtCrossingPointOnSingleLine: return 35
+    case .activityUnknown: return 0
+    case .activityTrainBegins: return 1
+    case .activityTrainFinishes: return 2
+    case .activityStopsToTakeUpAndSetDownPassengers: return 3
+    case .activityStopsToTakeUpPassengers: return 4
+    case .activityStopsToSetDownPassengers: return 5
+    case .activityStopsOrShuntsForOtherTrainsToPass: return 6
+    case .activityStopsToAttachOrDetachAssistingLocomotive: return 7
+    case .activityShowsAsXOnArrival: return 8
+    case .activityStopsForBankingLocomotive: return 9
+    case .activityStopsToChangeTrainCrew: return 10
+    case .activityStopsToDetatchVehicles: return 11
+    case .activityStopsForExamination: return 12
+    case .activityNationalRailTimetableDataToAdd: return 13
+    case .activityNotionalActivityToPreventWttTimingColumnsMerge: return 14
+    case .activityNotionalActivityToPreventWttTimingColumnsMergeTwice: return 15
+    case .activityPassengerCountPoint: return 16
+    case .activityTicketCollectionAndExaminationPoint: return 17
+    case .activityTicketExaminationPoint: return 18
+    case .activityTicketExaminationPointFirstClassOnly: return 19
+    case .activityTicketExaminationPointSelective: return 20
+    case .activityStopsToChangeLocomotives: return 21
+    case .activityStopNotAdvertised: return 22
+    case .activityStopsForOtherOperatingReasons: return 23
+    case .activityTrainLocomotiveOnRear: return 24
+    case .activityPropellingBetweenPointsShown: return 25
+    case .activityStopsWhenRequired: return 26
+    case .activityStopsForReversingMovementOrDriverEndChange: return 27
+    case .activityStopsForLocomotiveToRunRound: return 28
+    case .activityStopsForRailwayPersonellOnly: return 29
+    case .activityStopsToAttachAndDetachVehicles: return 30
+    case .activityDetailConsistForTopsDirect: return 31
+    case .activityStopsOrPassesForTabletStaffOrToken: return 32
+    case .activityStopsToAttachVehicles: return 33
+    case .activityStopsForWateringOfCoaches: return 34
+    case .activityPassesAnotherTrainAtCrossingPointOnSingleLine: return 35
     case .UNRECOGNIZED(let i): return i
     }
   }
 
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [ActivityType] = [
-    .unknown,
-    .trainBegins,
-    .trainFinishes,
-    .stopsToTakeUpAndSetDownPassengers,
-    .stopsToTakeUpPassengers,
-    .stopsToSetDownPassengers,
-    .stopsOrShuntsForOtherTrainsToPass,
-    .stopsToAttachOrDetachAssistingLocomotive,
-    .showsAsXOnArrival,
-    .stopsForBankingLocomotive,
-    .stopsToChangeTrainCrew,
-    .stopsToDetatchVehicles,
-    .stopsForExamination,
-    .nationalRailTimetableDataToAdd,
-    .notionalActivityToPreventWttTimingColumnsMerge,
-    .notionalActivityToPreventWttTimingColumnsMergeTwice,
-    .passengerCountPoint,
-    .ticketCollectionAndExaminationPoint,
-    .ticketExaminationPoint,
-    .ticketExaminationPointFirstClassOnly,
-    .ticketExaminationPointSelective,
-    .stopsToChangeLocomotives,
-    .stopNotAdvertised,
-    .stopsForOtherOperatingReasons,
-    .trainLocomotiveOnRear,
-    .propellingBetweenPointsShown,
-    .stopsWhenRequired,
-    .stopsForReversingMovementOrDriverEndChange,
-    .stopsForLocomotiveToRunRound,
-    .stopsForRailwayPersonellOnly,
-    .stopsToAttachAndDetachVehicles,
-    .detailConsistForTopsDirect,
-    .stopsOrPassesForTabletStaffOrToken,
-    .stopsToAttachVehicles,
-    .stopsForWateringOfCoaches,
-    .passesAnotherTrainAtCrossingPointOnSingleLine,
+    .activityUnknown,
+    .activityTrainBegins,
+    .activityTrainFinishes,
+    .activityStopsToTakeUpAndSetDownPassengers,
+    .activityStopsToTakeUpPassengers,
+    .activityStopsToSetDownPassengers,
+    .activityStopsOrShuntsForOtherTrainsToPass,
+    .activityStopsToAttachOrDetachAssistingLocomotive,
+    .activityShowsAsXOnArrival,
+    .activityStopsForBankingLocomotive,
+    .activityStopsToChangeTrainCrew,
+    .activityStopsToDetatchVehicles,
+    .activityStopsForExamination,
+    .activityNationalRailTimetableDataToAdd,
+    .activityNotionalActivityToPreventWttTimingColumnsMerge,
+    .activityNotionalActivityToPreventWttTimingColumnsMergeTwice,
+    .activityPassengerCountPoint,
+    .activityTicketCollectionAndExaminationPoint,
+    .activityTicketExaminationPoint,
+    .activityTicketExaminationPointFirstClassOnly,
+    .activityTicketExaminationPointSelective,
+    .activityStopsToChangeLocomotives,
+    .activityStopNotAdvertised,
+    .activityStopsForOtherOperatingReasons,
+    .activityTrainLocomotiveOnRear,
+    .activityPropellingBetweenPointsShown,
+    .activityStopsWhenRequired,
+    .activityStopsForReversingMovementOrDriverEndChange,
+    .activityStopsForLocomotiveToRunRound,
+    .activityStopsForRailwayPersonellOnly,
+    .activityStopsToAttachAndDetachVehicles,
+    .activityDetailConsistForTopsDirect,
+    .activityStopsOrPassesForTabletStaffOrToken,
+    .activityStopsToAttachVehicles,
+    .activityStopsForWateringOfCoaches,
+    .activityPassesAnotherTrainAtCrossingPointOnSingleLine,
   ]
 
 }
@@ -351,13 +351,13 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ServiceType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SERVICE_TYPE_UNKNOWN\0\u{1}SERVICE_TYPE_TRAIN\0\u{1}SERVICE_TYPE_SHORT_TERM_PLANNED_TRAIN\0\u{1}SERVICE_TYPE_BUS\0\u{1}SERVICE_TYPE_SHORT_TERM_PLANNED_BUS\0\u{1}SERVICE_TYPE_SHIP\0\u{1}SERVICE_TYPE_SHORT_TERM_PLANNED_SHIP\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SERVICE_TYPE_SERVICE_UNKNOWN\0\u{1}SERVICE_TYPE_SERVICE_TRAIN\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_TRAIN\0\u{1}SERVICE_TYPE_SERVICE_BUS\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_BUS\0\u{1}SERVICE_TYPE_SERVICE_SHIP\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_SHIP\0")
 }
 
 extension CategoryType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0CATEGORY_TYPE_UNKNOWN\0\u{1}CATEGORY_TYPE_UNDERGROUND_OR_METRO\0\u{1}CATEGORY_TYPE_UNADVERTISED_PASSENGER\0\u{1}CATEGORY_TYPE_PASSENGER\0\u{1}CATEGORY_TYPE_STAFF\0\u{1}CATEGORY_TYPE_MIXED\0\u{1}CATEGORY_TYPE_CHANNEL_TUNNEL\0\u{1}CATEGORY_TYPE_SLEEPER\0\u{1}CATEGORY_TYPE_INTERNATIONAL\0\u{1}CATEGORY_TYPE_MOTORAIL\0\u{1}CATEGORY_TYPE_UNADVERTISED_EXPRESS\0\u{1}CATEGORY_TYPE_EXPRESS\0\u{1}CATEGORY_TYPE_SLEEPER_DOMESTIC\0\u{1}CATEGORY_TYPE_BUS_REPLACEMENT\0\u{1}CATEGORY_TYPE_BUS_SERVICE\0\u{1}CATEGORY_TYPE_SHIP\0\u{1}CATEGORY_TYPE_EMPTY_COACHING_STOCK\0\u{1}CATEGORY_TYPE_EMPTY_COACHING_STOCK_UNDERGROUND_OR_METRO\0\u{1}CATEGORY_TYPE_EMPTY_COACHING_STOCK_OR_STAFF\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0CATEGORY_TYPE_CATEGORY_UNKNOWN\0\u{1}CATEGORY_TYPE_CATEGORY_UNDERGROUND_OR_METRO\0\u{1}CATEGORY_TYPE_CATEGORY_UNADVERTISED_PASSENGER\0\u{1}CATEGORY_TYPE_CATEGORY_PASSENGER\0\u{1}CATEGORY_TYPE_CATEGORY_STAFF\0\u{1}CATEGORY_TYPE_CATEGORY_MIXED\0\u{1}CATEGORY_TYPE_CATEGORY_CHANNEL_TUNNEL\0\u{1}CATEGORY_TYPE_CATEGORY_SLEEPER\0\u{1}CATEGORY_TYPE_CATEGORY_INTERNATIONAL\0\u{1}CATEGORY_TYPE_CATEGORY_MOTORAIL\0\u{1}CATEGORY_TYPE_CATEGORY_UNADVERTISED_EXPRESS\0\u{1}CATEGORY_TYPE_CATEGORY_EXPRESS\0\u{1}CATEGORY_TYPE_CATEGORY_SLEEPER_DOMESTIC\0\u{1}CATEGORY_TYPE_CATEGORY_BUS_REPLACEMENT\0\u{1}CATEGORY_TYPE_CATEGORY_BUS_SERVICE\0\u{1}CATEGORY_TYPE_CATEGORY_SHIP\0\u{1}CATEGORY_TYPE_CATEGORY_EMPTY_COACHING_STOCK\0\u{1}CATEGORY_TYPE_CATEGORY_EMPTY_COACHING_STOCK_UNDERGROUND_OR_METRO\0\u{1}CATEGORY_TYPE_CATEGORY_EMPTY_COACHING_STOCK_OR_STAFF\0")
 }
 
 extension ActivityType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_UNKNOWN\0\u{1}ACTIVITY_TYPE_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_STOPS_FOR_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_NATIONAL_RAIL_TIMETABLE_DATA_TO_ADD\0\u{1}ACTIVITY_TYPE_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_STOPS_FOR_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_ACTIVITY_UNKNOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_ACTIVITY_NATIONAL_RAIL_TIMETABLE_DATA_TO_ADD\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_ACTIVITY_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
 }
