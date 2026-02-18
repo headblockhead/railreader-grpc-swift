@@ -75,19 +75,31 @@ public struct SearchResponse: @unchecked Sendable {
   public mutating func clearForecast() {_uniqueStorage()._forecast = nil}
 
   public var generousArrivalTime: String {
-    get {_storage._generousArrivalTime}
+    get {_storage._generousArrivalTime ?? String()}
     set {_uniqueStorage()._generousArrivalTime = newValue}
   }
+  /// Returns true if `generousArrivalTime` has been explicitly set.
+  public var hasGenerousArrivalTime: Bool {_storage._generousArrivalTime != nil}
+  /// Clears the value of `generousArrivalTime`. Subsequent reads from it will return its default value.
+  public mutating func clearGenerousArrivalTime() {_uniqueStorage()._generousArrivalTime = nil}
 
   public var generousPassingTime: String {
-    get {_storage._generousPassingTime}
+    get {_storage._generousPassingTime ?? String()}
     set {_uniqueStorage()._generousPassingTime = newValue}
   }
+  /// Returns true if `generousPassingTime` has been explicitly set.
+  public var hasGenerousPassingTime: Bool {_storage._generousPassingTime != nil}
+  /// Clears the value of `generousPassingTime`. Subsequent reads from it will return its default value.
+  public mutating func clearGenerousPassingTime() {_uniqueStorage()._generousPassingTime = nil}
 
   public var generousDepartureTime: String {
-    get {_storage._generousDepartureTime}
+    get {_storage._generousDepartureTime ?? String()}
     set {_uniqueStorage()._generousDepartureTime = newValue}
   }
+  /// Returns true if `generousDepartureTime` has been explicitly set.
+  public var hasGenerousDepartureTime: Bool {_storage._generousDepartureTime != nil}
+  /// Clears the value of `generousDepartureTime`. Subsequent reads from it will return its default value.
+  public mutating func clearGenerousDepartureTime() {_uniqueStorage()._generousDepartureTime = nil}
 
   public var platform: String {
     get {_storage._platform ?? String()}
@@ -815,9 +827,9 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     var _schedule: Schedule? = nil
     var _scheduleLocation: ScheduleLocation? = nil
     var _forecast: Forecast? = nil
-    var _generousArrivalTime: String = String()
-    var _generousPassingTime: String = String()
-    var _generousDepartureTime: String = String()
+    var _generousArrivalTime: String? = nil
+    var _generousPassingTime: String? = nil
+    var _generousDepartureTime: String? = nil
     var _platform: String? = nil
 
       // This property is used as the initial default value for new instances of the type.
@@ -887,15 +899,15 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       try { if let v = _storage._forecast {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
       } }()
-      if !_storage._generousArrivalTime.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._generousArrivalTime, fieldNumber: 7)
-      }
-      if !_storage._generousPassingTime.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._generousPassingTime, fieldNumber: 8)
-      }
-      if !_storage._generousDepartureTime.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._generousDepartureTime, fieldNumber: 9)
-      }
+      try { if let v = _storage._generousArrivalTime {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 7)
+      } }()
+      try { if let v = _storage._generousPassingTime {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 8)
+      } }()
+      try { if let v = _storage._generousDepartureTime {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 9)
+      } }()
       try { if let v = _storage._platform {
         try visitor.visitSingularStringField(value: v, fieldNumber: 10)
       } }()
