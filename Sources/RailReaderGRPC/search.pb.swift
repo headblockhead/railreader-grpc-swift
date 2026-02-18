@@ -65,7 +65,6 @@ public struct SearchResponse: @unchecked Sendable {
   /// Clears the value of `scheduleLocation`. Subsequent reads from it will return its default value.
   public mutating func clearScheduleLocation() {_uniqueStorage()._scheduleLocation = nil}
 
-  /// TODO
   public var forecast: Forecast {
     get {_storage._forecast ?? Forecast()}
     set {_uniqueStorage()._forecast = newValue}
@@ -75,7 +74,21 @@ public struct SearchResponse: @unchecked Sendable {
   /// Clears the value of `forecast`. Subsequent reads from it will return its default value.
   public mutating func clearForecast() {_uniqueStorage()._forecast = nil}
 
-  /// TODO
+  public var generousArrivalTime: String {
+    get {_storage._generousArrivalTime}
+    set {_uniqueStorage()._generousArrivalTime = newValue}
+  }
+
+  public var generousPassingTime: String {
+    get {_storage._generousPassingTime}
+    set {_uniqueStorage()._generousPassingTime = newValue}
+  }
+
+  public var generousDepartureTime: String {
+    get {_storage._generousDepartureTime}
+    set {_uniqueStorage()._generousDepartureTime = newValue}
+  }
+
   public var platform: String {
     get {_storage._platform ?? String()}
     set {_uniqueStorage()._platform = newValue}
@@ -85,42 +98,6 @@ public struct SearchResponse: @unchecked Sendable {
   /// Clears the value of `platform`. Subsequent reads from it will return its default value.
   public mutating func clearPlatform() {_uniqueStorage()._platform = nil}
 
-  /// TODO
-  public var length: UInt32 {
-    get {_storage._length ?? 0}
-    set {_uniqueStorage()._length = newValue}
-  }
-  /// Returns true if `length` has been explicitly set.
-  public var hasLength: Bool {_storage._length != nil}
-  /// Clears the value of `length`. Subsequent reads from it will return its default value.
-  public mutating func clearLength() {_uniqueStorage()._length = nil}
-
-  /// TODO
-  public var isCircularRoute: Bool {
-    get {_storage._isCircularRoute}
-    set {_uniqueStorage()._isCircularRoute = newValue}
-  }
-
-  /// TODO
-  public var previousRoute: ServiceRoute {
-    get {_storage._previousRoute ?? ServiceRoute()}
-    set {_uniqueStorage()._previousRoute = newValue}
-  }
-  /// Returns true if `previousRoute` has been explicitly set.
-  public var hasPreviousRoute: Bool {_storage._previousRoute != nil}
-  /// Clears the value of `previousRoute`. Subsequent reads from it will return its default value.
-  public mutating func clearPreviousRoute() {_uniqueStorage()._previousRoute = nil}
-
-  /// TODO
-  public var nextRoute: ServiceRoute {
-    get {_storage._nextRoute ?? ServiceRoute()}
-    set {_uniqueStorage()._nextRoute = newValue}
-  }
-  /// Returns true if `nextRoute` has been explicitly set.
-  public var hasNextRoute: Bool {_storage._nextRoute != nil}
-  /// Clears the value of `nextRoute`. Subsequent reads from it will return its default value.
-  public mutating func clearNextRoute() {_uniqueStorage()._nextRoute = nil}
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -128,24 +105,31 @@ public struct SearchResponse: @unchecked Sendable {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct ServiceRoute: Sendable {
+public struct DisruptionReason: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  public var reasonID: UInt32 = 0
+
+  public var reasonLocationID: String {
+    get {_reasonLocationID ?? String()}
+    set {_reasonLocationID = newValue}
+  }
+  /// Returns true if `reasonLocationID` has been explicitly set.
+  public var hasReasonLocationID: Bool {self._reasonLocationID != nil}
+  /// Clears the value of `reasonLocationID`. Subsequent reads from it will return its default value.
+  public mutating func clearReasonLocationID() {self._reasonLocationID = nil}
+
+  /// When true, the provided reason_id is 'near to' the provided reason_location_id. 
+  /// When false, the reason_id is 'at' the reason_location_id.
+  public var reasonIsNearLocation: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-}
 
-public struct ServiceRouteLocation: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
+  fileprivate var _reasonLocationID: String? = nil
 }
 
 public struct Schedule: @unchecked Sendable {
@@ -780,33 +764,6 @@ public struct Forecast: @unchecked Sendable {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-public struct DisruptionReason: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var reasonID: UInt32 = 0
-
-  public var reasonLocationID: String {
-    get {_reasonLocationID ?? String()}
-    set {_reasonLocationID = newValue}
-  }
-  /// Returns true if `reasonLocationID` has been explicitly set.
-  public var hasReasonLocationID: Bool {self._reasonLocationID != nil}
-  /// Clears the value of `reasonLocationID`. Subsequent reads from it will return its default value.
-  public mutating func clearReasonLocationID() {self._reasonLocationID = nil}
-
-  /// When true, the provided reason_id is 'near to' the provided reason_location_id. 
-  /// When false, the reason_id is 'at' the reason_location_id.
-  public var reasonIsNearLocation: Bool = false
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-
-  fileprivate var _reasonLocationID: String? = nil
-}
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -851,18 +808,17 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 
 extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{1}schedule\0\u{3}schedule_location\0\u{1}forecast\0\u{2}\u{6}platform\0\u{1}length\0\u{3}is_circular_route\0\u{3}previous_route\0\u{3}next_route\0\u{c}\u{5}\u{5}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{1}schedule\0\u{3}schedule_location\0\u{1}forecast\0\u{4}\u{3}generous_arrival_time\0\u{3}generous_passing_time\0\u{3}generous_departure_time\0\u{1}platform\0\u{c}\u{5}\u{2}")
 
   fileprivate class _StorageClass {
     var _locationID: String = String()
     var _schedule: Schedule? = nil
     var _scheduleLocation: ScheduleLocation? = nil
     var _forecast: Forecast? = nil
+    var _generousArrivalTime: String = String()
+    var _generousPassingTime: String = String()
+    var _generousDepartureTime: String = String()
     var _platform: String? = nil
-    var _length: UInt32? = nil
-    var _isCircularRoute: Bool = false
-    var _previousRoute: ServiceRoute? = nil
-    var _nextRoute: ServiceRoute? = nil
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -877,11 +833,10 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       _schedule = source._schedule
       _scheduleLocation = source._scheduleLocation
       _forecast = source._forecast
+      _generousArrivalTime = source._generousArrivalTime
+      _generousPassingTime = source._generousPassingTime
+      _generousDepartureTime = source._generousDepartureTime
       _platform = source._platform
-      _length = source._length
-      _isCircularRoute = source._isCircularRoute
-      _previousRoute = source._previousRoute
-      _nextRoute = source._nextRoute
     }
   }
 
@@ -904,11 +859,10 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         case 2: try { try decoder.decodeSingularMessageField(value: &_storage._schedule) }()
         case 3: try { try decoder.decodeSingularMessageField(value: &_storage._scheduleLocation) }()
         case 4: try { try decoder.decodeSingularMessageField(value: &_storage._forecast) }()
+        case 7: try { try decoder.decodeSingularStringField(value: &_storage._generousArrivalTime) }()
+        case 8: try { try decoder.decodeSingularStringField(value: &_storage._generousPassingTime) }()
+        case 9: try { try decoder.decodeSingularStringField(value: &_storage._generousDepartureTime) }()
         case 10: try { try decoder.decodeSingularStringField(value: &_storage._platform) }()
-        case 11: try { try decoder.decodeSingularUInt32Field(value: &_storage._length) }()
-        case 12: try { try decoder.decodeSingularBoolField(value: &_storage._isCircularRoute) }()
-        case 13: try { try decoder.decodeSingularMessageField(value: &_storage._previousRoute) }()
-        case 14: try { try decoder.decodeSingularMessageField(value: &_storage._nextRoute) }()
         default: break
         }
       }
@@ -933,20 +887,17 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       try { if let v = _storage._forecast {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
       } }()
+      if !_storage._generousArrivalTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._generousArrivalTime, fieldNumber: 7)
+      }
+      if !_storage._generousPassingTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._generousPassingTime, fieldNumber: 8)
+      }
+      if !_storage._generousDepartureTime.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._generousDepartureTime, fieldNumber: 9)
+      }
       try { if let v = _storage._platform {
         try visitor.visitSingularStringField(value: v, fieldNumber: 10)
-      } }()
-      try { if let v = _storage._length {
-        try visitor.visitSingularUInt32Field(value: v, fieldNumber: 11)
-      } }()
-      if _storage._isCircularRoute != false {
-        try visitor.visitSingularBoolField(value: _storage._isCircularRoute, fieldNumber: 12)
-      }
-      try { if let v = _storage._previousRoute {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
-      } }()
-      try { if let v = _storage._nextRoute {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
       } }()
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -961,11 +912,10 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
         if _storage._schedule != rhs_storage._schedule {return false}
         if _storage._scheduleLocation != rhs_storage._scheduleLocation {return false}
         if _storage._forecast != rhs_storage._forecast {return false}
+        if _storage._generousArrivalTime != rhs_storage._generousArrivalTime {return false}
+        if _storage._generousPassingTime != rhs_storage._generousPassingTime {return false}
+        if _storage._generousDepartureTime != rhs_storage._generousDepartureTime {return false}
         if _storage._platform != rhs_storage._platform {return false}
-        if _storage._length != rhs_storage._length {return false}
-        if _storage._isCircularRoute != rhs_storage._isCircularRoute {return false}
-        if _storage._previousRoute != rhs_storage._previousRoute {return false}
-        if _storage._nextRoute != rhs_storage._nextRoute {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -975,39 +925,45 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
   }
 }
 
-extension ServiceRoute: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "ServiceRoute"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+extension DisruptionReason: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = "DisruptionReason"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}reason_id\0\u{3}reason_location_id\0\u{3}reason_is_near_location\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    // Load everything into unknown fields
-    while try decoder.nextFieldNumber() != nil {}
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.reasonID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._reasonLocationID) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.reasonIsNearLocation) }()
+      default: break
+      }
+    }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.reasonID != 0 {
+      try visitor.visitSingularUInt32Field(value: self.reasonID, fieldNumber: 1)
+    }
+    try { if let v = self._reasonLocationID {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    if self.reasonIsNearLocation != false {
+      try visitor.visitSingularBoolField(value: self.reasonIsNearLocation, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: ServiceRoute, rhs: ServiceRoute) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension ServiceRouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "ServiceRouteLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    // Load everything into unknown fields
-    while try decoder.nextFieldNumber() != nil {}
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: ServiceRouteLocation, rhs: ServiceRouteLocation) -> Bool {
+  public static func ==(lhs: DisruptionReason, rhs: DisruptionReason) -> Bool {
+    if lhs.reasonID != rhs.reasonID {return false}
+    if lhs._reasonLocationID != rhs._reasonLocationID {return false}
+    if lhs.reasonIsNearLocation != rhs.reasonIsNearLocation {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1598,48 +1554,4 @@ extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
 
 extension Forecast.PlatformDataSource: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0PLATFORM_DATA_SOURCE_PLATFORM_UNKNOWN\0\u{1}PLATFORM_DATA_SOURCE_PLATFORM_PLANNED\0\u{1}PLATFORM_DATA_SOURCE_PLATFORM_AUTOMATIC\0\u{1}PLATFORM_DATA_SOURCE_PLATFORM_MANUAL\0")
-}
-
-extension DisruptionReason: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "DisruptionReason"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}reason_id\0\u{3}reason_location_id\0\u{3}reason_is_near_location\0")
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.reasonID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self._reasonLocationID) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.reasonIsNearLocation) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if self.reasonID != 0 {
-      try visitor.visitSingularUInt32Field(value: self.reasonID, fieldNumber: 1)
-    }
-    try { if let v = self._reasonLocationID {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    } }()
-    if self.reasonIsNearLocation != false {
-      try visitor.visitSingularBoolField(value: self.reasonIsNearLocation, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: DisruptionReason, rhs: DisruptionReason) -> Bool {
-    if lhs.reasonID != rhs.reasonID {return false}
-    if lhs._reasonLocationID != rhs._reasonLocationID {return false}
-    if lhs.reasonIsNearLocation != rhs.reasonIsNearLocation {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
