@@ -26,22 +26,23 @@ public struct SearchRequest: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var locationIds: [String] = []
+  public var locationID: String = String()
 
   public var fromTime: String = String()
 
   public var toTime: String = String()
 
+  /// If true, only passenger services will be included. If false or unspecified, all services will be included.
   public var excludeNonPassengerServices: Bool = false
 
-  /// REMINDER: see darwin.deactivations
+  /// If true, only active services will be included. If false or unspecified, all services will be included.
   public var excludeNonActiveServices: Bool = false
 
+  /// If true, only non-chartered services will be included. If false or unspecified, all services will be included. 
   public var excludeCharteredServices: Bool = false
 
-  public var includeOnlyLocationTypes: [LocationType] = []
-
-  public var includeOnlyPlatform: String = String()
+  /// Filters results to include locations only of types listed. If none are given, all location types will be included.
+  public var filterLocationTypes: [LocationType] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -54,8 +55,6 @@ public struct SearchResponse: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var locationID: String = String()
-
   public var scheduleID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -67,7 +66,7 @@ public struct SearchResponse: Sendable {
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_ids\0\u{3}from_time\0\u{3}to_time\0\u{3}exclude_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}exclude_chartered_services\0\u{3}include_only_location_types\0\u{3}include_only_platform\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}from_time\0\u{3}to_time\0\u{3}exclude_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}exclude_chartered_services\0\u{3}filter_location_types\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -75,22 +74,21 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedStringField(value: &self.locationIds) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.fromTime) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.toTime) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.excludeNonPassengerServices) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.excludeNonActiveServices) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.excludeCharteredServices) }()
-      case 7: try { try decoder.decodeRepeatedEnumField(value: &self.includeOnlyLocationTypes) }()
-      case 8: try { try decoder.decodeSingularStringField(value: &self.includeOnlyPlatform) }()
+      case 7: try { try decoder.decodeRepeatedEnumField(value: &self.filterLocationTypes) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.locationIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.locationIds, fieldNumber: 1)
+    if !self.locationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.locationID, fieldNumber: 1)
     }
     if !self.fromTime.isEmpty {
       try visitor.visitSingularStringField(value: self.fromTime, fieldNumber: 2)
@@ -107,24 +105,20 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if self.excludeCharteredServices != false {
       try visitor.visitSingularBoolField(value: self.excludeCharteredServices, fieldNumber: 6)
     }
-    if !self.includeOnlyLocationTypes.isEmpty {
-      try visitor.visitPackedEnumField(value: self.includeOnlyLocationTypes, fieldNumber: 7)
-    }
-    if !self.includeOnlyPlatform.isEmpty {
-      try visitor.visitSingularStringField(value: self.includeOnlyPlatform, fieldNumber: 8)
+    if !self.filterLocationTypes.isEmpty {
+      try visitor.visitPackedEnumField(value: self.filterLocationTypes, fieldNumber: 7)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: SearchRequest, rhs: SearchRequest) -> Bool {
-    if lhs.locationIds != rhs.locationIds {return false}
+    if lhs.locationID != rhs.locationID {return false}
     if lhs.fromTime != rhs.fromTime {return false}
     if lhs.toTime != rhs.toTime {return false}
     if lhs.excludeNonPassengerServices != rhs.excludeNonPassengerServices {return false}
     if lhs.excludeNonActiveServices != rhs.excludeNonActiveServices {return false}
     if lhs.excludeCharteredServices != rhs.excludeCharteredServices {return false}
-    if lhs.includeOnlyLocationTypes != rhs.includeOnlyLocationTypes {return false}
-    if lhs.includeOnlyPlatform != rhs.includeOnlyPlatform {return false}
+    if lhs.filterLocationTypes != rhs.filterLocationTypes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -132,7 +126,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 
 extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}schedule_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_id\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -140,25 +134,20 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.scheduleID) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleID) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.locationID.isEmpty {
-      try visitor.visitSingularStringField(value: self.locationID, fieldNumber: 1)
-    }
     if !self.scheduleID.isEmpty {
-      try visitor.visitSingularStringField(value: self.scheduleID, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.scheduleID, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: SearchResponse, rhs: SearchResponse) -> Bool {
-    if lhs.locationID != rhs.locationID {return false}
     if lhs.scheduleID != rhs.scheduleID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
