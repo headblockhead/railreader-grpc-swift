@@ -20,26 +20,28 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-/// From and To times are inclusive, and may return services scheduled up to 2 hours before and after the provided times to allow for services that are running early or late to be shown in the results.
 public struct SearchRequest: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Only services scheduled at or through this location will be returned.
   public var locationID: String = String()
 
+  /// Services scheduled up to 2 hours before the from_time may be included if they are delayed.
   public var fromTime: String = String()
 
+  /// Services scheduled up to 2 hours after the to_time may be included if they are early.
   public var toTime: String = String()
 
-  /// If true, only passenger services will be included. If false or unspecified, all services will be included.
-  public var excludeNonPassengerServices: Bool = false
+  /// If true, all services will be included. If false or unspecified, only passenger services will be included.
+  public var includeNonPassengerServices: Bool = false
 
-  /// If true, only active services will be included. If false or unspecified, all services will be included.
+  /// If true, only active services will be included. Be warned: this excludes most historical data. If false or unspecified, all services will be included.
   public var excludeNonActiveServices: Bool = false
 
-  /// If true, only non-chartered services will be included. If false or unspecified, all services will be included. 
-  public var excludeCharteredServices: Bool = false
+  /// If true, all services will be included. If false or unspecified, only non-chartered services will be included. 
+  public var includeCharteredServices: Bool = false
 
   /// Filters results to include locations only of types listed. If none are given, all location types will be included.
   public var filterLocationTypes: [LocationType] = []
@@ -49,12 +51,12 @@ public struct SearchRequest: Sendable {
   public init() {}
 }
 
-/// The details in a SearchResponse can be used in a DescribeAtRequest to get full details.
 public struct SearchResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// This can be used in a DescribeAtRequest to get full details about the service.
   public var scheduleID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -66,7 +68,7 @@ public struct SearchResponse: Sendable {
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}from_time\0\u{3}to_time\0\u{3}exclude_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}exclude_chartered_services\0\u{3}filter_location_types\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{3}filter_location_types\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -77,9 +79,9 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 1: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.fromTime) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.toTime) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self.excludeNonPassengerServices) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.includeNonPassengerServices) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.excludeNonActiveServices) }()
-      case 6: try { try decoder.decodeSingularBoolField(value: &self.excludeCharteredServices) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.includeCharteredServices) }()
       case 7: try { try decoder.decodeRepeatedEnumField(value: &self.filterLocationTypes) }()
       default: break
       }
@@ -96,14 +98,14 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if !self.toTime.isEmpty {
       try visitor.visitSingularStringField(value: self.toTime, fieldNumber: 3)
     }
-    if self.excludeNonPassengerServices != false {
-      try visitor.visitSingularBoolField(value: self.excludeNonPassengerServices, fieldNumber: 4)
+    if self.includeNonPassengerServices != false {
+      try visitor.visitSingularBoolField(value: self.includeNonPassengerServices, fieldNumber: 4)
     }
     if self.excludeNonActiveServices != false {
       try visitor.visitSingularBoolField(value: self.excludeNonActiveServices, fieldNumber: 5)
     }
-    if self.excludeCharteredServices != false {
-      try visitor.visitSingularBoolField(value: self.excludeCharteredServices, fieldNumber: 6)
+    if self.includeCharteredServices != false {
+      try visitor.visitSingularBoolField(value: self.includeCharteredServices, fieldNumber: 6)
     }
     if !self.filterLocationTypes.isEmpty {
       try visitor.visitPackedEnumField(value: self.filterLocationTypes, fieldNumber: 7)
@@ -115,9 +117,9 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.locationID != rhs.locationID {return false}
     if lhs.fromTime != rhs.fromTime {return false}
     if lhs.toTime != rhs.toTime {return false}
-    if lhs.excludeNonPassengerServices != rhs.excludeNonPassengerServices {return false}
+    if lhs.includeNonPassengerServices != rhs.includeNonPassengerServices {return false}
     if lhs.excludeNonActiveServices != rhs.excludeNonActiveServices {return false}
-    if lhs.excludeCharteredServices != rhs.excludeCharteredServices {return false}
+    if lhs.includeCharteredServices != rhs.includeCharteredServices {return false}
     if lhs.filterLocationTypes != rhs.filterLocationTypes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
