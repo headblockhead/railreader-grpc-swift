@@ -44,23 +44,10 @@ public enum RailReader: Sendable {
                 method: "Search"
             )
         }
-        /// Namespace for "DescribeAt" metadata.
-        public enum DescribeAt: Sendable {
-            /// Request type for "DescribeAt".
-            public typealias Input = DescribeAtRequest
-            /// Response type for "DescribeAt".
-            public typealias Output = DescribeAtResponse
-            /// Descriptor for "DescribeAt".
-            public static let descriptor = GRPCCore.MethodDescriptor(
-                service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
-                method: "DescribeAt"
-            )
-        }
         /// Descriptors for all methods in the "RailReader" service.
         public static let descriptors: [GRPCCore.MethodDescriptor] = [
             UpdateLocations.descriptor,
-            Search.descriptor,
-            DescribeAt.descriptor
+            Search.descriptor
         ]
     }
 }
@@ -113,20 +100,6 @@ extension RailReader {
             request: GRPCCore.StreamingServerRequest<SearchRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<SearchResponse>
-
-        /// Handle the "DescribeAt" method.
-        ///
-        /// - Parameters:
-        ///   - request: A streaming request of `DescribeAtRequest` messages.
-        ///   - context: Context providing information about the RPC.
-        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
-        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
-        ///     to an internal error.
-        /// - Returns: A streaming response of `DescribeAtResponse` messages.
-        func describeAt(
-            request: GRPCCore.StreamingServerRequest<DescribeAtRequest>,
-            context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.StreamingServerResponse<DescribeAtResponse>
     }
 
     /// Service protocol for the "RailReader" service.
@@ -164,20 +137,6 @@ extension RailReader {
             request: GRPCCore.ServerRequest<SearchRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<SearchResponse>
-
-        /// Handle the "DescribeAt" method.
-        ///
-        /// - Parameters:
-        ///   - request: A streaming request of `DescribeAtRequest` messages.
-        ///   - context: Context providing information about the RPC.
-        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
-        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
-        ///     to an internal error.
-        /// - Returns: A streaming response of `DescribeAtResponse` messages.
-        func describeAt(
-            request: GRPCCore.StreamingServerRequest<DescribeAtRequest>,
-            context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.StreamingServerResponse<DescribeAtResponse>
     }
 
     /// Simple service protocol for the "RailReader" service.
@@ -214,21 +173,6 @@ extension RailReader {
             response: GRPCCore.RPCWriter<SearchResponse>,
             context: GRPCCore.ServerContext
         ) async throws
-
-        /// Handle the "DescribeAt" method.
-        ///
-        /// - Parameters:
-        ///   - request: A stream of `DescribeAtRequest` messages.
-        ///   - response: A response stream of `DescribeAtResponse` messages.
-        ///   - context: Context providing information about the RPC.
-        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
-        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
-        ///     to an internal error.
-        func describeAt(
-            request: GRPCCore.RPCAsyncSequence<DescribeAtRequest, any Swift.Error>,
-            response: GRPCCore.RPCWriter<DescribeAtResponse>,
-            context: GRPCCore.ServerContext
-        ) async throws
     }
 }
 
@@ -253,17 +197,6 @@ extension RailReader.StreamingServiceProtocol {
             serializer: GRPCProtobuf.ProtobufSerializer<SearchResponse>(),
             handler: { request, context in
                 try await self.search(
-                    request: request,
-                    context: context
-                )
-            }
-        )
-        router.registerHandler(
-            forMethod: RailReader.Method.DescribeAt.descriptor,
-            deserializer: GRPCProtobuf.ProtobufDeserializer<DescribeAtRequest>(),
-            serializer: GRPCProtobuf.ProtobufSerializer<DescribeAtResponse>(),
-            handler: { request, context in
-                try await self.describeAt(
                     request: request,
                     context: context
                 )
@@ -330,23 +263,6 @@ extension RailReader.SimpleServiceProtocol {
             }
         )
     }
-
-    public func describeAt(
-        request: GRPCCore.StreamingServerRequest<DescribeAtRequest>,
-        context: GRPCCore.ServerContext
-    ) async throws -> GRPCCore.StreamingServerResponse<DescribeAtResponse> {
-        return GRPCCore.StreamingServerResponse<DescribeAtResponse>(
-            metadata: [:],
-            producer: { writer in
-                try await self.describeAt(
-                    request: request.messages,
-                    response: writer,
-                    context: context
-                )
-                return [:]
-            }
-        )
-    }
 }
 
 // MARK: RailReader (client)
@@ -394,25 +310,6 @@ extension RailReader {
             deserializer: some GRPCCore.MessageDeserializer<SearchResponse>,
             options: GRPCCore.CallOptions,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<SearchResponse>) async throws -> Result
-        ) async throws -> Result where Result: Sendable
-
-        /// Call the "DescribeAt" method.
-        ///
-        /// - Parameters:
-        ///   - request: A streaming request producing `DescribeAtRequest` messages.
-        ///   - serializer: A serializer for `DescribeAtRequest` messages.
-        ///   - deserializer: A deserializer for `DescribeAtResponse` messages.
-        ///   - options: Options to apply to this RPC.
-        ///   - handleResponse: A closure which handles the response, the result of which is
-        ///       returned to the caller. Returning from the closure will cancel the RPC if it
-        ///       hasn't already finished.
-        /// - Returns: The result of `handleResponse`.
-        func describeAt<Result>(
-            request: GRPCCore.StreamingClientRequest<DescribeAtRequest>,
-            serializer: some GRPCCore.MessageSerializer<DescribeAtRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<DescribeAtResponse>,
-            options: GRPCCore.CallOptions,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DescribeAtResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
     }
 
@@ -489,34 +386,6 @@ extension RailReader {
                 onResponse: handleResponse
             )
         }
-
-        /// Call the "DescribeAt" method.
-        ///
-        /// - Parameters:
-        ///   - request: A streaming request producing `DescribeAtRequest` messages.
-        ///   - serializer: A serializer for `DescribeAtRequest` messages.
-        ///   - deserializer: A deserializer for `DescribeAtResponse` messages.
-        ///   - options: Options to apply to this RPC.
-        ///   - handleResponse: A closure which handles the response, the result of which is
-        ///       returned to the caller. Returning from the closure will cancel the RPC if it
-        ///       hasn't already finished.
-        /// - Returns: The result of `handleResponse`.
-        public func describeAt<Result>(
-            request: GRPCCore.StreamingClientRequest<DescribeAtRequest>,
-            serializer: some GRPCCore.MessageSerializer<DescribeAtRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<DescribeAtResponse>,
-            options: GRPCCore.CallOptions = .defaults,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DescribeAtResponse>) async throws -> Result
-        ) async throws -> Result where Result: Sendable {
-            try await self.client.bidirectionalStreaming(
-                request: request,
-                descriptor: RailReader.Method.DescribeAt.descriptor,
-                serializer: serializer,
-                deserializer: deserializer,
-                options: options,
-                onResponse: handleResponse
-            )
-        }
     }
 }
 
@@ -566,29 +435,6 @@ extension RailReader.ClientProtocol {
             request: request,
             serializer: GRPCProtobuf.ProtobufSerializer<SearchRequest>(),
             deserializer: GRPCProtobuf.ProtobufDeserializer<SearchResponse>(),
-            options: options,
-            onResponse: handleResponse
-        )
-    }
-
-    /// Call the "DescribeAt" method.
-    ///
-    /// - Parameters:
-    ///   - request: A streaming request producing `DescribeAtRequest` messages.
-    ///   - options: Options to apply to this RPC.
-    ///   - handleResponse: A closure which handles the response, the result of which is
-    ///       returned to the caller. Returning from the closure will cancel the RPC if it
-    ///       hasn't already finished.
-    /// - Returns: The result of `handleResponse`.
-    public func describeAt<Result>(
-        request: GRPCCore.StreamingClientRequest<DescribeAtRequest>,
-        options: GRPCCore.CallOptions = .defaults,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DescribeAtResponse>) async throws -> Result
-    ) async throws -> Result where Result: Sendable {
-        try await self.describeAt(
-            request: request,
-            serializer: GRPCProtobuf.ProtobufSerializer<DescribeAtRequest>(),
-            deserializer: GRPCProtobuf.ProtobufDeserializer<DescribeAtResponse>(),
             options: options,
             onResponse: handleResponse
         )
@@ -648,34 +494,6 @@ extension RailReader.ClientProtocol {
             metadata: metadata
         )
         return try await self.search(
-            request: request,
-            options: options,
-            onResponse: handleResponse
-        )
-    }
-
-    /// Call the "DescribeAt" method.
-    ///
-    /// - Parameters:
-    ///   - metadata: Additional metadata to send, defaults to empty.
-    ///   - options: Options to apply to this RPC, defaults to `.defaults`.
-    ///   - producer: A closure producing request messages to send to the server. The request
-    ///       stream is closed when the closure returns.
-    ///   - handleResponse: A closure which handles the response, the result of which is
-    ///       returned to the caller. Returning from the closure will cancel the RPC if it
-    ///       hasn't already finished.
-    /// - Returns: The result of `handleResponse`.
-    public func describeAt<Result>(
-        metadata: GRPCCore.Metadata = [:],
-        options: GRPCCore.CallOptions = .defaults,
-        requestProducer producer: @Sendable @escaping (GRPCCore.RPCWriter<DescribeAtRequest>) async throws -> Void,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<DescribeAtResponse>) async throws -> Result
-    ) async throws -> Result where Result: Sendable {
-        let request = GRPCCore.StreamingClientRequest<DescribeAtRequest>(
-            metadata: metadata,
-            producer: producer
-        )
-        return try await self.describeAt(
             request: request,
             options: options,
             onResponse: handleResponse
