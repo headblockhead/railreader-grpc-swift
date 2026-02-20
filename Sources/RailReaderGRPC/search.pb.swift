@@ -32,6 +32,17 @@ public struct SearchRequest: Sendable {
 
   public var toTime: String = String()
 
+  public var excludeNonPassengerServices: Bool = false
+
+  /// REMINDER: see darwin.deactivations
+  public var excludeNonActiveServices: Bool = false
+
+  public var excludeCharteredServices: Bool = false
+
+  public var includeOnlyLocationTypes: [LocationType] = []
+
+  public var includeOnlyPlatform: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -56,7 +67,7 @@ public struct SearchResponse: Sendable {
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_ids\0\u{3}from_time\0\u{3}to_time\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_ids\0\u{3}from_time\0\u{3}to_time\0\u{3}exclude_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}exclude_chartered_services\0\u{3}include_only_location_types\0\u{3}include_only_platform\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -67,6 +78,11 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.locationIds) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.fromTime) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.toTime) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.excludeNonPassengerServices) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.excludeNonActiveServices) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.excludeCharteredServices) }()
+      case 7: try { try decoder.decodeRepeatedEnumField(value: &self.includeOnlyLocationTypes) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.includeOnlyPlatform) }()
       default: break
       }
     }
@@ -82,6 +98,21 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if !self.toTime.isEmpty {
       try visitor.visitSingularStringField(value: self.toTime, fieldNumber: 3)
     }
+    if self.excludeNonPassengerServices != false {
+      try visitor.visitSingularBoolField(value: self.excludeNonPassengerServices, fieldNumber: 4)
+    }
+    if self.excludeNonActiveServices != false {
+      try visitor.visitSingularBoolField(value: self.excludeNonActiveServices, fieldNumber: 5)
+    }
+    if self.excludeCharteredServices != false {
+      try visitor.visitSingularBoolField(value: self.excludeCharteredServices, fieldNumber: 6)
+    }
+    if !self.includeOnlyLocationTypes.isEmpty {
+      try visitor.visitPackedEnumField(value: self.includeOnlyLocationTypes, fieldNumber: 7)
+    }
+    if !self.includeOnlyPlatform.isEmpty {
+      try visitor.visitSingularStringField(value: self.includeOnlyPlatform, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -89,6 +120,11 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.locationIds != rhs.locationIds {return false}
     if lhs.fromTime != rhs.fromTime {return false}
     if lhs.toTime != rhs.toTime {return false}
+    if lhs.excludeNonPassengerServices != rhs.excludeNonPassengerServices {return false}
+    if lhs.excludeNonActiveServices != rhs.excludeNonActiveServices {return false}
+    if lhs.excludeCharteredServices != rhs.excludeCharteredServices {return false}
+    if lhs.includeOnlyLocationTypes != rhs.includeOnlyLocationTypes {return false}
+    if lhs.includeOnlyPlatform != rhs.includeOnlyPlatform {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

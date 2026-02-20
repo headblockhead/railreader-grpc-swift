@@ -254,7 +254,7 @@ public struct ScheduleLocation: Sendable {
 
   public var locationIsAffectedByDiversion: Bool = false
 
-  public var locationType: ScheduleLocation.LocationType = .locationUnknown
+  public var locationType: LocationType = .locationUnknown
 
   public var scheduledWorkingArrivalTime: String {
     get {_scheduledWorkingArrivalTime ?? String()}
@@ -316,64 +316,6 @@ public struct ScheduleLocation: Sendable {
   public mutating func clearLocationCancellationReason() {self._locationCancellationReason = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum LocationType: SwiftProtobuf.Enum, Swift.CaseIterable {
-    public typealias RawValue = Int
-    case locationUnknown // = 0
-    case locationOrigin // = 1
-    case locationOperationalOrigin // = 2
-    case locationIntermediate // = 3
-    case locationOperationalIntermediate // = 4
-    case locationIntermediatePassing // = 5
-    case locationDestination // = 6
-    case locationOperationalDestination // = 7
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .locationUnknown
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .locationUnknown
-      case 1: self = .locationOrigin
-      case 2: self = .locationOperationalOrigin
-      case 3: self = .locationIntermediate
-      case 4: self = .locationOperationalIntermediate
-      case 5: self = .locationIntermediatePassing
-      case 6: self = .locationDestination
-      case 7: self = .locationOperationalDestination
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .locationUnknown: return 0
-      case .locationOrigin: return 1
-      case .locationOperationalOrigin: return 2
-      case .locationIntermediate: return 3
-      case .locationOperationalIntermediate: return 4
-      case .locationIntermediatePassing: return 5
-      case .locationDestination: return 6
-      case .locationOperationalDestination: return 7
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-    // The compiler won't synthesize support with the UNRECOGNIZED case.
-    public static let allCases: [ScheduleLocation.LocationType] = [
-      .locationUnknown,
-      .locationOrigin,
-      .locationOperationalOrigin,
-      .locationIntermediate,
-      .locationOperationalIntermediate,
-      .locationIntermediatePassing,
-      .locationDestination,
-      .locationOperationalDestination,
-    ]
-
-  }
 
   public init() {}
 
@@ -1221,10 +1163,6 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension ScheduleLocation.LocationType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0LOCATION_TYPE_LOCATION_UNKNOWN\0\u{1}LOCATION_TYPE_LOCATION_ORIGIN\0\u{1}LOCATION_TYPE_LOCATION_OPERATIONAL_ORIGIN\0\u{1}LOCATION_TYPE_LOCATION_INTERMEDIATE\0\u{1}LOCATION_TYPE_LOCATION_OPERATIONAL_INTERMEDIATE\0\u{1}LOCATION_TYPE_LOCATION_INTERMEDIATE_PASSING\0\u{1}LOCATION_TYPE_LOCATION_DESTINATION\0\u{1}LOCATION_TYPE_LOCATION_OPERATIONAL_DESTINATION\0")
 }
 
 extension Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
