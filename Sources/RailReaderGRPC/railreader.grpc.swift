@@ -32,35 +32,35 @@ public enum RailReader: Sendable {
                 method: "GetLatestLocationUpdates"
             )
         }
-        /// Namespace for "ListSchedulesAtLocationID" metadata.
-        public enum ListSchedulesAtLocationID: Sendable {
-            /// Request type for "ListSchedulesAtLocationID".
-            public typealias Input = ListSchedulesAtLocationIDRequest
-            /// Response type for "ListSchedulesAtLocationID".
+        /// Namespace for "Search" metadata.
+        public enum Search: Sendable {
+            /// Request type for "Search".
+            public typealias Input = SearchRequest
+            /// Response type for "Search".
             public typealias Output = ScheduleLocationUUID
-            /// Descriptor for "ListSchedulesAtLocationID".
+            /// Descriptor for "Search".
             public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
-                method: "ListSchedulesAtLocationID"
+                method: "Search"
             )
         }
-        /// Namespace for "DescribeSchedulesByScheduleLocationUUID" metadata.
-        public enum DescribeSchedulesByScheduleLocationUUID: Sendable {
-            /// Request type for "DescribeSchedulesByScheduleLocationUUID".
-            public typealias Input = DescribeScheduleByScheduleLocationUUIDRequest
-            /// Response type for "DescribeSchedulesByScheduleLocationUUID".
+        /// Namespace for "DescribeServicesByScheduleLocationUUID" metadata.
+        public enum DescribeServicesByScheduleLocationUUID: Sendable {
+            /// Request type for "DescribeServicesByScheduleLocationUUID".
+            public typealias Input = DescribeServiceByScheduleLocationUUIDRequest
+            /// Response type for "DescribeServicesByScheduleLocationUUID".
             public typealias Output = ServiceDescription
-            /// Descriptor for "DescribeSchedulesByScheduleLocationUUID".
+            /// Descriptor for "DescribeServicesByScheduleLocationUUID".
             public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
-                method: "DescribeSchedulesByScheduleLocationUUID"
+                method: "DescribeServicesByScheduleLocationUUID"
             )
         }
         /// Descriptors for all methods in the "RailReader" service.
         public static let descriptors: [GRPCCore.MethodDescriptor] = [
             GetLatestLocationUpdates.descriptor,
-            ListSchedulesAtLocationID.descriptor,
-            DescribeSchedulesByScheduleLocationUUID.descriptor
+            Search.descriptor,
+            DescribeServicesByScheduleLocationUUID.descriptor
         ]
     }
 }
@@ -100,31 +100,31 @@ extension RailReader {
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<LatestLocationUpdatesResponse>
 
-        /// Handle the "ListSchedulesAtLocationID" method.
+        /// Handle the "Search" method.
         ///
         /// - Parameters:
-        ///   - request: A streaming request of `ListSchedulesAtLocationIDRequest` messages.
+        ///   - request: A streaming request of `SearchRequest` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
         /// - Returns: A streaming response of `ScheduleLocationUUID` messages.
-        func listSchedulesAtLocationID(
-            request: GRPCCore.StreamingServerRequest<ListSchedulesAtLocationIDRequest>,
+        func search(
+            request: GRPCCore.StreamingServerRequest<SearchRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID>
 
-        /// Handle the "DescribeSchedulesByScheduleLocationUUID" method.
+        /// Handle the "DescribeServicesByScheduleLocationUUID" method.
         ///
         /// - Parameters:
-        ///   - request: A streaming request of `DescribeScheduleByScheduleLocationUUIDRequest` messages.
+        ///   - request: A streaming request of `DescribeServiceByScheduleLocationUUIDRequest` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
         /// - Returns: A streaming response of `ServiceDescription` messages.
-        func describeSchedulesByScheduleLocationUUID(
-            request: GRPCCore.StreamingServerRequest<DescribeScheduleByScheduleLocationUUIDRequest>,
+        func describeServicesByScheduleLocationUUID(
+            request: GRPCCore.StreamingServerRequest<DescribeServiceByScheduleLocationUUIDRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<ServiceDescription>
     }
@@ -151,31 +151,31 @@ extension RailReader {
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.ServerResponse<LatestLocationUpdatesResponse>
 
-        /// Handle the "ListSchedulesAtLocationID" method.
+        /// Handle the "Search" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `ListSchedulesAtLocationIDRequest` message.
+        ///   - request: A request containing a single `SearchRequest` message.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
         /// - Returns: A streaming response of `ScheduleLocationUUID` messages.
-        func listSchedulesAtLocationID(
-            request: GRPCCore.ServerRequest<ListSchedulesAtLocationIDRequest>,
+        func search(
+            request: GRPCCore.ServerRequest<SearchRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID>
 
-        /// Handle the "DescribeSchedulesByScheduleLocationUUID" method.
+        /// Handle the "DescribeServicesByScheduleLocationUUID" method.
         ///
         /// - Parameters:
-        ///   - request: A streaming request of `DescribeScheduleByScheduleLocationUUIDRequest` messages.
+        ///   - request: A streaming request of `DescribeServiceByScheduleLocationUUIDRequest` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
         /// - Returns: A streaming response of `ServiceDescription` messages.
-        func describeSchedulesByScheduleLocationUUID(
-            request: GRPCCore.StreamingServerRequest<DescribeScheduleByScheduleLocationUUIDRequest>,
+        func describeServicesByScheduleLocationUUID(
+            request: GRPCCore.StreamingServerRequest<DescribeServiceByScheduleLocationUUIDRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<ServiceDescription>
     }
@@ -200,32 +200,32 @@ extension RailReader {
             context: GRPCCore.ServerContext
         ) async throws -> LatestLocationUpdatesResponse
 
-        /// Handle the "ListSchedulesAtLocationID" method.
+        /// Handle the "Search" method.
         ///
         /// - Parameters:
-        ///   - request: A `ListSchedulesAtLocationIDRequest` message.
+        ///   - request: A `SearchRequest` message.
         ///   - response: A response stream of `ScheduleLocationUUID` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        func listSchedulesAtLocationID(
-            request: ListSchedulesAtLocationIDRequest,
+        func search(
+            request: SearchRequest,
             response: GRPCCore.RPCWriter<ScheduleLocationUUID>,
             context: GRPCCore.ServerContext
         ) async throws
 
-        /// Handle the "DescribeSchedulesByScheduleLocationUUID" method.
+        /// Handle the "DescribeServicesByScheduleLocationUUID" method.
         ///
         /// - Parameters:
-        ///   - request: A stream of `DescribeScheduleByScheduleLocationUUIDRequest` messages.
+        ///   - request: A stream of `DescribeServiceByScheduleLocationUUIDRequest` messages.
         ///   - response: A response stream of `ServiceDescription` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        func describeSchedulesByScheduleLocationUUID(
-            request: GRPCCore.RPCAsyncSequence<DescribeScheduleByScheduleLocationUUIDRequest, any Swift.Error>,
+        func describeServicesByScheduleLocationUUID(
+            request: GRPCCore.RPCAsyncSequence<DescribeServiceByScheduleLocationUUIDRequest, any Swift.Error>,
             response: GRPCCore.RPCWriter<ServiceDescription>,
             context: GRPCCore.ServerContext
         ) async throws
@@ -248,22 +248,22 @@ extension RailReader.StreamingServiceProtocol {
             }
         )
         router.registerHandler(
-            forMethod: RailReader.Method.ListSchedulesAtLocationID.descriptor,
-            deserializer: GRPCProtobuf.ProtobufDeserializer<ListSchedulesAtLocationIDRequest>(),
+            forMethod: RailReader.Method.Search.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<SearchRequest>(),
             serializer: GRPCProtobuf.ProtobufSerializer<ScheduleLocationUUID>(),
             handler: { request, context in
-                try await self.listSchedulesAtLocationID(
+                try await self.search(
                     request: request,
                     context: context
                 )
             }
         )
         router.registerHandler(
-            forMethod: RailReader.Method.DescribeSchedulesByScheduleLocationUUID.descriptor,
-            deserializer: GRPCProtobuf.ProtobufDeserializer<DescribeScheduleByScheduleLocationUUIDRequest>(),
+            forMethod: RailReader.Method.DescribeServicesByScheduleLocationUUID.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<DescribeServiceByScheduleLocationUUIDRequest>(),
             serializer: GRPCProtobuf.ProtobufSerializer<ServiceDescription>(),
             handler: { request, context in
-                try await self.describeSchedulesByScheduleLocationUUID(
+                try await self.describeServicesByScheduleLocationUUID(
                     request: request,
                     context: context
                 )
@@ -286,11 +286,11 @@ extension RailReader.ServiceProtocol {
         return GRPCCore.StreamingServerResponse(single: response)
     }
 
-    public func listSchedulesAtLocationID(
-        request: GRPCCore.StreamingServerRequest<ListSchedulesAtLocationIDRequest>,
+    public func search(
+        request: GRPCCore.StreamingServerRequest<SearchRequest>,
         context: GRPCCore.ServerContext
     ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID> {
-        let response = try await self.listSchedulesAtLocationID(
+        let response = try await self.search(
             request: GRPCCore.ServerRequest(stream: request),
             context: context
         )
@@ -314,14 +314,14 @@ extension RailReader.SimpleServiceProtocol {
         )
     }
 
-    public func listSchedulesAtLocationID(
-        request: GRPCCore.ServerRequest<ListSchedulesAtLocationIDRequest>,
+    public func search(
+        request: GRPCCore.ServerRequest<SearchRequest>,
         context: GRPCCore.ServerContext
     ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID> {
         return GRPCCore.StreamingServerResponse<ScheduleLocationUUID>(
             metadata: [:],
             producer: { writer in
-                try await self.listSchedulesAtLocationID(
+                try await self.search(
                     request: request.message,
                     response: writer,
                     context: context
@@ -331,14 +331,14 @@ extension RailReader.SimpleServiceProtocol {
         )
     }
 
-    public func describeSchedulesByScheduleLocationUUID(
-        request: GRPCCore.StreamingServerRequest<DescribeScheduleByScheduleLocationUUIDRequest>,
+    public func describeServicesByScheduleLocationUUID(
+        request: GRPCCore.StreamingServerRequest<DescribeServiceByScheduleLocationUUIDRequest>,
         context: GRPCCore.ServerContext
     ) async throws -> GRPCCore.StreamingServerResponse<ServiceDescription> {
         return GRPCCore.StreamingServerResponse<ServiceDescription>(
             metadata: [:],
             producer: { writer in
-                try await self.describeSchedulesByScheduleLocationUUID(
+                try await self.describeServicesByScheduleLocationUUID(
                     request: request.messages,
                     response: writer,
                     context: context
@@ -377,39 +377,39 @@ extension RailReader {
             onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<LatestLocationUpdatesResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
 
-        /// Call the "ListSchedulesAtLocationID" method.
+        /// Call the "Search" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `ListSchedulesAtLocationIDRequest` message.
-        ///   - serializer: A serializer for `ListSchedulesAtLocationIDRequest` messages.
+        ///   - request: A request containing a single `SearchRequest` message.
+        ///   - serializer: A serializer for `SearchRequest` messages.
         ///   - deserializer: A deserializer for `ScheduleLocationUUID` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
-        func listSchedulesAtLocationID<Result>(
-            request: GRPCCore.ClientRequest<ListSchedulesAtLocationIDRequest>,
-            serializer: some GRPCCore.MessageSerializer<ListSchedulesAtLocationIDRequest>,
+        func search<Result>(
+            request: GRPCCore.ClientRequest<SearchRequest>,
+            serializer: some GRPCCore.MessageSerializer<SearchRequest>,
             deserializer: some GRPCCore.MessageDeserializer<ScheduleLocationUUID>,
             options: GRPCCore.CallOptions,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
         ) async throws -> Result where Result: Sendable
 
-        /// Call the "DescribeSchedulesByScheduleLocationUUID" method.
+        /// Call the "DescribeServicesByScheduleLocationUUID" method.
         ///
         /// - Parameters:
-        ///   - request: A streaming request producing `DescribeScheduleByScheduleLocationUUIDRequest` messages.
-        ///   - serializer: A serializer for `DescribeScheduleByScheduleLocationUUIDRequest` messages.
+        ///   - request: A streaming request producing `DescribeServiceByScheduleLocationUUIDRequest` messages.
+        ///   - serializer: A serializer for `DescribeServiceByScheduleLocationUUIDRequest` messages.
         ///   - deserializer: A deserializer for `ServiceDescription` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
-        func describeSchedulesByScheduleLocationUUID<Result>(
-            request: GRPCCore.StreamingClientRequest<DescribeScheduleByScheduleLocationUUIDRequest>,
-            serializer: some GRPCCore.MessageSerializer<DescribeScheduleByScheduleLocationUUIDRequest>,
+        func describeServicesByScheduleLocationUUID<Result>(
+            request: GRPCCore.StreamingClientRequest<DescribeServiceByScheduleLocationUUIDRequest>,
+            serializer: some GRPCCore.MessageSerializer<DescribeServiceByScheduleLocationUUIDRequest>,
             deserializer: some GRPCCore.MessageDeserializer<ServiceDescription>,
             options: GRPCCore.CallOptions,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ServiceDescription>) async throws -> Result
@@ -462,27 +462,27 @@ extension RailReader {
             )
         }
 
-        /// Call the "ListSchedulesAtLocationID" method.
+        /// Call the "Search" method.
         ///
         /// - Parameters:
-        ///   - request: A request containing a single `ListSchedulesAtLocationIDRequest` message.
-        ///   - serializer: A serializer for `ListSchedulesAtLocationIDRequest` messages.
+        ///   - request: A request containing a single `SearchRequest` message.
+        ///   - serializer: A serializer for `SearchRequest` messages.
         ///   - deserializer: A deserializer for `ScheduleLocationUUID` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
-        public func listSchedulesAtLocationID<Result>(
-            request: GRPCCore.ClientRequest<ListSchedulesAtLocationIDRequest>,
-            serializer: some GRPCCore.MessageSerializer<ListSchedulesAtLocationIDRequest>,
+        public func search<Result>(
+            request: GRPCCore.ClientRequest<SearchRequest>,
+            serializer: some GRPCCore.MessageSerializer<SearchRequest>,
             deserializer: some GRPCCore.MessageDeserializer<ScheduleLocationUUID>,
             options: GRPCCore.CallOptions = .defaults,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
         ) async throws -> Result where Result: Sendable {
             try await self.client.serverStreaming(
                 request: request,
-                descriptor: RailReader.Method.ListSchedulesAtLocationID.descriptor,
+                descriptor: RailReader.Method.Search.descriptor,
                 serializer: serializer,
                 deserializer: deserializer,
                 options: options,
@@ -490,27 +490,27 @@ extension RailReader {
             )
         }
 
-        /// Call the "DescribeSchedulesByScheduleLocationUUID" method.
+        /// Call the "DescribeServicesByScheduleLocationUUID" method.
         ///
         /// - Parameters:
-        ///   - request: A streaming request producing `DescribeScheduleByScheduleLocationUUIDRequest` messages.
-        ///   - serializer: A serializer for `DescribeScheduleByScheduleLocationUUIDRequest` messages.
+        ///   - request: A streaming request producing `DescribeServiceByScheduleLocationUUIDRequest` messages.
+        ///   - serializer: A serializer for `DescribeServiceByScheduleLocationUUIDRequest` messages.
         ///   - deserializer: A deserializer for `ServiceDescription` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
         ///       hasn't already finished.
         /// - Returns: The result of `handleResponse`.
-        public func describeSchedulesByScheduleLocationUUID<Result>(
-            request: GRPCCore.StreamingClientRequest<DescribeScheduleByScheduleLocationUUIDRequest>,
-            serializer: some GRPCCore.MessageSerializer<DescribeScheduleByScheduleLocationUUIDRequest>,
+        public func describeServicesByScheduleLocationUUID<Result>(
+            request: GRPCCore.StreamingClientRequest<DescribeServiceByScheduleLocationUUIDRequest>,
+            serializer: some GRPCCore.MessageSerializer<DescribeServiceByScheduleLocationUUIDRequest>,
             deserializer: some GRPCCore.MessageDeserializer<ServiceDescription>,
             options: GRPCCore.CallOptions = .defaults,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ServiceDescription>) async throws -> Result
         ) async throws -> Result where Result: Sendable {
             try await self.client.bidirectionalStreaming(
                 request: request,
-                descriptor: RailReader.Method.DescribeSchedulesByScheduleLocationUUID.descriptor,
+                descriptor: RailReader.Method.DescribeServicesByScheduleLocationUUID.descriptor,
                 serializer: serializer,
                 deserializer: deserializer,
                 options: options,
@@ -548,46 +548,46 @@ extension RailReader.ClientProtocol {
         )
     }
 
-    /// Call the "ListSchedulesAtLocationID" method.
+    /// Call the "Search" method.
     ///
     /// - Parameters:
-    ///   - request: A request containing a single `ListSchedulesAtLocationIDRequest` message.
+    ///   - request: A request containing a single `SearchRequest` message.
     ///   - options: Options to apply to this RPC.
     ///   - handleResponse: A closure which handles the response, the result of which is
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    public func listSchedulesAtLocationID<Result>(
-        request: GRPCCore.ClientRequest<ListSchedulesAtLocationIDRequest>,
+    public func search<Result>(
+        request: GRPCCore.ClientRequest<SearchRequest>,
         options: GRPCCore.CallOptions = .defaults,
         onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
     ) async throws -> Result where Result: Sendable {
-        try await self.listSchedulesAtLocationID(
+        try await self.search(
             request: request,
-            serializer: GRPCProtobuf.ProtobufSerializer<ListSchedulesAtLocationIDRequest>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<SearchRequest>(),
             deserializer: GRPCProtobuf.ProtobufDeserializer<ScheduleLocationUUID>(),
             options: options,
             onResponse: handleResponse
         )
     }
 
-    /// Call the "DescribeSchedulesByScheduleLocationUUID" method.
+    /// Call the "DescribeServicesByScheduleLocationUUID" method.
     ///
     /// - Parameters:
-    ///   - request: A streaming request producing `DescribeScheduleByScheduleLocationUUIDRequest` messages.
+    ///   - request: A streaming request producing `DescribeServiceByScheduleLocationUUIDRequest` messages.
     ///   - options: Options to apply to this RPC.
     ///   - handleResponse: A closure which handles the response, the result of which is
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    public func describeSchedulesByScheduleLocationUUID<Result>(
-        request: GRPCCore.StreamingClientRequest<DescribeScheduleByScheduleLocationUUIDRequest>,
+    public func describeServicesByScheduleLocationUUID<Result>(
+        request: GRPCCore.StreamingClientRequest<DescribeServiceByScheduleLocationUUIDRequest>,
         options: GRPCCore.CallOptions = .defaults,
         onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ServiceDescription>) async throws -> Result
     ) async throws -> Result where Result: Sendable {
-        try await self.describeSchedulesByScheduleLocationUUID(
+        try await self.describeServicesByScheduleLocationUUID(
             request: request,
-            serializer: GRPCProtobuf.ProtobufSerializer<DescribeScheduleByScheduleLocationUUIDRequest>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<DescribeServiceByScheduleLocationUUIDRequest>(),
             deserializer: GRPCProtobuf.ProtobufDeserializer<ServiceDescription>(),
             options: options,
             onResponse: handleResponse
@@ -627,7 +627,7 @@ extension RailReader.ClientProtocol {
         )
     }
 
-    /// Call the "ListSchedulesAtLocationID" method.
+    /// Call the "Search" method.
     ///
     /// - Parameters:
     ///   - message: request message to send.
@@ -637,24 +637,24 @@ extension RailReader.ClientProtocol {
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    public func listSchedulesAtLocationID<Result>(
-        _ message: ListSchedulesAtLocationIDRequest,
+    public func search<Result>(
+        _ message: SearchRequest,
         metadata: GRPCCore.Metadata = [:],
         options: GRPCCore.CallOptions = .defaults,
         onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
     ) async throws -> Result where Result: Sendable {
-        let request = GRPCCore.ClientRequest<ListSchedulesAtLocationIDRequest>(
+        let request = GRPCCore.ClientRequest<SearchRequest>(
             message: message,
             metadata: metadata
         )
-        return try await self.listSchedulesAtLocationID(
+        return try await self.search(
             request: request,
             options: options,
             onResponse: handleResponse
         )
     }
 
-    /// Call the "DescribeSchedulesByScheduleLocationUUID" method.
+    /// Call the "DescribeServicesByScheduleLocationUUID" method.
     ///
     /// - Parameters:
     ///   - metadata: Additional metadata to send, defaults to empty.
@@ -665,17 +665,17 @@ extension RailReader.ClientProtocol {
     ///       returned to the caller. Returning from the closure will cancel the RPC if it
     ///       hasn't already finished.
     /// - Returns: The result of `handleResponse`.
-    public func describeSchedulesByScheduleLocationUUID<Result>(
+    public func describeServicesByScheduleLocationUUID<Result>(
         metadata: GRPCCore.Metadata = [:],
         options: GRPCCore.CallOptions = .defaults,
-        requestProducer producer: @Sendable @escaping (GRPCCore.RPCWriter<DescribeScheduleByScheduleLocationUUIDRequest>) async throws -> Void,
+        requestProducer producer: @Sendable @escaping (GRPCCore.RPCWriter<DescribeServiceByScheduleLocationUUIDRequest>) async throws -> Void,
         onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ServiceDescription>) async throws -> Result
     ) async throws -> Result where Result: Sendable {
-        let request = GRPCCore.StreamingClientRequest<DescribeScheduleByScheduleLocationUUIDRequest>(
+        let request = GRPCCore.StreamingClientRequest<DescribeServiceByScheduleLocationUUIDRequest>(
             metadata: metadata,
             producer: producer
         )
-        return try await self.describeSchedulesByScheduleLocationUUID(
+        return try await self.describeServicesByScheduleLocationUUID(
             request: request,
             options: options,
             onResponse: handleResponse
