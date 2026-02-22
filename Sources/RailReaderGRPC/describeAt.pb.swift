@@ -25,9 +25,7 @@ public struct DescribeAtRequest: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var locationID: String = String()
-
-  public var scheduleID: String = String()
+  public var scheduleLocationUuid: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -719,7 +717,7 @@ public struct Forecast: @unchecked Sendable {
 
 extension DescribeAtRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "DescribeAtRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}schedule_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_location_uuid\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -727,26 +725,21 @@ extension DescribeAtRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.scheduleID) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleLocationUuid) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.locationID.isEmpty {
-      try visitor.visitSingularStringField(value: self.locationID, fieldNumber: 1)
-    }
-    if !self.scheduleID.isEmpty {
-      try visitor.visitSingularStringField(value: self.scheduleID, fieldNumber: 2)
+    if !self.scheduleLocationUuid.isEmpty {
+      try visitor.visitSingularStringField(value: self.scheduleLocationUuid, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: DescribeAtRequest, rhs: DescribeAtRequest) -> Bool {
-    if lhs.locationID != rhs.locationID {return false}
-    if lhs.scheduleID != rhs.scheduleID {return false}
+    if lhs.scheduleLocationUuid != rhs.scheduleLocationUuid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
