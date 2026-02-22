@@ -198,6 +198,8 @@ public struct ScheduleLocation: Sendable {
 
   public var uuid: String = String()
 
+  public var locationID: String = String()
+
   public var activities: [ActivityType] = []
 
   public var plannedActivities: [ActivityType] = []
@@ -985,7 +987,7 @@ extension Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
 
 extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "ScheduleLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{2}\u{4}activities\0\u{3}planned_activities\0\u{4}\u{2}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{4}\u{2}is_cancelled\0\u{3}location_cancellation_reason\0\u{c}\u{2}\u{3}\u{c}\u{7}\u{1}\u{c}\u{10}\u{1}\u{c}\u{13}\u{1}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{4}\u{3}location_id\0\u{1}activities\0\u{3}planned_activities\0\u{4}\u{2}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{4}\u{2}is_cancelled\0\u{3}location_cancellation_reason\0\u{c}\u{2}\u{2}\u{c}\u{7}\u{1}\u{c}\u{10}\u{1}\u{c}\u{13}\u{1}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -994,6 +996,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.uuid) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.locationID) }()
       case 5: try { try decoder.decodeRepeatedEnumField(value: &self.activities) }()
       case 6: try { try decoder.decodeRepeatedEnumField(value: &self.plannedActivities) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.isAffectedByDiversion) }()
@@ -1018,6 +1021,9 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     // https://github.com/apple/swift-protobuf/issues/1182
     if !self.uuid.isEmpty {
       try visitor.visitSingularStringField(value: self.uuid, fieldNumber: 1)
+    }
+    if !self.locationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.locationID, fieldNumber: 4)
     }
     if !self.activities.isEmpty {
       try visitor.visitPackedEnumField(value: self.activities, fieldNumber: 5)
@@ -1060,6 +1066,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 
   public static func ==(lhs: ScheduleLocation, rhs: ScheduleLocation) -> Bool {
     if lhs.uuid != rhs.uuid {return false}
+    if lhs.locationID != rhs.locationID {return false}
     if lhs.activities != rhs.activities {return false}
     if lhs.plannedActivities != rhs.plannedActivities {return false}
     if lhs.isAffectedByDiversion != rhs.isAffectedByDiversion {return false}
