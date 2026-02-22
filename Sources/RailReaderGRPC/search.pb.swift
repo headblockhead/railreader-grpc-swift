@@ -43,9 +43,6 @@ public struct SearchRequest: Sendable {
   /// If true, all services will be included. If false or unspecified, only non-chartered services will be included. 
   public var includeCharteredServices: Bool = false
 
-  /// Filters results to include locations only of types listed. If none are given, all location types will be included.
-  public var filterLocationTypes: [LocationType] = []
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -68,7 +65,7 @@ public struct SearchResponse: Sendable {
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{3}filter_location_types\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}location_id\0\u{3}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -82,7 +79,6 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 4: try { try decoder.decodeSingularBoolField(value: &self.includeNonPassengerServices) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.excludeNonActiveServices) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.includeCharteredServices) }()
-      case 7: try { try decoder.decodeRepeatedEnumField(value: &self.filterLocationTypes) }()
       default: break
       }
     }
@@ -107,9 +103,6 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if self.includeCharteredServices != false {
       try visitor.visitSingularBoolField(value: self.includeCharteredServices, fieldNumber: 6)
     }
-    if !self.filterLocationTypes.isEmpty {
-      try visitor.visitPackedEnumField(value: self.filterLocationTypes, fieldNumber: 7)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -120,7 +113,6 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.includeNonPassengerServices != rhs.includeNonPassengerServices {return false}
     if lhs.excludeNonActiveServices != rhs.excludeNonActiveServices {return false}
     if lhs.includeCharteredServices != rhs.includeCharteredServices {return false}
-    if lhs.filterLocationTypes != rhs.filterLocationTypes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
