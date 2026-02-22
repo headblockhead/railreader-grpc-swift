@@ -37,7 +37,7 @@ public enum RailReader: Sendable {
             /// Request type for "Search".
             public typealias Input = SearchRequest
             /// Response type for "Search".
-            public typealias Output = ScheduleLocationUUID
+            public typealias Output = SearchResponse
             /// Descriptor for "Search".
             public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
@@ -108,11 +108,11 @@ extension RailReader {
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        /// - Returns: A streaming response of `ScheduleLocationUUID` messages.
+        /// - Returns: A streaming response of `SearchResponse` messages.
         func search(
             request: GRPCCore.StreamingServerRequest<SearchRequest>,
             context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID>
+        ) async throws -> GRPCCore.StreamingServerResponse<SearchResponse>
 
         /// Handle the "DescribeServicesByScheduleLocationUUID" method.
         ///
@@ -159,11 +159,11 @@ extension RailReader {
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
-        /// - Returns: A streaming response of `ScheduleLocationUUID` messages.
+        /// - Returns: A response containing a single `SearchResponse` message.
         func search(
             request: GRPCCore.ServerRequest<SearchRequest>,
             context: GRPCCore.ServerContext
-        ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID>
+        ) async throws -> GRPCCore.ServerResponse<SearchResponse>
 
         /// Handle the "DescribeServicesByScheduleLocationUUID" method.
         ///
@@ -204,16 +204,15 @@ extension RailReader {
         ///
         /// - Parameters:
         ///   - request: A `SearchRequest` message.
-        ///   - response: A response stream of `ScheduleLocationUUID` messages.
         ///   - context: Context providing information about the RPC.
         /// - Throws: Any error which occurred during the processing of the request. Thrown errors
         ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
         ///     to an internal error.
+        /// - Returns: A `SearchResponse` to respond with.
         func search(
             request: SearchRequest,
-            response: GRPCCore.RPCWriter<ScheduleLocationUUID>,
             context: GRPCCore.ServerContext
-        ) async throws
+        ) async throws -> SearchResponse
 
         /// Handle the "DescribeServicesByScheduleLocationUUID" method.
         ///
@@ -250,7 +249,7 @@ extension RailReader.StreamingServiceProtocol {
         router.registerHandler(
             forMethod: RailReader.Method.Search.descriptor,
             deserializer: GRPCProtobuf.ProtobufDeserializer<SearchRequest>(),
-            serializer: GRPCProtobuf.ProtobufSerializer<ScheduleLocationUUID>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<SearchResponse>(),
             handler: { request, context in
                 try await self.search(
                     request: request,
@@ -289,12 +288,12 @@ extension RailReader.ServiceProtocol {
     public func search(
         request: GRPCCore.StreamingServerRequest<SearchRequest>,
         context: GRPCCore.ServerContext
-    ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID> {
+    ) async throws -> GRPCCore.StreamingServerResponse<SearchResponse> {
         let response = try await self.search(
             request: GRPCCore.ServerRequest(stream: request),
             context: context
         )
-        return response
+        return GRPCCore.StreamingServerResponse(single: response)
     }
 }
 
@@ -317,17 +316,13 @@ extension RailReader.SimpleServiceProtocol {
     public func search(
         request: GRPCCore.ServerRequest<SearchRequest>,
         context: GRPCCore.ServerContext
-    ) async throws -> GRPCCore.StreamingServerResponse<ScheduleLocationUUID> {
-        return GRPCCore.StreamingServerResponse<ScheduleLocationUUID>(
-            metadata: [:],
-            producer: { writer in
-                try await self.search(
-                    request: request.message,
-                    response: writer,
-                    context: context
-                )
-                return [:]
-            }
+    ) async throws -> GRPCCore.ServerResponse<SearchResponse> {
+        return GRPCCore.ServerResponse<SearchResponse>(
+            message: try await self.search(
+                request: request.message,
+                context: context
+            ),
+            metadata: [:]
         )
     }
 
@@ -382,7 +377,7 @@ extension RailReader {
         /// - Parameters:
         ///   - request: A request containing a single `SearchRequest` message.
         ///   - serializer: A serializer for `SearchRequest` messages.
-        ///   - deserializer: A deserializer for `ScheduleLocationUUID` messages.
+        ///   - deserializer: A deserializer for `SearchResponse` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
@@ -391,9 +386,9 @@ extension RailReader {
         func search<Result>(
             request: GRPCCore.ClientRequest<SearchRequest>,
             serializer: some GRPCCore.MessageSerializer<SearchRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<ScheduleLocationUUID>,
+            deserializer: some GRPCCore.MessageDeserializer<SearchResponse>,
             options: GRPCCore.CallOptions,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<SearchResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
 
         /// Call the "DescribeServicesByScheduleLocationUUID" method.
@@ -467,7 +462,7 @@ extension RailReader {
         /// - Parameters:
         ///   - request: A request containing a single `SearchRequest` message.
         ///   - serializer: A serializer for `SearchRequest` messages.
-        ///   - deserializer: A deserializer for `ScheduleLocationUUID` messages.
+        ///   - deserializer: A deserializer for `SearchResponse` messages.
         ///   - options: Options to apply to this RPC.
         ///   - handleResponse: A closure which handles the response, the result of which is
         ///       returned to the caller. Returning from the closure will cancel the RPC if it
@@ -476,11 +471,13 @@ extension RailReader {
         public func search<Result>(
             request: GRPCCore.ClientRequest<SearchRequest>,
             serializer: some GRPCCore.MessageSerializer<SearchRequest>,
-            deserializer: some GRPCCore.MessageDeserializer<ScheduleLocationUUID>,
+            deserializer: some GRPCCore.MessageDeserializer<SearchResponse>,
             options: GRPCCore.CallOptions = .defaults,
-            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<SearchResponse>) async throws -> Result = { response in
+                try response.message
+            }
         ) async throws -> Result where Result: Sendable {
-            try await self.client.serverStreaming(
+            try await self.client.unary(
                 request: request,
                 descriptor: RailReader.Method.Search.descriptor,
                 serializer: serializer,
@@ -560,12 +557,14 @@ extension RailReader.ClientProtocol {
     public func search<Result>(
         request: GRPCCore.ClientRequest<SearchRequest>,
         options: GRPCCore.CallOptions = .defaults,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<SearchResponse>) async throws -> Result = { response in
+            try response.message
+        }
     ) async throws -> Result where Result: Sendable {
         try await self.search(
             request: request,
             serializer: GRPCProtobuf.ProtobufSerializer<SearchRequest>(),
-            deserializer: GRPCProtobuf.ProtobufDeserializer<ScheduleLocationUUID>(),
+            deserializer: GRPCProtobuf.ProtobufDeserializer<SearchResponse>(),
             options: options,
             onResponse: handleResponse
         )
@@ -641,7 +640,9 @@ extension RailReader.ClientProtocol {
         _ message: SearchRequest,
         metadata: GRPCCore.Metadata = [:],
         options: GRPCCore.CallOptions = .defaults,
-        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<ScheduleLocationUUID>) async throws -> Result
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<SearchResponse>) async throws -> Result = { response in
+            try response.message
+        }
     ) async throws -> Result where Result: Sendable {
         let request = GRPCCore.ClientRequest<SearchRequest>(
             message: message,

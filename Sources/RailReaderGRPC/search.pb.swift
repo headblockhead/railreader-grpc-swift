@@ -48,13 +48,13 @@ public struct SearchRequest: Sendable {
   public init() {}
 }
 
-public struct ScheduleLocationUUID: Sendable {
+public struct SearchResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// This can be used in a DescribeAtRequest to get full details about the service.
-  public var scheduleLocationUuid: String = String()
+  /// These can be used in a DescribeAtRequest to get full details about the services.
+  public var scheduleLocationUuid: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -118,8 +118,8 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 }
 
-extension ScheduleLocationUUID: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "ScheduleLocationUUID"
+extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = "SearchResponse"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_location_uuid\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -128,7 +128,7 @@ extension ScheduleLocationUUID: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleLocationUuid) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.scheduleLocationUuid) }()
       default: break
       }
     }
@@ -136,12 +136,12 @@ extension ScheduleLocationUUID: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.scheduleLocationUuid.isEmpty {
-      try visitor.visitSingularStringField(value: self.scheduleLocationUuid, fieldNumber: 1)
+      try visitor.visitRepeatedStringField(value: self.scheduleLocationUuid, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: ScheduleLocationUUID, rhs: ScheduleLocationUUID) -> Bool {
+  public static func ==(lhs: SearchResponse, rhs: SearchResponse) -> Bool {
     if lhs.scheduleLocationUuid != rhs.scheduleLocationUuid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
