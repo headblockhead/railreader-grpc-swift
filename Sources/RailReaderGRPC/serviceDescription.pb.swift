@@ -292,6 +292,11 @@ public struct ScheduleLocation: @unchecked Sendable {
     set {_uniqueStorage()._scheduleUuid = newValue}
   }
 
+  public var scheduleOrder: UInt32 {
+    get {_storage._scheduleOrder}
+    set {_uniqueStorage()._scheduleOrder = newValue}
+  }
+
   public var locationID: String {
     get {_storage._locationID}
     set {_uniqueStorage()._locationID = newValue}
@@ -376,6 +381,15 @@ public struct ScheduleLocation: @unchecked Sendable {
     get {_storage._routingDelay}
     set {_uniqueStorage()._routingDelay = newValue}
   }
+
+  public var falseDestinationLocationID: String {
+    get {_storage._falseDestinationLocationID ?? String()}
+    set {_uniqueStorage()._falseDestinationLocationID = newValue}
+  }
+  /// Returns true if `falseDestinationLocationID` has been explicitly set.
+  public var hasFalseDestinationLocationID: Bool {_storage._falseDestinationLocationID != nil}
+  /// Clears the value of `falseDestinationLocationID`. Subsequent reads from it will return its default value.
+  public mutating func clearFalseDestinationLocationID() {_uniqueStorage()._falseDestinationLocationID = nil}
 
   public var isCancelled: Bool {
     get {_storage._isCancelled}
@@ -1185,11 +1199,12 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 
 extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "ScheduleLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{3}schedule_uuid\0\u{4}\u{2}location_id\0\u{1}activities\0\u{3}planned_activities\0\u{3}formation_id\0\u{3}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{4}\u{2}is_cancelled\0\u{3}location_cancellation_reason\0\u{c}\u{3}\u{1}\u{c}\u{10}\u{1}\u{c}\u{13}\u{1}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{3}schedule_uuid\0\u{3}schedule_order\0\u{3}location_id\0\u{1}activities\0\u{3}planned_activities\0\u{3}formation_id\0\u{3}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{3}false_destination_location_id\0\u{3}is_cancelled\0\u{3}location_cancellation_reason\0\u{c}\u{13}\u{1}")
 
   fileprivate class _StorageClass {
     var _uuid: String = String()
     var _scheduleUuid: String = String()
+    var _scheduleOrder: UInt32 = 0
     var _locationID: String = String()
     var _activities: [ActivityType] = []
     var _plannedActivities: [ActivityType] = []
@@ -1202,6 +1217,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     var _publicArrivalTime: String? = nil
     var _publicDepartureTime: String? = nil
     var _routingDelay: UInt32 = 0
+    var _falseDestinationLocationID: String? = nil
     var _isCancelled: Bool = false
     var _locationCancellationReason: DisruptionReason? = nil
 
@@ -1216,6 +1232,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     init(copying source: _StorageClass) {
       _uuid = source._uuid
       _scheduleUuid = source._scheduleUuid
+      _scheduleOrder = source._scheduleOrder
       _locationID = source._locationID
       _activities = source._activities
       _plannedActivities = source._plannedActivities
@@ -1228,6 +1245,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       _publicArrivalTime = source._publicArrivalTime
       _publicDepartureTime = source._publicDepartureTime
       _routingDelay = source._routingDelay
+      _falseDestinationLocationID = source._falseDestinationLocationID
       _isCancelled = source._isCancelled
       _locationCancellationReason = source._locationCancellationReason
     }
@@ -1250,6 +1268,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         switch fieldNumber {
         case 1: try { try decoder.decodeSingularStringField(value: &_storage._uuid) }()
         case 2: try { try decoder.decodeSingularStringField(value: &_storage._scheduleUuid) }()
+        case 3: try { try decoder.decodeSingularUInt32Field(value: &_storage._scheduleOrder) }()
         case 4: try { try decoder.decodeSingularStringField(value: &_storage._locationID) }()
         case 5: try { try decoder.decodeRepeatedEnumField(value: &_storage._activities) }()
         case 6: try { try decoder.decodeRepeatedEnumField(value: &_storage._plannedActivities) }()
@@ -1262,6 +1281,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         case 13: try { try decoder.decodeSingularStringField(value: &_storage._publicArrivalTime) }()
         case 14: try { try decoder.decodeSingularStringField(value: &_storage._publicDepartureTime) }()
         case 15: try { try decoder.decodeSingularUInt32Field(value: &_storage._routingDelay) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._falseDestinationLocationID) }()
         case 17: try { try decoder.decodeSingularBoolField(value: &_storage._isCancelled) }()
         case 18: try { try decoder.decodeSingularMessageField(value: &_storage._locationCancellationReason) }()
         default: break
@@ -1281,6 +1301,9 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       }
       if !_storage._scheduleUuid.isEmpty {
         try visitor.visitSingularStringField(value: _storage._scheduleUuid, fieldNumber: 2)
+      }
+      if _storage._scheduleOrder != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._scheduleOrder, fieldNumber: 3)
       }
       if !_storage._locationID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._locationID, fieldNumber: 4)
@@ -1318,6 +1341,9 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       if _storage._routingDelay != 0 {
         try visitor.visitSingularUInt32Field(value: _storage._routingDelay, fieldNumber: 15)
       }
+      try { if let v = _storage._falseDestinationLocationID {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 16)
+      } }()
       if _storage._isCancelled != false {
         try visitor.visitSingularBoolField(value: _storage._isCancelled, fieldNumber: 17)
       }
@@ -1335,6 +1361,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         let rhs_storage = _args.1
         if _storage._uuid != rhs_storage._uuid {return false}
         if _storage._scheduleUuid != rhs_storage._scheduleUuid {return false}
+        if _storage._scheduleOrder != rhs_storage._scheduleOrder {return false}
         if _storage._locationID != rhs_storage._locationID {return false}
         if _storage._activities != rhs_storage._activities {return false}
         if _storage._plannedActivities != rhs_storage._plannedActivities {return false}
@@ -1347,6 +1374,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         if _storage._publicArrivalTime != rhs_storage._publicArrivalTime {return false}
         if _storage._publicDepartureTime != rhs_storage._publicDepartureTime {return false}
         if _storage._routingDelay != rhs_storage._routingDelay {return false}
+        if _storage._falseDestinationLocationID != rhs_storage._falseDestinationLocationID {return false}
         if _storage._isCancelled != rhs_storage._isCancelled {return false}
         if _storage._locationCancellationReason != rhs_storage._locationCancellationReason {return false}
         return true
