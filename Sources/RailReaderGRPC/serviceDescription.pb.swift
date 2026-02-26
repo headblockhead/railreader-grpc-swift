@@ -31,8 +31,6 @@ public struct ServiceDescription: Sendable {
 
   public var route: [RouteLocation] = []
 
-  public var requestedScheduleLocationUuid: String = String()
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -196,81 +194,11 @@ public struct RouteLocation: Sendable {
   /// Clears the value of `scheduleLocation`. Subsequent reads from it will return its default value.
   public mutating func clearScheduleLocation() {self._scheduleLocation = nil}
 
-  public var forecast: ForecastLocation {
-    get {_forecast ?? ForecastLocation()}
-    set {_forecast = newValue}
-  }
-  /// Returns true if `forecast` has been explicitly set.
-  public var hasForecast: Bool {self._forecast != nil}
-  /// Clears the value of `forecast`. Subsequent reads from it will return its default value.
-  public mutating func clearForecast() {self._forecast = nil}
-
-  public var formationLoading: FormationLoading {
-    get {_formationLoading ?? FormationLoading()}
-    set {_formationLoading = newValue}
-  }
-  /// Returns true if `formationLoading` has been explicitly set.
-  public var hasFormationLoading: Bool {self._formationLoading != nil}
-  /// Clears the value of `formationLoading`. Subsequent reads from it will return its default value.
-  public mutating func clearFormationLoading() {self._formationLoading = nil}
-
-  public var serviceLoading: ServiceLoading {
-    get {_serviceLoading ?? ServiceLoading()}
-    set {_serviceLoading = newValue}
-  }
-  /// Returns true if `serviceLoading` has been explicitly set.
-  public var hasServiceLoading: Bool {self._serviceLoading != nil}
-  /// Clears the value of `serviceLoading`. Subsequent reads from it will return its default value.
-  public mutating func clearServiceLoading() {self._serviceLoading = nil}
-
-  public var trainAlerts: TrainAlerts {
-    get {_trainAlerts ?? TrainAlerts()}
-    set {_trainAlerts = newValue}
-  }
-  /// Returns true if `trainAlerts` has been explicitly set.
-  public var hasTrainAlerts: Bool {self._trainAlerts != nil}
-  /// Clears the value of `trainAlerts`. Subsequent reads from it will return its default value.
-  public mutating func clearTrainAlerts() {self._trainAlerts = nil}
-
-  public var generousArrivalTime: String {
-    get {_generousArrivalTime ?? String()}
-    set {_generousArrivalTime = newValue}
-  }
-  /// Returns true if `generousArrivalTime` has been explicitly set.
-  public var hasGenerousArrivalTime: Bool {self._generousArrivalTime != nil}
-  /// Clears the value of `generousArrivalTime`. Subsequent reads from it will return its default value.
-  public mutating func clearGenerousArrivalTime() {self._generousArrivalTime = nil}
-
-  public var generousPassingTime: String {
-    get {_generousPassingTime ?? String()}
-    set {_generousPassingTime = newValue}
-  }
-  /// Returns true if `generousPassingTime` has been explicitly set.
-  public var hasGenerousPassingTime: Bool {self._generousPassingTime != nil}
-  /// Clears the value of `generousPassingTime`. Subsequent reads from it will return its default value.
-  public mutating func clearGenerousPassingTime() {self._generousPassingTime = nil}
-
-  public var generousDepartureTime: String {
-    get {_generousDepartureTime ?? String()}
-    set {_generousDepartureTime = newValue}
-  }
-  /// Returns true if `generousDepartureTime` has been explicitly set.
-  public var hasGenerousDepartureTime: Bool {self._generousDepartureTime != nil}
-  /// Clears the value of `generousDepartureTime`. Subsequent reads from it will return its default value.
-  public mutating func clearGenerousDepartureTime() {self._generousDepartureTime = nil}
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _scheduleLocation: ScheduleLocation? = nil
-  fileprivate var _forecast: ForecastLocation? = nil
-  fileprivate var _formationLoading: FormationLoading? = nil
-  fileprivate var _serviceLoading: ServiceLoading? = nil
-  fileprivate var _trainAlerts: TrainAlerts? = nil
-  fileprivate var _generousArrivalTime: String? = nil
-  fileprivate var _generousPassingTime: String? = nil
-  fileprivate var _generousDepartureTime: String? = nil
 }
 
 /// 'Working' times are used internally by staff
@@ -405,51 +333,20 @@ public struct ScheduleLocation: @unchecked Sendable {
   /// Clears the value of `locationCancellationReason`. Subsequent reads from it will return its default value.
   public mutating func clearLocationCancellationReason() {_uniqueStorage()._locationCancellationReason = nil}
 
+  public var timetabledPlatform: String {
+    get {_storage._timetabledPlatform ?? String()}
+    set {_uniqueStorage()._timetabledPlatform = newValue}
+  }
+  /// Returns true if `timetabledPlatform` has been explicitly set.
+  public var hasTimetabledPlatform: Bool {_storage._timetabledPlatform != nil}
+  /// Clears the value of `timetabledPlatform`. Subsequent reads from it will return its default value.
+  public mutating func clearTimetabledPlatform() {_uniqueStorage()._timetabledPlatform = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-public struct ForecastLocation: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct FormationLoading: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct ServiceLoading: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct TrainAlerts: Sendable {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
 }
 
 /// estimated_public_*_time and estimated_working_*_time are Darwin's estimations of the most likely times.
@@ -844,7 +741,7 @@ public struct Forecast: @unchecked Sendable {
 
 extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "ServiceDescription"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}schedules\0\u{1}formations\0\u{1}route\0\u{3}requested_schedule_location_uuid\0\u{c}\u{5}\u{b}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}schedules\0\u{1}formations\0\u{1}route\0\u{c}\u{4}\u{c}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -855,7 +752,6 @@ extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.schedules) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.formations) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.route) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.requestedScheduleLocationUuid) }()
       default: break
       }
     }
@@ -871,9 +767,6 @@ extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if !self.route.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.route, fieldNumber: 3)
     }
-    if !self.requestedScheduleLocationUuid.isEmpty {
-      try visitor.visitSingularStringField(value: self.requestedScheduleLocationUuid, fieldNumber: 4)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -881,7 +774,6 @@ extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs.schedules != rhs.schedules {return false}
     if lhs.formations != rhs.formations {return false}
     if lhs.route != rhs.route {return false}
-    if lhs.requestedScheduleLocationUuid != rhs.requestedScheduleLocationUuid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1120,7 +1012,7 @@ extension Formation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
 
 extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "RouteLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}next_schedule_location_uuids\0\u{3}previous_schedule_location_uuids\0\u{4}\u{3}schedule_location\0\u{1}forecast\0\u{3}formation_loading\0\u{3}service_loading\0\u{3}train_alerts\0\u{4}\u{4}generous_arrival_time\0\u{3}generous_passing_time\0\u{3}generous_departure_time\0\u{c}\u{3}\u{2}\u{c}\u{a}\u{3}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}next_schedule_location_uuids\0\u{3}previous_schedule_location_uuids\0\u{4}\u{3}schedule_location\0\u{c}\u{3}\u{2}\u{c}\u{6}\u{4}\u{c}\u{a}\u{6}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1131,13 +1023,6 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.nextScheduleLocationUuids) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.previousScheduleLocationUuids) }()
       case 5: try { try decoder.decodeSingularMessageField(value: &self._scheduleLocation) }()
-      case 6: try { try decoder.decodeSingularMessageField(value: &self._forecast) }()
-      case 7: try { try decoder.decodeSingularMessageField(value: &self._formationLoading) }()
-      case 8: try { try decoder.decodeSingularMessageField(value: &self._serviceLoading) }()
-      case 9: try { try decoder.decodeSingularMessageField(value: &self._trainAlerts) }()
-      case 13: try { try decoder.decodeSingularStringField(value: &self._generousArrivalTime) }()
-      case 14: try { try decoder.decodeSingularStringField(value: &self._generousPassingTime) }()
-      case 15: try { try decoder.decodeSingularStringField(value: &self._generousDepartureTime) }()
       default: break
       }
     }
@@ -1157,27 +1042,6 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try { if let v = self._scheduleLocation {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     } }()
-    try { if let v = self._forecast {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    } }()
-    try { if let v = self._formationLoading {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    } }()
-    try { if let v = self._serviceLoading {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-    } }()
-    try { if let v = self._trainAlerts {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
-    } }()
-    try { if let v = self._generousArrivalTime {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 13)
-    } }()
-    try { if let v = self._generousPassingTime {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 14)
-    } }()
-    try { if let v = self._generousDepartureTime {
-      try visitor.visitSingularStringField(value: v, fieldNumber: 15)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1185,13 +1049,6 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.nextScheduleLocationUuids != rhs.nextScheduleLocationUuids {return false}
     if lhs.previousScheduleLocationUuids != rhs.previousScheduleLocationUuids {return false}
     if lhs._scheduleLocation != rhs._scheduleLocation {return false}
-    if lhs._forecast != rhs._forecast {return false}
-    if lhs._formationLoading != rhs._formationLoading {return false}
-    if lhs._serviceLoading != rhs._serviceLoading {return false}
-    if lhs._trainAlerts != rhs._trainAlerts {return false}
-    if lhs._generousArrivalTime != rhs._generousArrivalTime {return false}
-    if lhs._generousPassingTime != rhs._generousPassingTime {return false}
-    if lhs._generousDepartureTime != rhs._generousDepartureTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1199,7 +1056,7 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
 
 extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "ScheduleLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{3}schedule_uuid\0\u{3}schedule_order\0\u{3}location_id\0\u{1}activities\0\u{3}planned_activities\0\u{3}formation_id\0\u{3}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{3}false_destination_location_id\0\u{3}is_cancelled\0\u{3}location_cancellation_reason\0\u{c}\u{13}\u{1}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{3}schedule_uuid\0\u{3}schedule_order\0\u{3}location_id\0\u{1}activities\0\u{3}planned_activities\0\u{3}formation_id\0\u{3}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{3}false_destination_location_id\0\u{3}is_cancelled\0\u{3}location_cancellation_reason\0\u{3}timetabled_platform\0")
 
   fileprivate class _StorageClass {
     var _uuid: String = String()
@@ -1220,6 +1077,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     var _falseDestinationLocationID: String? = nil
     var _isCancelled: Bool = false
     var _locationCancellationReason: DisruptionReason? = nil
+    var _timetabledPlatform: String? = nil
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -1248,6 +1106,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       _falseDestinationLocationID = source._falseDestinationLocationID
       _isCancelled = source._isCancelled
       _locationCancellationReason = source._locationCancellationReason
+      _timetabledPlatform = source._timetabledPlatform
     }
   }
 
@@ -1284,6 +1143,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._falseDestinationLocationID) }()
         case 17: try { try decoder.decodeSingularBoolField(value: &_storage._isCancelled) }()
         case 18: try { try decoder.decodeSingularMessageField(value: &_storage._locationCancellationReason) }()
+        case 19: try { try decoder.decodeSingularStringField(value: &_storage._timetabledPlatform) }()
         default: break
         }
       }
@@ -1350,6 +1210,9 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       try { if let v = _storage._locationCancellationReason {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 18)
       } }()
+      try { if let v = _storage._timetabledPlatform {
+        try visitor.visitSingularStringField(value: v, fieldNumber: 19)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1377,86 +1240,11 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         if _storage._falseDestinationLocationID != rhs_storage._falseDestinationLocationID {return false}
         if _storage._isCancelled != rhs_storage._isCancelled {return false}
         if _storage._locationCancellationReason != rhs_storage._locationCancellationReason {return false}
+        if _storage._timetabledPlatform != rhs_storage._timetabledPlatform {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension ForecastLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "ForecastLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    // Load everything into unknown fields
-    while try decoder.nextFieldNumber() != nil {}
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: ForecastLocation, rhs: ForecastLocation) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension FormationLoading: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "FormationLoading"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    // Load everything into unknown fields
-    while try decoder.nextFieldNumber() != nil {}
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: FormationLoading, rhs: FormationLoading) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension ServiceLoading: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "ServiceLoading"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    // Load everything into unknown fields
-    while try decoder.nextFieldNumber() != nil {}
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: ServiceLoading, rhs: ServiceLoading) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension TrainAlerts: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "TrainAlerts"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    // Load everything into unknown fields
-    while try decoder.nextFieldNumber() != nil {}
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: TrainAlerts, rhs: TrainAlerts) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
