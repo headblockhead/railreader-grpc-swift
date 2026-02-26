@@ -196,11 +196,41 @@ public struct RouteLocation: Sendable {
   /// Clears the value of `scheduleLocation`. Subsequent reads from it will return its default value.
   public mutating func clearScheduleLocation() {self._scheduleLocation = nil}
 
+  public var generousArrivalTime: String {
+    get {_generousArrivalTime ?? String()}
+    set {_generousArrivalTime = newValue}
+  }
+  /// Returns true if `generousArrivalTime` has been explicitly set.
+  public var hasGenerousArrivalTime: Bool {self._generousArrivalTime != nil}
+  /// Clears the value of `generousArrivalTime`. Subsequent reads from it will return its default value.
+  public mutating func clearGenerousArrivalTime() {self._generousArrivalTime = nil}
+
+  public var generousPassingTime: String {
+    get {_generousPassingTime ?? String()}
+    set {_generousPassingTime = newValue}
+  }
+  /// Returns true if `generousPassingTime` has been explicitly set.
+  public var hasGenerousPassingTime: Bool {self._generousPassingTime != nil}
+  /// Clears the value of `generousPassingTime`. Subsequent reads from it will return its default value.
+  public mutating func clearGenerousPassingTime() {self._generousPassingTime = nil}
+
+  public var generousDepartureTime: String {
+    get {_generousDepartureTime ?? String()}
+    set {_generousDepartureTime = newValue}
+  }
+  /// Returns true if `generousDepartureTime` has been explicitly set.
+  public var hasGenerousDepartureTime: Bool {self._generousDepartureTime != nil}
+  /// Clears the value of `generousDepartureTime`. Subsequent reads from it will return its default value.
+  public mutating func clearGenerousDepartureTime() {self._generousDepartureTime = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _scheduleLocation: ScheduleLocation? = nil
+  fileprivate var _generousArrivalTime: String? = nil
+  fileprivate var _generousPassingTime: String? = nil
+  fileprivate var _generousDepartureTime: String? = nil
 }
 
 /// 'Working' times are used internally by staff
@@ -1019,7 +1049,7 @@ extension Formation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementation
 
 extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "RouteLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}next_schedule_location_uuids\0\u{3}previous_schedule_location_uuids\0\u{4}\u{3}schedule_location\0\u{c}\u{3}\u{2}\u{c}\u{6}\u{4}\u{c}\u{a}\u{6}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}next_schedule_location_uuids\0\u{3}previous_schedule_location_uuids\0\u{4}\u{3}schedule_location\0\u{4}\u{8}generous_arrival_time\0\u{3}generous_passing_time\0\u{3}generous_departure_time\0\u{c}\u{3}\u{2}\u{c}\u{6}\u{4}\u{c}\u{a}\u{3}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1030,6 +1060,9 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.nextScheduleLocationUuids) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.previousScheduleLocationUuids) }()
       case 5: try { try decoder.decodeSingularMessageField(value: &self._scheduleLocation) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self._generousArrivalTime) }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self._generousPassingTime) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self._generousDepartureTime) }()
       default: break
       }
     }
@@ -1049,6 +1082,15 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try { if let v = self._scheduleLocation {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     } }()
+    try { if let v = self._generousArrivalTime {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 13)
+    } }()
+    try { if let v = self._generousPassingTime {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 14)
+    } }()
+    try { if let v = self._generousDepartureTime {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 15)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1056,6 +1098,9 @@ extension RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.nextScheduleLocationUuids != rhs.nextScheduleLocationUuids {return false}
     if lhs.previousScheduleLocationUuids != rhs.previousScheduleLocationUuids {return false}
     if lhs._scheduleLocation != rhs._scheduleLocation {return false}
+    if lhs._generousArrivalTime != rhs._generousArrivalTime {return false}
+    if lhs._generousPassingTime != rhs._generousPassingTime {return false}
+    if lhs._generousDepartureTime != rhs._generousDepartureTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
