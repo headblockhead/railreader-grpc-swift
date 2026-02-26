@@ -31,6 +31,8 @@ public struct ServiceDescription: Sendable {
 
   public var route: [RouteLocation] = []
 
+  public var requestedScheduleLocationUuid: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -741,7 +743,7 @@ public struct Forecast: @unchecked Sendable {
 
 extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "ServiceDescription"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}schedules\0\u{1}formations\0\u{1}route\0\u{c}\u{4}\u{c}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}schedules\0\u{1}formations\0\u{1}route\0\u{3}requested_schedule_location_uuid\0\u{c}\u{5}\u{b}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -752,6 +754,7 @@ extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       case 1: try { try decoder.decodeRepeatedMessageField(value: &self.schedules) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.formations) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.route) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.requestedScheduleLocationUuid) }()
       default: break
       }
     }
@@ -767,6 +770,9 @@ extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if !self.route.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.route, fieldNumber: 3)
     }
+    if !self.requestedScheduleLocationUuid.isEmpty {
+      try visitor.visitSingularStringField(value: self.requestedScheduleLocationUuid, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -774,6 +780,7 @@ extension ServiceDescription: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs.schedules != rhs.schedules {return false}
     if lhs.formations != rhs.formations {return false}
     if lhs.route != rhs.route {return false}
+    if lhs.requestedScheduleLocationUuid != rhs.requestedScheduleLocationUuid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
