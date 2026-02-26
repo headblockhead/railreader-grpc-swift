@@ -53,7 +53,7 @@ public struct SearchResponse: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// These can be used in a DescribeAtRequest to get full details about the services.
+  /// These can be used in a DescribeServiceByScheduleLocationUUIDRequest to get full details about the services.
   public var scheduleLocationUuid: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
