@@ -279,7 +279,7 @@ public struct DescribeResponse: Sendable {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var associatedScheduleLocationUuid: String = String()
+        public var scheduleLocationUuid: String = String()
 
         public var associationCategory: DescribeResponse.RouteLocation.RouteLocationEdge.AssociationEdge.AssociationCategory = .unknown
 
@@ -1386,7 +1386,7 @@ extension DescribeResponse.RouteLocation.RouteLocationEdge.ScheduleEdge: SwiftPr
 
 extension DescribeResponse.RouteLocation.RouteLocationEdge.AssociationEdge: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = DescribeResponse.RouteLocation.RouteLocationEdge.protoMessageName + ".AssociationEdge"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}associated_schedule_location_uuid\0\u{3}association_category\0\u{3}is_cancelled\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_location_uuid\0\u{3}association_category\0\u{3}is_cancelled\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1394,7 +1394,7 @@ extension DescribeResponse.RouteLocation.RouteLocationEdge.AssociationEdge: Swif
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.associatedScheduleLocationUuid) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleLocationUuid) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.associationCategory) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.isCancelled) }()
       default: break
@@ -1403,8 +1403,8 @@ extension DescribeResponse.RouteLocation.RouteLocationEdge.AssociationEdge: Swif
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.associatedScheduleLocationUuid.isEmpty {
-      try visitor.visitSingularStringField(value: self.associatedScheduleLocationUuid, fieldNumber: 1)
+    if !self.scheduleLocationUuid.isEmpty {
+      try visitor.visitSingularStringField(value: self.scheduleLocationUuid, fieldNumber: 1)
     }
     if self.associationCategory != .unknown {
       try visitor.visitSingularEnumField(value: self.associationCategory, fieldNumber: 2)
@@ -1416,7 +1416,7 @@ extension DescribeResponse.RouteLocation.RouteLocationEdge.AssociationEdge: Swif
   }
 
   public static func ==(lhs: DescribeResponse.RouteLocation.RouteLocationEdge.AssociationEdge, rhs: DescribeResponse.RouteLocation.RouteLocationEdge.AssociationEdge) -> Bool {
-    if lhs.associatedScheduleLocationUuid != rhs.associatedScheduleLocationUuid {return false}
+    if lhs.scheduleLocationUuid != rhs.scheduleLocationUuid {return false}
     if lhs.associationCategory != rhs.associationCategory {return false}
     if lhs.isCancelled != rhs.isCancelled {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
