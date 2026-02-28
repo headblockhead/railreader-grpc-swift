@@ -20,64 +20,6 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public enum LocationType: SwiftProtobuf.Enum, Swift.CaseIterable {
-  public typealias RawValue = Int
-  case locationUnknown // = 0
-  case locationOrigin // = 1
-  case locationOperationalOrigin // = 2
-  case locationIntermediate // = 3
-  case locationOperationalIntermediate // = 4
-  case locationIntermediatePassing // = 5
-  case locationDestination // = 6
-  case locationOperationalDestination // = 7
-  case UNRECOGNIZED(Int)
-
-  public init() {
-    self = .locationUnknown
-  }
-
-  public init?(rawValue: Int) {
-    switch rawValue {
-    case 0: self = .locationUnknown
-    case 1: self = .locationOrigin
-    case 2: self = .locationOperationalOrigin
-    case 3: self = .locationIntermediate
-    case 4: self = .locationOperationalIntermediate
-    case 5: self = .locationIntermediatePassing
-    case 6: self = .locationDestination
-    case 7: self = .locationOperationalDestination
-    default: self = .UNRECOGNIZED(rawValue)
-    }
-  }
-
-  public var rawValue: Int {
-    switch self {
-    case .locationUnknown: return 0
-    case .locationOrigin: return 1
-    case .locationOperationalOrigin: return 2
-    case .locationIntermediate: return 3
-    case .locationOperationalIntermediate: return 4
-    case .locationIntermediatePassing: return 5
-    case .locationDestination: return 6
-    case .locationOperationalDestination: return 7
-    case .UNRECOGNIZED(let i): return i
-    }
-  }
-
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [LocationType] = [
-    .locationUnknown,
-    .locationOrigin,
-    .locationOperationalOrigin,
-    .locationIntermediate,
-    .locationOperationalIntermediate,
-    .locationIntermediatePassing,
-    .locationDestination,
-    .locationOperationalDestination,
-  ]
-
-}
-
 public enum ServiceType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
   case serviceUnknown // = 0
@@ -407,10 +349,6 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
-
-extension LocationType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0LOCATION_TYPE_LOCATION_UNKNOWN\0\u{1}LOCATION_TYPE_LOCATION_ORIGIN\0\u{1}LOCATION_TYPE_LOCATION_OPERATIONAL_ORIGIN\0\u{1}LOCATION_TYPE_LOCATION_INTERMEDIATE\0\u{1}LOCATION_TYPE_LOCATION_OPERATIONAL_INTERMEDIATE\0\u{1}LOCATION_TYPE_LOCATION_INTERMEDIATE_PASSING\0\u{1}LOCATION_TYPE_LOCATION_DESTINATION\0\u{1}LOCATION_TYPE_LOCATION_OPERATIONAL_DESTINATION\0")
-}
 
 extension ServiceType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SERVICE_TYPE_SERVICE_UNKNOWN\0\u{1}SERVICE_TYPE_SERVICE_TRAIN\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_TRAIN\0\u{1}SERVICE_TYPE_SERVICE_BUS\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_BUS\0\u{1}SERVICE_TYPE_SERVICE_SHIP\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_SHIP\0")
