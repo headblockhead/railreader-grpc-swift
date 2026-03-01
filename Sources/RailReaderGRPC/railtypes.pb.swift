@@ -76,108 +76,6 @@ public enum ServiceType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
 }
 
-public enum CategoryType: SwiftProtobuf.Enum, Swift.CaseIterable {
-  public typealias RawValue = Int
-  case categoryUnknown // = 0
-  case categoryUndergroundOrMetro // = 1
-  case categoryUnadvertisedPassenger // = 2
-  case categoryPassenger // = 3
-  case categoryStaff // = 4
-  case categoryMixed // = 5
-  case categoryChannelTunnel // = 6
-  case categorySleeper // = 7
-  case categoryInternational // = 8
-  case categoryMotorail // = 9
-  case categoryUnadvertisedExpress // = 10
-  case categoryExpress // = 11
-  case categorySleeperDomestic // = 12
-  case categoryBusReplacement // = 13
-  case categoryBusService // = 14
-  case categoryShip // = 15
-  case categoryEmptyCoachingStock // = 16
-  case categoryEmptyCoachingStockUndergroundOrMetro // = 17
-  case categoryEmptyCoachingStockOrStaff // = 18
-  case UNRECOGNIZED(Int)
-
-  public init() {
-    self = .categoryUnknown
-  }
-
-  public init?(rawValue: Int) {
-    switch rawValue {
-    case 0: self = .categoryUnknown
-    case 1: self = .categoryUndergroundOrMetro
-    case 2: self = .categoryUnadvertisedPassenger
-    case 3: self = .categoryPassenger
-    case 4: self = .categoryStaff
-    case 5: self = .categoryMixed
-    case 6: self = .categoryChannelTunnel
-    case 7: self = .categorySleeper
-    case 8: self = .categoryInternational
-    case 9: self = .categoryMotorail
-    case 10: self = .categoryUnadvertisedExpress
-    case 11: self = .categoryExpress
-    case 12: self = .categorySleeperDomestic
-    case 13: self = .categoryBusReplacement
-    case 14: self = .categoryBusService
-    case 15: self = .categoryShip
-    case 16: self = .categoryEmptyCoachingStock
-    case 17: self = .categoryEmptyCoachingStockUndergroundOrMetro
-    case 18: self = .categoryEmptyCoachingStockOrStaff
-    default: self = .UNRECOGNIZED(rawValue)
-    }
-  }
-
-  public var rawValue: Int {
-    switch self {
-    case .categoryUnknown: return 0
-    case .categoryUndergroundOrMetro: return 1
-    case .categoryUnadvertisedPassenger: return 2
-    case .categoryPassenger: return 3
-    case .categoryStaff: return 4
-    case .categoryMixed: return 5
-    case .categoryChannelTunnel: return 6
-    case .categorySleeper: return 7
-    case .categoryInternational: return 8
-    case .categoryMotorail: return 9
-    case .categoryUnadvertisedExpress: return 10
-    case .categoryExpress: return 11
-    case .categorySleeperDomestic: return 12
-    case .categoryBusReplacement: return 13
-    case .categoryBusService: return 14
-    case .categoryShip: return 15
-    case .categoryEmptyCoachingStock: return 16
-    case .categoryEmptyCoachingStockUndergroundOrMetro: return 17
-    case .categoryEmptyCoachingStockOrStaff: return 18
-    case .UNRECOGNIZED(let i): return i
-    }
-  }
-
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [CategoryType] = [
-    .categoryUnknown,
-    .categoryUndergroundOrMetro,
-    .categoryUnadvertisedPassenger,
-    .categoryPassenger,
-    .categoryStaff,
-    .categoryMixed,
-    .categoryChannelTunnel,
-    .categorySleeper,
-    .categoryInternational,
-    .categoryMotorail,
-    .categoryUnadvertisedExpress,
-    .categoryExpress,
-    .categorySleeperDomestic,
-    .categoryBusReplacement,
-    .categoryBusService,
-    .categoryShip,
-    .categoryEmptyCoachingStock,
-    .categoryEmptyCoachingStockUndergroundOrMetro,
-    .categoryEmptyCoachingStockOrStaff,
-  ]
-
-}
-
 public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
   public typealias RawValue = Int
   case activityUnknown // = 0
@@ -348,16 +246,168 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
 
 }
 
+public enum CategoryType: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case categoryUnknown // = 0
+  case categoryUndergroundOrMetro // = 1
+  case categoryUnadvertisedPassenger // = 2
+  case categoryPassenger // = 3
+  case categoryStaff // = 4
+  case categoryMixed // = 5
+  case categoryChannelTunnel // = 6
+  case categorySleeper // = 7
+  case categoryInternational // = 8
+  case categoryMotorail // = 9
+  case categoryUnadvertisedExpress // = 10
+  case categoryExpress // = 11
+  case categorySleeperDomestic // = 12
+  case categoryBusReplacement // = 13
+  case categoryBusService // = 14
+  case categoryShip // = 15
+  case categoryEmptyCoachingStock // = 16
+  case categoryEmptyCoachingStockUndergroundOrMetro // = 17
+  case categoryEmptyCoachingStockOrStaff // = 18
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .categoryUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .categoryUnknown
+    case 1: self = .categoryUndergroundOrMetro
+    case 2: self = .categoryUnadvertisedPassenger
+    case 3: self = .categoryPassenger
+    case 4: self = .categoryStaff
+    case 5: self = .categoryMixed
+    case 6: self = .categoryChannelTunnel
+    case 7: self = .categorySleeper
+    case 8: self = .categoryInternational
+    case 9: self = .categoryMotorail
+    case 10: self = .categoryUnadvertisedExpress
+    case 11: self = .categoryExpress
+    case 12: self = .categorySleeperDomestic
+    case 13: self = .categoryBusReplacement
+    case 14: self = .categoryBusService
+    case 15: self = .categoryShip
+    case 16: self = .categoryEmptyCoachingStock
+    case 17: self = .categoryEmptyCoachingStockUndergroundOrMetro
+    case 18: self = .categoryEmptyCoachingStockOrStaff
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .categoryUnknown: return 0
+    case .categoryUndergroundOrMetro: return 1
+    case .categoryUnadvertisedPassenger: return 2
+    case .categoryPassenger: return 3
+    case .categoryStaff: return 4
+    case .categoryMixed: return 5
+    case .categoryChannelTunnel: return 6
+    case .categorySleeper: return 7
+    case .categoryInternational: return 8
+    case .categoryMotorail: return 9
+    case .categoryUnadvertisedExpress: return 10
+    case .categoryExpress: return 11
+    case .categorySleeperDomestic: return 12
+    case .categoryBusReplacement: return 13
+    case .categoryBusService: return 14
+    case .categoryShip: return 15
+    case .categoryEmptyCoachingStock: return 16
+    case .categoryEmptyCoachingStockUndergroundOrMetro: return 17
+    case .categoryEmptyCoachingStockOrStaff: return 18
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [CategoryType] = [
+    .categoryUnknown,
+    .categoryUndergroundOrMetro,
+    .categoryUnadvertisedPassenger,
+    .categoryPassenger,
+    .categoryStaff,
+    .categoryMixed,
+    .categoryChannelTunnel,
+    .categorySleeper,
+    .categoryInternational,
+    .categoryMotorail,
+    .categoryUnadvertisedExpress,
+    .categoryExpress,
+    .categorySleeperDomestic,
+    .categoryBusReplacement,
+    .categoryBusService,
+    .categoryShip,
+    .categoryEmptyCoachingStock,
+    .categoryEmptyCoachingStockUndergroundOrMetro,
+    .categoryEmptyCoachingStockOrStaff,
+  ]
+
+}
+
+public enum AssociationCategory: SwiftProtobuf.Enum, Swift.CaseIterable {
+  public typealias RawValue = Int
+  case unknown // = 0
+  case join // = 1
+  case divide // = 2
+  case link // = 3
+  case next // = 4
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .unknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unknown
+    case 1: self = .join
+    case 2: self = .divide
+    case 3: self = .link
+    case 4: self = .next
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .unknown: return 0
+    case .join: return 1
+    case .divide: return 2
+    case .link: return 3
+    case .next: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [AssociationCategory] = [
+    .unknown,
+    .join,
+    .divide,
+    .link,
+    .next,
+  ]
+
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension ServiceType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0SERVICE_TYPE_SERVICE_UNKNOWN\0\u{1}SERVICE_TYPE_SERVICE_TRAIN\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_TRAIN\0\u{1}SERVICE_TYPE_SERVICE_BUS\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_BUS\0\u{1}SERVICE_TYPE_SERVICE_SHIP\0\u{1}SERVICE_TYPE_SERVICE_SHORT_TERM_PLANNED_SHIP\0")
 }
 
+extension ActivityType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_ACTIVITY_UNKNOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_ACTIVITY_NATIONAL_RAIL_TIMETABLE_DATA_TO_ADD\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_ACTIVITY_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
+}
+
 extension CategoryType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0CATEGORY_TYPE_CATEGORY_UNKNOWN\0\u{1}CATEGORY_TYPE_CATEGORY_UNDERGROUND_OR_METRO\0\u{1}CATEGORY_TYPE_CATEGORY_UNADVERTISED_PASSENGER\0\u{1}CATEGORY_TYPE_CATEGORY_PASSENGER\0\u{1}CATEGORY_TYPE_CATEGORY_STAFF\0\u{1}CATEGORY_TYPE_CATEGORY_MIXED\0\u{1}CATEGORY_TYPE_CATEGORY_CHANNEL_TUNNEL\0\u{1}CATEGORY_TYPE_CATEGORY_SLEEPER\0\u{1}CATEGORY_TYPE_CATEGORY_INTERNATIONAL\0\u{1}CATEGORY_TYPE_CATEGORY_MOTORAIL\0\u{1}CATEGORY_TYPE_CATEGORY_UNADVERTISED_EXPRESS\0\u{1}CATEGORY_TYPE_CATEGORY_EXPRESS\0\u{1}CATEGORY_TYPE_CATEGORY_SLEEPER_DOMESTIC\0\u{1}CATEGORY_TYPE_CATEGORY_BUS_REPLACEMENT\0\u{1}CATEGORY_TYPE_CATEGORY_BUS_SERVICE\0\u{1}CATEGORY_TYPE_CATEGORY_SHIP\0\u{1}CATEGORY_TYPE_CATEGORY_EMPTY_COACHING_STOCK\0\u{1}CATEGORY_TYPE_CATEGORY_EMPTY_COACHING_STOCK_UNDERGROUND_OR_METRO\0\u{1}CATEGORY_TYPE_CATEGORY_EMPTY_COACHING_STOCK_OR_STAFF\0")
 }
 
-extension ActivityType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_ACTIVITY_UNKNOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_ACTIVITY_NATIONAL_RAIL_TIMETABLE_DATA_TO_ADD\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_ACTIVITY_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
+extension AssociationCategory: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ASSOCIATION_CATEGORY_UNKNOWN\0\u{1}ASSOCIATION_CATEGORY_JOIN\0\u{1}ASSOCIATION_CATEGORY_DIVIDE\0\u{1}ASSOCIATION_CATEGORY_LINK\0\u{1}ASSOCIATION_CATEGORY_NEXT\0")
 }
