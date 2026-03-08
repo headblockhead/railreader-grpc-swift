@@ -29,8 +29,6 @@ public struct DescribeResponse: Sendable {
 
   public var schedules: [DescribeResponse.Schedule] = []
 
-  public var forecasts: [DescribeResponse.Forecast] = []
-
   public var formations: [DescribeResponse.Formation] = []
 
   public var route: [DescribeResponse.RouteLocation] = []
@@ -133,36 +131,43 @@ public struct DescribeResponse: Sendable {
     /// Clears the value of `diversionReason`. Subsequent reads from it will return its default value.
     public mutating func clearDiversionReason() {_uniqueStorage()._diversionReason = nil}
 
+    public var forecast: DescribeResponse.Schedule.Forecast {
+      get {_storage._forecast ?? DescribeResponse.Schedule.Forecast()}
+      set {_uniqueStorage()._forecast = newValue}
+    }
+    /// Returns true if `forecast` has been explicitly set.
+    public var hasForecast: Bool {_storage._forecast != nil}
+    /// Clears the value of `forecast`. Subsequent reads from it will return its default value.
+    public mutating func clearForecast() {_uniqueStorage()._forecast = nil}
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Forecast: Sendable {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var isReverseFormation: Bool = false
+
+      public var lateReason: DisruptionReason {
+        get {_lateReason ?? DisruptionReason()}
+        set {_lateReason = newValue}
+      }
+      /// Returns true if `lateReason` has been explicitly set.
+      public var hasLateReason: Bool {self._lateReason != nil}
+      /// Clears the value of `lateReason`. Subsequent reads from it will return its default value.
+      public mutating func clearLateReason() {self._lateReason = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _lateReason: DisruptionReason? = nil
+    }
 
     public init() {}
 
     fileprivate var _storage = _StorageClass.defaultInstance
-  }
-
-  public struct Forecast: Sendable {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var scheduleUuid: String = String()
-
-    public var isReverseFormation: Bool = false
-
-    public var lateReason: DisruptionReason {
-      get {_lateReason ?? DisruptionReason()}
-      set {_lateReason = newValue}
-    }
-    /// Returns true if `lateReason` has been explicitly set.
-    public var hasLateReason: Bool {self._lateReason != nil}
-    /// Clears the value of `lateReason`. Subsequent reads from it will return its default value.
-    public mutating func clearLateReason() {self._lateReason = nil}
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-
-    fileprivate var _lateReason: DisruptionReason? = nil
   }
 
   public struct Formation: Sendable {
@@ -1017,7 +1022,7 @@ public struct DisruptionReason: Sendable {
 
 extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "DescribeResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}requested_schedule_location_uuid\0\u{1}schedules\0\u{1}forecasts\0\u{1}formations\0\u{1}route\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}requested_schedule_location_uuid\0\u{1}schedules\0\u{1}formations\0\u{1}route\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1027,9 +1032,8 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.requestedScheduleLocationUuid) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.schedules) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.forecasts) }()
-      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.formations) }()
-      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.route) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.formations) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.route) }()
       default: break
       }
     }
@@ -1042,14 +1046,11 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if !self.schedules.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.schedules, fieldNumber: 2)
     }
-    if !self.forecasts.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.forecasts, fieldNumber: 3)
-    }
     if !self.formations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.formations, fieldNumber: 4)
+      try visitor.visitRepeatedMessageField(value: self.formations, fieldNumber: 3)
     }
     if !self.route.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.route, fieldNumber: 5)
+      try visitor.visitRepeatedMessageField(value: self.route, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1057,7 +1058,6 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
   public static func ==(lhs: DescribeResponse, rhs: DescribeResponse) -> Bool {
     if lhs.requestedScheduleLocationUuid != rhs.requestedScheduleLocationUuid {return false}
     if lhs.schedules != rhs.schedules {return false}
-    if lhs.forecasts != rhs.forecasts {return false}
     if lhs.formations != rhs.formations {return false}
     if lhs.route != rhs.route {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1067,7 +1067,7 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 
 extension DescribeResponse.Schedule: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = DescribeResponse.protoMessageName + ".Schedule"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{4}\u{3}schedule_id\0\u{1}uid\0\u{2}\u{3}headcode\0\u{3}retail_service_id\0\u{3}toc_id\0\u{1}service\0\u{1}category\0\u{3}is_passenger_service\0\u{3}is_active\0\u{4}\u{2}is_charter\0\u{3}is_cancelled\0\u{3}cancellation_reason\0\u{3}diverted_via_location_id\0\u{3}diversion_reason\0\u{c}\u{2}\u{2}\u{c}\u{6}\u{2}\u{c}\u{f}\u{1}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{4}\u{3}schedule_id\0\u{1}uid\0\u{2}\u{3}headcode\0\u{3}retail_service_id\0\u{3}toc_id\0\u{1}service\0\u{1}category\0\u{3}is_passenger_service\0\u{3}is_active\0\u{4}\u{2}is_charter\0\u{3}is_cancelled\0\u{3}cancellation_reason\0\u{3}diverted_via_location_id\0\u{3}diversion_reason\0\u{1}forecast\0\u{c}\u{2}\u{2}\u{c}\u{6}\u{2}\u{c}\u{f}\u{1}")
 
   fileprivate class _StorageClass {
     var _uuid: String = String()
@@ -1085,6 +1085,7 @@ extension DescribeResponse.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Messa
     var _cancellationReason: DisruptionReason? = nil
     var _divertedViaLocationID: String? = nil
     var _diversionReason: DisruptionReason? = nil
+    var _forecast: DescribeResponse.Schedule.Forecast? = nil
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -1110,6 +1111,7 @@ extension DescribeResponse.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Messa
       _cancellationReason = source._cancellationReason
       _divertedViaLocationID = source._divertedViaLocationID
       _diversionReason = source._diversionReason
+      _forecast = source._forecast
     }
   }
 
@@ -1143,6 +1145,7 @@ extension DescribeResponse.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Messa
         case 18: try { try decoder.decodeSingularMessageField(value: &_storage._cancellationReason) }()
         case 19: try { try decoder.decodeSingularStringField(value: &_storage._divertedViaLocationID) }()
         case 20: try { try decoder.decodeSingularMessageField(value: &_storage._diversionReason) }()
+        case 21: try { try decoder.decodeSingularMessageField(value: &_storage._forecast) }()
         default: break
         }
       }
@@ -1200,6 +1203,9 @@ extension DescribeResponse.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Messa
       try { if let v = _storage._diversionReason {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
       } }()
+      try { if let v = _storage._forecast {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 21)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1224,6 +1230,7 @@ extension DescribeResponse.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Messa
         if _storage._cancellationReason != rhs_storage._cancellationReason {return false}
         if _storage._divertedViaLocationID != rhs_storage._divertedViaLocationID {return false}
         if _storage._diversionReason != rhs_storage._diversionReason {return false}
+        if _storage._forecast != rhs_storage._forecast {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -1233,9 +1240,9 @@ extension DescribeResponse.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Messa
   }
 }
 
-extension DescribeResponse.Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = DescribeResponse.protoMessageName + ".Forecast"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_uuid\0\u{3}is_reverse_formation\0\u{3}late_reason\0")
+extension DescribeResponse.Schedule.Forecast: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = DescribeResponse.Schedule.protoMessageName + ".Forecast"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{4}\u{4}is_reverse_formation\0\u{3}late_reason\0\u{c}\u{1}\u{3}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1243,9 +1250,8 @@ extension DescribeResponse.Forecast: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleUuid) }()
-      case 2: try { try decoder.decodeSingularBoolField(value: &self.isReverseFormation) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._lateReason) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isReverseFormation) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._lateReason) }()
       default: break
       }
     }
@@ -1256,20 +1262,16 @@ extension DescribeResponse.Forecast: SwiftProtobuf.Message, SwiftProtobuf._Messa
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.scheduleUuid.isEmpty {
-      try visitor.visitSingularStringField(value: self.scheduleUuid, fieldNumber: 1)
-    }
     if self.isReverseFormation != false {
-      try visitor.visitSingularBoolField(value: self.isReverseFormation, fieldNumber: 2)
+      try visitor.visitSingularBoolField(value: self.isReverseFormation, fieldNumber: 4)
     }
     try { if let v = self._lateReason {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: DescribeResponse.Forecast, rhs: DescribeResponse.Forecast) -> Bool {
-    if lhs.scheduleUuid != rhs.scheduleUuid {return false}
+  public static func ==(lhs: DescribeResponse.Schedule.Forecast, rhs: DescribeResponse.Schedule.Forecast) -> Bool {
     if lhs.isReverseFormation != rhs.isReverseFormation {return false}
     if lhs._lateReason != rhs._lateReason {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
