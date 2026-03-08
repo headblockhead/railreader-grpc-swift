@@ -657,11 +657,6 @@ public struct DescribeResponse: Sendable {
         set {_uniqueStorage()._scheduleUuid = newValue}
       }
 
-      public var scheduleOrder: UInt32 {
-        get {_storage._scheduleOrder}
-        set {_uniqueStorage()._scheduleOrder = newValue}
-      }
-
       public var locationID: String {
         get {_storage._locationID}
         set {_uniqueStorage()._locationID = newValue}
@@ -1992,12 +1987,11 @@ extension DescribeResponse.RouteLocation.FormationLoading.Coach: SwiftProtobuf.M
 
 extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = DescribeResponse.RouteLocation.protoMessageName + ".ScheduleLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{3}schedule_uuid\0\u{3}schedule_order\0\u{3}location_id\0\u{1}activities\0\u{3}planned_activities\0\u{3}formation_id\0\u{3}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{3}false_destination_location_id\0\u{3}is_cancelled\0\u{3}location_cancellation_reason\0\u{3}timetabled_platform\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}uuid\0\u{3}schedule_uuid\0\u{4}\u{2}location_id\0\u{1}activities\0\u{3}planned_activities\0\u{3}formation_id\0\u{3}is_affected_by_diversion\0\u{1}type\0\u{3}working_arrival_time\0\u{3}working_passing_time\0\u{3}working_departure_time\0\u{3}public_arrival_time\0\u{3}public_departure_time\0\u{3}routing_delay\0\u{3}false_destination_location_id\0\u{3}is_cancelled\0\u{3}location_cancellation_reason\0\u{3}timetabled_platform\0\u{c}\u{3}\u{1}")
 
   fileprivate class _StorageClass {
     var _uuid: String = String()
     var _scheduleUuid: String = String()
-    var _scheduleOrder: UInt32 = 0
     var _locationID: String = String()
     var _activities: [ActivityType] = []
     var _plannedActivities: [ActivityType] = []
@@ -2026,7 +2020,6 @@ extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message
     init(copying source: _StorageClass) {
       _uuid = source._uuid
       _scheduleUuid = source._scheduleUuid
-      _scheduleOrder = source._scheduleOrder
       _locationID = source._locationID
       _activities = source._activities
       _plannedActivities = source._plannedActivities
@@ -2063,7 +2056,6 @@ extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message
         switch fieldNumber {
         case 1: try { try decoder.decodeSingularStringField(value: &_storage._uuid) }()
         case 2: try { try decoder.decodeSingularStringField(value: &_storage._scheduleUuid) }()
-        case 3: try { try decoder.decodeSingularUInt32Field(value: &_storage._scheduleOrder) }()
         case 4: try { try decoder.decodeSingularStringField(value: &_storage._locationID) }()
         case 5: try { try decoder.decodeRepeatedEnumField(value: &_storage._activities) }()
         case 6: try { try decoder.decodeRepeatedEnumField(value: &_storage._plannedActivities) }()
@@ -2097,9 +2089,6 @@ extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message
       }
       if !_storage._scheduleUuid.isEmpty {
         try visitor.visitSingularStringField(value: _storage._scheduleUuid, fieldNumber: 2)
-      }
-      if _storage._scheduleOrder != 0 {
-        try visitor.visitSingularUInt32Field(value: _storage._scheduleOrder, fieldNumber: 3)
       }
       if !_storage._locationID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._locationID, fieldNumber: 4)
@@ -2160,7 +2149,6 @@ extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message
         let rhs_storage = _args.1
         if _storage._uuid != rhs_storage._uuid {return false}
         if _storage._scheduleUuid != rhs_storage._scheduleUuid {return false}
-        if _storage._scheduleOrder != rhs_storage._scheduleOrder {return false}
         if _storage._locationID != rhs_storage._locationID {return false}
         if _storage._activities != rhs_storage._activities {return false}
         if _storage._plannedActivities != rhs_storage._plannedActivities {return false}
