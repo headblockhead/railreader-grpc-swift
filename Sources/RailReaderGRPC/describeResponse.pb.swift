@@ -460,6 +460,15 @@ public struct DescribeResponse: Sendable {
       /// Clears the value of `affectedBy`. Subsequent reads from it will return its default value.
       public mutating func clearAffectedBy() {_uniqueStorage()._affectedBy = nil}
 
+      public var forecastLength: UInt32 {
+        get {_storage._forecastLength ?? 0}
+        set {_uniqueStorage()._forecastLength = newValue}
+      }
+      /// Returns true if `forecastLength` has been explicitly set.
+      public var hasForecastLength: Bool {_storage._forecastLength != nil}
+      /// Clears the value of `forecastLength`. Subsequent reads from it will return its default value.
+      public mutating func clearForecastLength() {_uniqueStorage()._forecastLength = nil}
+
       public var forecastPlatform: DescribeResponse.RouteLocation.ForecastLocation.Platform {
         get {_storage._forecastPlatform ?? DescribeResponse.RouteLocation.ForecastLocation.Platform()}
         set {_uniqueStorage()._forecastPlatform = newValue}
@@ -1651,7 +1660,7 @@ extension DescribeResponse.RouteLocation.Edge.Association: SwiftProtobuf.Message
 
 extension DescribeResponse.RouteLocation.ForecastLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = DescribeResponse.RouteLocation.protoMessageName + ".ForecastLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{9}arrival\0\u{1}passing\0\u{1}departure\0\u{3}late_reason\0\u{3}disruption_risk\0\u{3}disruption_risk_reason\0\u{3}affected_by\0\u{3}forecast_platform\0\u{3}service_is_suppressed_here\0\u{3}service_detaches_from_front_here\0\u{c}\u{1}\u{8}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{9}arrival\0\u{1}passing\0\u{1}departure\0\u{3}late_reason\0\u{3}disruption_risk\0\u{3}disruption_risk_reason\0\u{3}affected_by\0\u{3}forecast_length\0\u{3}forecast_platform\0\u{3}service_is_suppressed_here\0\u{3}service_detaches_from_front_here\0\u{c}\u{1}\u{8}")
 
   fileprivate class _StorageClass {
     var _arrival: DescribeResponse.RouteLocation.ForecastLocation.Times? = nil
@@ -1661,6 +1670,7 @@ extension DescribeResponse.RouteLocation.ForecastLocation: SwiftProtobuf.Message
     var _disruptionRisk: String? = nil
     var _disruptionRiskReason: DisruptionReason? = nil
     var _affectedBy: String? = nil
+    var _forecastLength: UInt32? = nil
     var _forecastPlatform: DescribeResponse.RouteLocation.ForecastLocation.Platform? = nil
     var _serviceIsSuppressedHere: Bool = false
     var _serviceDetachesFromFrontHere: Bool = false
@@ -1681,6 +1691,7 @@ extension DescribeResponse.RouteLocation.ForecastLocation: SwiftProtobuf.Message
       _disruptionRisk = source._disruptionRisk
       _disruptionRiskReason = source._disruptionRiskReason
       _affectedBy = source._affectedBy
+      _forecastLength = source._forecastLength
       _forecastPlatform = source._forecastPlatform
       _serviceIsSuppressedHere = source._serviceIsSuppressedHere
       _serviceDetachesFromFrontHere = source._serviceDetachesFromFrontHere
@@ -1709,9 +1720,10 @@ extension DescribeResponse.RouteLocation.ForecastLocation: SwiftProtobuf.Message
         case 13: try { try decoder.decodeSingularStringField(value: &_storage._disruptionRisk) }()
         case 14: try { try decoder.decodeSingularMessageField(value: &_storage._disruptionRiskReason) }()
         case 15: try { try decoder.decodeSingularStringField(value: &_storage._affectedBy) }()
-        case 16: try { try decoder.decodeSingularMessageField(value: &_storage._forecastPlatform) }()
-        case 17: try { try decoder.decodeSingularBoolField(value: &_storage._serviceIsSuppressedHere) }()
-        case 18: try { try decoder.decodeSingularBoolField(value: &_storage._serviceDetachesFromFrontHere) }()
+        case 16: try { try decoder.decodeSingularUInt32Field(value: &_storage._forecastLength) }()
+        case 17: try { try decoder.decodeSingularMessageField(value: &_storage._forecastPlatform) }()
+        case 18: try { try decoder.decodeSingularBoolField(value: &_storage._serviceIsSuppressedHere) }()
+        case 19: try { try decoder.decodeSingularBoolField(value: &_storage._serviceDetachesFromFrontHere) }()
         default: break
         }
       }
@@ -1745,14 +1757,17 @@ extension DescribeResponse.RouteLocation.ForecastLocation: SwiftProtobuf.Message
       try { if let v = _storage._affectedBy {
         try visitor.visitSingularStringField(value: v, fieldNumber: 15)
       } }()
+      try { if let v = _storage._forecastLength {
+        try visitor.visitSingularUInt32Field(value: v, fieldNumber: 16)
+      } }()
       try { if let v = _storage._forecastPlatform {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
       } }()
       if _storage._serviceIsSuppressedHere != false {
-        try visitor.visitSingularBoolField(value: _storage._serviceIsSuppressedHere, fieldNumber: 17)
+        try visitor.visitSingularBoolField(value: _storage._serviceIsSuppressedHere, fieldNumber: 18)
       }
       if _storage._serviceDetachesFromFrontHere != false {
-        try visitor.visitSingularBoolField(value: _storage._serviceDetachesFromFrontHere, fieldNumber: 18)
+        try visitor.visitSingularBoolField(value: _storage._serviceDetachesFromFrontHere, fieldNumber: 19)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -1770,6 +1785,7 @@ extension DescribeResponse.RouteLocation.ForecastLocation: SwiftProtobuf.Message
         if _storage._disruptionRisk != rhs_storage._disruptionRisk {return false}
         if _storage._disruptionRiskReason != rhs_storage._disruptionRiskReason {return false}
         if _storage._affectedBy != rhs_storage._affectedBy {return false}
+        if _storage._forecastLength != rhs_storage._forecastLength {return false}
         if _storage._forecastPlatform != rhs_storage._forecastPlatform {return false}
         if _storage._serviceIsSuppressedHere != rhs_storage._serviceIsSuppressedHere {return false}
         if _storage._serviceDetachesFromFrontHere != rhs_storage._serviceDetachesFromFrontHere {return false}
