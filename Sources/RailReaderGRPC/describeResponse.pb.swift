@@ -292,15 +292,6 @@ public struct DescribeResponse: Sendable {
     /// Clears the value of `serviceLoading`. Subsequent reads from it will return its default value.
     public mutating func clearServiceLoading() {_uniqueStorage()._serviceLoading = nil}
 
-    public var currentPlatform: String {
-      get {_storage._currentPlatform ?? String()}
-      set {_uniqueStorage()._currentPlatform = newValue}
-    }
-    /// Returns true if `currentPlatform` has been explicitly set.
-    public var hasCurrentPlatform: Bool {_storage._currentPlatform != nil}
-    /// Clears the value of `currentPlatform`. Subsequent reads from it will return its default value.
-    public mutating func clearCurrentPlatform() {_uniqueStorage()._currentPlatform = nil}
-
     public var generousArrivalTime: String {
       get {_storage._generousArrivalTime ?? String()}
       set {_uniqueStorage()._generousArrivalTime = newValue}
@@ -1383,7 +1374,7 @@ extension DescribeResponse.Formation.Coach: SwiftProtobuf.Message, SwiftProtobuf
 
 extension DescribeResponse.RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = DescribeResponse.protoMessageName + ".RouteLocation"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}next_edges\0\u{3}previous_edges\0\u{3}via_text\0\u{3}forecast_location\0\u{3}formation_loading\0\u{3}schedule_location\0\u{3}service_loading\0\u{4}\u{5}current_platform\0\u{3}generous_arrival_time\0\u{3}generous_passing_time\0\u{3}generous_departure_time\0\u{c}\u{8}\u{4}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}next_edges\0\u{3}previous_edges\0\u{3}via_text\0\u{3}forecast_location\0\u{3}formation_loading\0\u{3}schedule_location\0\u{3}service_loading\0\u{4}\u{6}generous_arrival_time\0\u{3}generous_passing_time\0\u{3}generous_departure_time\0\u{c}\u{8}\u{5}")
 
   fileprivate class _StorageClass {
     var _nextEdges: [DescribeResponse.RouteLocation.Edge] = []
@@ -1393,7 +1384,6 @@ extension DescribeResponse.RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._
     var _formationLoading: DescribeResponse.RouteLocation.FormationLoading? = nil
     var _scheduleLocation: DescribeResponse.RouteLocation.ScheduleLocation? = nil
     var _serviceLoading: DescribeResponse.RouteLocation.ServiceLoading? = nil
-    var _currentPlatform: String? = nil
     var _generousArrivalTime: String? = nil
     var _generousPassingTime: String? = nil
     var _generousDepartureTime: String? = nil
@@ -1414,7 +1404,6 @@ extension DescribeResponse.RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._
       _formationLoading = source._formationLoading
       _scheduleLocation = source._scheduleLocation
       _serviceLoading = source._serviceLoading
-      _currentPlatform = source._currentPlatform
       _generousArrivalTime = source._generousArrivalTime
       _generousPassingTime = source._generousPassingTime
       _generousDepartureTime = source._generousDepartureTime
@@ -1443,7 +1432,6 @@ extension DescribeResponse.RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._
         case 5: try { try decoder.decodeSingularMessageField(value: &_storage._formationLoading) }()
         case 6: try { try decoder.decodeSingularMessageField(value: &_storage._scheduleLocation) }()
         case 7: try { try decoder.decodeSingularMessageField(value: &_storage._serviceLoading) }()
-        case 12: try { try decoder.decodeSingularStringField(value: &_storage._currentPlatform) }()
         case 13: try { try decoder.decodeSingularStringField(value: &_storage._generousArrivalTime) }()
         case 14: try { try decoder.decodeSingularStringField(value: &_storage._generousPassingTime) }()
         case 15: try { try decoder.decodeSingularStringField(value: &_storage._generousDepartureTime) }()
@@ -1480,9 +1468,6 @@ extension DescribeResponse.RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._
       try { if let v = _storage._serviceLoading {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
       } }()
-      try { if let v = _storage._currentPlatform {
-        try visitor.visitSingularStringField(value: v, fieldNumber: 12)
-      } }()
       try { if let v = _storage._generousArrivalTime {
         try visitor.visitSingularStringField(value: v, fieldNumber: 13)
       } }()
@@ -1508,7 +1493,6 @@ extension DescribeResponse.RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._
         if _storage._formationLoading != rhs_storage._formationLoading {return false}
         if _storage._scheduleLocation != rhs_storage._scheduleLocation {return false}
         if _storage._serviceLoading != rhs_storage._serviceLoading {return false}
-        if _storage._currentPlatform != rhs_storage._currentPlatform {return false}
         if _storage._generousArrivalTime != rhs_storage._generousArrivalTime {return false}
         if _storage._generousPassingTime != rhs_storage._generousPassingTime {return false}
         if _storage._generousDepartureTime != rhs_storage._generousDepartureTime {return false}
