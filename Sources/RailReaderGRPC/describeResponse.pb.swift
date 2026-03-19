@@ -215,15 +215,73 @@ public struct DescribeResponse: Sendable {
       /// Clears the value of ``class``. Subsequent reads from it will return its default value.
       public mutating func clearClass() {self._class = nil}
 
-      public var toiletType: String = String()
-
-      public var toiletStatus: String = String()
+      public var toilet: DescribeResponse.Formation.Coach.Toilet {
+        get {_toilet ?? DescribeResponse.Formation.Coach.Toilet()}
+        set {_toilet = newValue}
+      }
+      /// Returns true if `toilet` has been explicitly set.
+      public var hasToilet: Bool {self._toilet != nil}
+      /// Clears the value of `toilet`. Subsequent reads from it will return its default value.
+      public mutating func clearToilet() {self._toilet = nil}
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Toilet: Sendable {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var toiletType: String = String()
+
+        public var toiletStatus: DescribeResponse.Formation.Coach.Toilet.Status = .unknown
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public enum Status: SwiftProtobuf.Enum, Swift.CaseIterable {
+          public typealias RawValue = Int
+          case unknown // = 0
+          case inService // = 1
+          case notInService // = 2
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .unknown
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .unknown
+            case 1: self = .inService
+            case 2: self = .notInService
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .unknown: return 0
+            case .inService: return 1
+            case .notInService: return 2
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+          // The compiler won't synthesize support with the UNRECOGNIZED case.
+          public static let allCases: [DescribeResponse.Formation.Coach.Toilet.Status] = [
+            .unknown,
+            .inService,
+            .notInService,
+          ]
+
+        }
+
+        public init() {}
+      }
 
       public init() {}
 
       fileprivate var _class: String? = nil
+      fileprivate var _toilet: DescribeResponse.Formation.Coach.Toilet? = nil
     }
 
     public init() {}
@@ -1325,7 +1383,7 @@ extension DescribeResponse.Formation: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension DescribeResponse.Formation.Coach: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = DescribeResponse.Formation.protoMessageName + ".Coach"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}identifier\0\u{1}class\0\u{3}toilet_type\0\u{3}toilet_status\0\u{c}\u{1}\u{1}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\u{2}identifier\0\u{1}class\0\u{1}toilet\0\u{c}\u{1}\u{1}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1335,8 +1393,7 @@ extension DescribeResponse.Formation.Coach: SwiftProtobuf.Message, SwiftProtobuf
       switch fieldNumber {
       case 2: try { try decoder.decodeSingularStringField(value: &self.identifier) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self._class) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.toiletType) }()
-      case 5: try { try decoder.decodeSingularStringField(value: &self.toiletStatus) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._toilet) }()
       default: break
       }
     }
@@ -1353,23 +1410,58 @@ extension DescribeResponse.Formation.Coach: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._class {
       try visitor.visitSingularStringField(value: v, fieldNumber: 3)
     } }()
-    if !self.toiletType.isEmpty {
-      try visitor.visitSingularStringField(value: self.toiletType, fieldNumber: 4)
-    }
-    if !self.toiletStatus.isEmpty {
-      try visitor.visitSingularStringField(value: self.toiletStatus, fieldNumber: 5)
-    }
+    try { if let v = self._toilet {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: DescribeResponse.Formation.Coach, rhs: DescribeResponse.Formation.Coach) -> Bool {
     if lhs.identifier != rhs.identifier {return false}
     if lhs._class != rhs._class {return false}
+    if lhs._toilet != rhs._toilet {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension DescribeResponse.Formation.Coach.Toilet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = DescribeResponse.Formation.Coach.protoMessageName + ".Toilet"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}toilet_type\0\u{3}toilet_status\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.toiletType) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.toiletStatus) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.toiletType.isEmpty {
+      try visitor.visitSingularStringField(value: self.toiletType, fieldNumber: 1)
+    }
+    if self.toiletStatus != .unknown {
+      try visitor.visitSingularEnumField(value: self.toiletStatus, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: DescribeResponse.Formation.Coach.Toilet, rhs: DescribeResponse.Formation.Coach.Toilet) -> Bool {
     if lhs.toiletType != rhs.toiletType {return false}
     if lhs.toiletStatus != rhs.toiletStatus {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension DescribeResponse.Formation.Coach.Toilet.Status: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0STATUS_UNKNOWN\0\u{1}STATUS_IN_SERVICE\0\u{1}STATUS_NOT_IN_SERVICE\0")
 }
 
 extension DescribeResponse.RouteLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
