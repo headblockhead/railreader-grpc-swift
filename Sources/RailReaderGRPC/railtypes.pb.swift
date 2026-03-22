@@ -85,9 +85,9 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case activityStopsToTakeUpPassengers // = 4
   case activityStopsToSetDownPassengers // = 5
   case activityStopsOrShuntsForOtherTrainsToPass // = 6
-  case activityAttachOrDetachAssistingLocomotive // = 7
+  case activityStopsToAttachOrDetachAssistingLocomotive // = 7
   case activityShowsAsXOnArrival // = 8
-  case activityStopsForBankingLocomotive // = 9
+  case activityStopsToAttachOrDetachBankingLocomotive // = 9
   case activityStopsToChangeTrainCrew // = 10
   case activityStopsToDetatchVehicles // = 11
   case activityStopsForExamination // = 12
@@ -105,7 +105,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
   case activityTrainLocomotiveOnRear // = 24
   case activityPropellingBetweenPointsShown // = 25
   case activityStopsWhenRequired // = 26
-  case activityReversingMovementOrDriverEndChange // = 27
+  case activityStopsForReversingMovementOrDriverEndChange // = 27
   case activityStopsForLocomotiveToRunRound // = 28
   case activityStopsForRailwayPersonellOnly // = 29
   case activityStopsToAttachAndDetachVehicles // = 30
@@ -129,9 +129,9 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 4: self = .activityStopsToTakeUpPassengers
     case 5: self = .activityStopsToSetDownPassengers
     case 6: self = .activityStopsOrShuntsForOtherTrainsToPass
-    case 7: self = .activityAttachOrDetachAssistingLocomotive
+    case 7: self = .activityStopsToAttachOrDetachAssistingLocomotive
     case 8: self = .activityShowsAsXOnArrival
-    case 9: self = .activityStopsForBankingLocomotive
+    case 9: self = .activityStopsToAttachOrDetachBankingLocomotive
     case 10: self = .activityStopsToChangeTrainCrew
     case 11: self = .activityStopsToDetatchVehicles
     case 12: self = .activityStopsForExamination
@@ -149,7 +149,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case 24: self = .activityTrainLocomotiveOnRear
     case 25: self = .activityPropellingBetweenPointsShown
     case 26: self = .activityStopsWhenRequired
-    case 27: self = .activityReversingMovementOrDriverEndChange
+    case 27: self = .activityStopsForReversingMovementOrDriverEndChange
     case 28: self = .activityStopsForLocomotiveToRunRound
     case 29: self = .activityStopsForRailwayPersonellOnly
     case 30: self = .activityStopsToAttachAndDetachVehicles
@@ -171,9 +171,9 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .activityStopsToTakeUpPassengers: return 4
     case .activityStopsToSetDownPassengers: return 5
     case .activityStopsOrShuntsForOtherTrainsToPass: return 6
-    case .activityAttachOrDetachAssistingLocomotive: return 7
+    case .activityStopsToAttachOrDetachAssistingLocomotive: return 7
     case .activityShowsAsXOnArrival: return 8
-    case .activityStopsForBankingLocomotive: return 9
+    case .activityStopsToAttachOrDetachBankingLocomotive: return 9
     case .activityStopsToChangeTrainCrew: return 10
     case .activityStopsToDetatchVehicles: return 11
     case .activityStopsForExamination: return 12
@@ -191,7 +191,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     case .activityTrainLocomotiveOnRear: return 24
     case .activityPropellingBetweenPointsShown: return 25
     case .activityStopsWhenRequired: return 26
-    case .activityReversingMovementOrDriverEndChange: return 27
+    case .activityStopsForReversingMovementOrDriverEndChange: return 27
     case .activityStopsForLocomotiveToRunRound: return 28
     case .activityStopsForRailwayPersonellOnly: return 29
     case .activityStopsToAttachAndDetachVehicles: return 30
@@ -213,9 +213,9 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .activityStopsToTakeUpPassengers,
     .activityStopsToSetDownPassengers,
     .activityStopsOrShuntsForOtherTrainsToPass,
-    .activityAttachOrDetachAssistingLocomotive,
+    .activityStopsToAttachOrDetachAssistingLocomotive,
     .activityShowsAsXOnArrival,
-    .activityStopsForBankingLocomotive,
+    .activityStopsToAttachOrDetachBankingLocomotive,
     .activityStopsToChangeTrainCrew,
     .activityStopsToDetatchVehicles,
     .activityStopsForExamination,
@@ -233,7 +233,7 @@ public enum ActivityType: SwiftProtobuf.Enum, Swift.CaseIterable {
     .activityTrainLocomotiveOnRear,
     .activityPropellingBetweenPointsShown,
     .activityStopsWhenRequired,
-    .activityReversingMovementOrDriverEndChange,
+    .activityStopsForReversingMovementOrDriverEndChange,
     .activityStopsForLocomotiveToRunRound,
     .activityStopsForRailwayPersonellOnly,
     .activityStopsToAttachAndDetachVehicles,
@@ -401,7 +401,7 @@ extension ServiceType: SwiftProtobuf._ProtoNameProviding {
 }
 
 extension ActivityType: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_ACTIVITY_UNKNOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_ACTIVITY_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_ACTIVITY_NATIONAL_RAIL_TIMETABLE_DATA_TO_ADD\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_ACTIVITY_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_ACTIVITY_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{2}\0ACTIVITY_TYPE_ACTIVITY_UNKNOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_BEGINS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_FINISHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_AND_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_TAKE_UP_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_SET_DOWN_PASSENGERS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_SHUNTS_FOR_OTHER_TRAINS_TO_PASS\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_OR_DETACH_ASSISTING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_SHOWS_AS_X_ON_ARRIVAL\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_OR_DETACH_BANKING_LOCOMOTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_TRAIN_CREW\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_DETATCH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_EXAMINATION\0\u{1}ACTIVITY_TYPE_ACTIVITY_NATIONAL_RAIL_TIMETABLE_DATA_TO_ADD\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_NOTIONAL_ACTIVITY_TO_PREVENT_WTT_TIMING_COLUMNS_MERGE_TWICE\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSENGER_COUNT_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_COLLECTION_AND_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_FIRST_CLASS_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_TICKET_EXAMINATION_POINT_SELECTIVE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_CHANGE_LOCOMOTIVES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOP_NOT_ADVERTISED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_OTHER_OPERATING_REASONS\0\u{1}ACTIVITY_TYPE_ACTIVITY_TRAIN_LOCOMOTIVE_ON_REAR\0\u{1}ACTIVITY_TYPE_ACTIVITY_PROPELLING_BETWEEN_POINTS_SHOWN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_WHEN_REQUIRED\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_REVERSING_MOVEMENT_OR_DRIVER_END_CHANGE\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_LOCOMOTIVE_TO_RUN_ROUND\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_RAILWAY_PERSONELL_ONLY\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_AND_DETACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_DETAIL_CONSIST_FOR_TOPS_DIRECT\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_OR_PASSES_FOR_TABLET_STAFF_OR_TOKEN\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_TO_ATTACH_VEHICLES\0\u{1}ACTIVITY_TYPE_ACTIVITY_STOPS_FOR_WATERING_OF_COACHES\0\u{1}ACTIVITY_TYPE_ACTIVITY_PASSES_ANOTHER_TRAIN_AT_CROSSING_POINT_ON_SINGLE_LINE\0")
 }
 
 extension CategoryType: SwiftProtobuf._ProtoNameProviding {
