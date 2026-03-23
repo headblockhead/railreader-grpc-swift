@@ -795,7 +795,7 @@ public struct DescribeResponse: Sendable {
       public mutating func clearPublicDepartureTime() {_uniqueStorage()._publicDepartureTime = nil}
 
       /// in minutes
-      public var routingDelay: UInt32 {
+      public var routingDelay: Int32 {
         get {_storage._routingDelay}
         set {_uniqueStorage()._routingDelay = newValue}
       }
@@ -2095,7 +2095,7 @@ extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message
     var _workingDepartureTime: String? = nil
     var _publicArrivalTime: String? = nil
     var _publicDepartureTime: String? = nil
-    var _routingDelay: UInt32 = 0
+    var _routingDelay: Int32 = 0
     var _falseDestinationLocationID: String? = nil
     var _isCancelled: Bool = false
     var _locationCancellationReason: DisruptionReason? = nil
@@ -2159,7 +2159,7 @@ extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message
         case 12: try { try decoder.decodeSingularStringField(value: &_storage._workingDepartureTime) }()
         case 13: try { try decoder.decodeSingularStringField(value: &_storage._publicArrivalTime) }()
         case 14: try { try decoder.decodeSingularStringField(value: &_storage._publicDepartureTime) }()
-        case 15: try { try decoder.decodeSingularUInt32Field(value: &_storage._routingDelay) }()
+        case 15: try { try decoder.decodeSingularInt32Field(value: &_storage._routingDelay) }()
         case 16: try { try decoder.decodeSingularStringField(value: &_storage._falseDestinationLocationID) }()
         case 17: try { try decoder.decodeSingularBoolField(value: &_storage._isCancelled) }()
         case 18: try { try decoder.decodeSingularMessageField(value: &_storage._locationCancellationReason) }()
@@ -2216,7 +2216,7 @@ extension DescribeResponse.RouteLocation.ScheduleLocation: SwiftProtobuf.Message
         try visitor.visitSingularStringField(value: v, fieldNumber: 14)
       } }()
       if _storage._routingDelay != 0 {
-        try visitor.visitSingularUInt32Field(value: _storage._routingDelay, fieldNumber: 15)
+        try visitor.visitSingularInt32Field(value: _storage._routingDelay, fieldNumber: 15)
       }
       try { if let v = _storage._falseDestinationLocationID {
         try visitor.visitSingularStringField(value: v, fieldNumber: 16)
