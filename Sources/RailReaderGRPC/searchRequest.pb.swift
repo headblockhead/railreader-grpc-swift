@@ -25,25 +25,7 @@ public struct SearchRequest: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Only services scheduled at or through this location will be returned.
-  public var location: SearchRequest.OneOf_Location? = nil
-
-  public var tiploc: String {
-    get {
-      if case .tiploc(let v)? = location {return v}
-      return String()
-    }
-    set {location = .tiploc(newValue)}
-  }
-
-  /// A CRS is a 3-letter passenger-facing code that can represent more than one TIPLOC.
-  public var crs: String {
-    get {
-      if case .crs(let v)? = location {return v}
-      return String()
-    }
-    set {location = .crs(newValue)}
-  }
+  public var tiploc: String = String()
 
   /// Services scheduled up to 2 hours before the from_time may be included if they are delayed.
   public var fromTime: String = String()
@@ -74,14 +56,6 @@ public struct SearchRequest: Sendable {
   public var mustVisitTiplocs: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  /// Only services scheduled at or through this location will be returned.
-  public enum OneOf_Location: Equatable, Sendable {
-    case tiploc(String)
-    /// A CRS is a 3-letter passenger-facing code that can represent more than one TIPLOC.
-    case crs(String)
-
-  }
 
   public enum TypeEnum: SwiftProtobuf.Enum, Swift.CaseIterable {
     public typealias RawValue = Int
@@ -134,7 +108,7 @@ public struct SearchRequest: Sendable {
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}tiploc\0\u{1}crs\0\u{3}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{1}type\0\u{3}must_visit_tiplocs\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}tiploc\0\u{4}\u{2}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{1}type\0\u{3}must_visit_tiplocs\0\u{c}\u{2}\u{1}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -142,22 +116,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.location != nil {try decoder.handleConflictingOneOf()}
-          self.location = .tiploc(v)
-        }
-      }()
-      case 2: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.location != nil {try decoder.handleConflictingOneOf()}
-          self.location = .crs(v)
-        }
-      }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.tiploc) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.fromTime) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.toTime) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.includeNonPassengerServices) }()
@@ -175,16 +134,8 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.location {
-    case .tiploc?: try {
-      guard case .tiploc(let v)? = self.location else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-    }()
-    case .crs?: try {
-      guard case .crs(let v)? = self.location else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }()
-    case nil: break
+    if !self.tiploc.isEmpty {
+      try visitor.visitSingularStringField(value: self.tiploc, fieldNumber: 1)
     }
     if !self.fromTime.isEmpty {
       try visitor.visitSingularStringField(value: self.fromTime, fieldNumber: 3)
@@ -211,7 +162,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
   }
 
   public static func ==(lhs: SearchRequest, rhs: SearchRequest) -> Bool {
-    if lhs.location != rhs.location {return false}
+    if lhs.tiploc != rhs.tiploc {return false}
     if lhs.fromTime != rhs.fromTime {return false}
     if lhs.toTime != rhs.toTime {return false}
     if lhs.includeNonPassengerServices != rhs.includeNonPassengerServices {return false}
