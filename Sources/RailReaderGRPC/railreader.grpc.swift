@@ -29,7 +29,8 @@ public enum RailReader: Sendable {
             /// Descriptor for "UpdateLocations".
             public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
-                method: "UpdateLocations"
+                method: "UpdateLocations",
+                type: .unary
             )
         }
         /// Namespace for "Search" metadata.
@@ -41,7 +42,21 @@ public enum RailReader: Sendable {
             /// Descriptor for "Search".
             public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
-                method: "Search"
+                method: "Search",
+                type: .unary
+            )
+        }
+        /// Namespace for "Overview" metadata.
+        public enum Overview: Sendable {
+            /// Request type for "Overview".
+            public typealias Input = OverviewRequest
+            /// Response type for "Overview".
+            public typealias Output = OverviewResponse
+            /// Descriptor for "Overview".
+            public static let descriptor = GRPCCore.MethodDescriptor(
+                service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
+                method: "Overview",
+                type: .bidirectionalStreaming
             )
         }
         /// Namespace for "Describe" metadata.
@@ -53,13 +68,15 @@ public enum RailReader: Sendable {
             /// Descriptor for "Describe".
             public static let descriptor = GRPCCore.MethodDescriptor(
                 service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "RailReader"),
-                method: "Describe"
+                method: "Describe",
+                type: .bidirectionalStreaming
             )
         }
         /// Descriptors for all methods in the "RailReader" service.
         public static let descriptors: [GRPCCore.MethodDescriptor] = [
             UpdateLocations.descriptor,
             Search.descriptor,
+            Overview.descriptor,
             Describe.descriptor
         ]
     }
@@ -114,6 +131,20 @@ extension RailReader {
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<SearchResponse>
 
+        /// Handle the "Overview" method.
+        ///
+        /// - Parameters:
+        ///   - request: A streaming request of `OverviewRequest` messages.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A streaming response of `OverviewResponse` messages.
+        func overview(
+            request: GRPCCore.StreamingServerRequest<OverviewRequest>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.StreamingServerResponse<OverviewResponse>
+
         /// Handle the "Describe" method.
         ///
         /// - Parameters:
@@ -165,6 +196,20 @@ extension RailReader {
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.ServerResponse<SearchResponse>
 
+        /// Handle the "Overview" method.
+        ///
+        /// - Parameters:
+        ///   - request: A streaming request of `OverviewRequest` messages.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A streaming response of `OverviewResponse` messages.
+        func overview(
+            request: GRPCCore.StreamingServerRequest<OverviewRequest>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.StreamingServerResponse<OverviewResponse>
+
         /// Handle the "Describe" method.
         ///
         /// - Parameters:
@@ -214,6 +259,21 @@ extension RailReader {
             context: GRPCCore.ServerContext
         ) async throws -> SearchResponse
 
+        /// Handle the "Overview" method.
+        ///
+        /// - Parameters:
+        ///   - request: A stream of `OverviewRequest` messages.
+        ///   - response: A response stream of `OverviewResponse` messages.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        func overview(
+            request: GRPCCore.RPCAsyncSequence<OverviewRequest, any Swift.Error>,
+            response: GRPCCore.RPCWriter<OverviewResponse>,
+            context: GRPCCore.ServerContext
+        ) async throws
+
         /// Handle the "Describe" method.
         ///
         /// - Parameters:
@@ -252,6 +312,17 @@ extension RailReader.StreamingServiceProtocol {
             serializer: GRPCProtobuf.ProtobufSerializer<SearchResponse>(),
             handler: { request, context in
                 try await self.search(
+                    request: request,
+                    context: context
+                )
+            }
+        )
+        router.registerHandler(
+            forMethod: RailReader.Method.Overview.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<OverviewRequest>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<OverviewResponse>(),
+            handler: { request, context in
+                try await self.overview(
                     request: request,
                     context: context
                 )
@@ -326,6 +397,23 @@ extension RailReader.SimpleServiceProtocol {
         )
     }
 
+    public func overview(
+        request: GRPCCore.StreamingServerRequest<OverviewRequest>,
+        context: GRPCCore.ServerContext
+    ) async throws -> GRPCCore.StreamingServerResponse<OverviewResponse> {
+        return GRPCCore.StreamingServerResponse<OverviewResponse>(
+            metadata: [:],
+            producer: { writer in
+                try await self.overview(
+                    request: request.messages,
+                    response: writer,
+                    context: context
+                )
+                return [:]
+            }
+        )
+    }
+
     public func describe(
         request: GRPCCore.StreamingServerRequest<DescribeRequest>,
         context: GRPCCore.ServerContext
@@ -389,6 +477,25 @@ extension RailReader {
             deserializer: some GRPCCore.MessageDeserializer<SearchResponse>,
             options: GRPCCore.CallOptions,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<SearchResponse>) async throws -> Result
+        ) async throws -> Result where Result: Sendable
+
+        /// Call the "Overview" method.
+        ///
+        /// - Parameters:
+        ///   - request: A streaming request producing `OverviewRequest` messages.
+        ///   - serializer: A serializer for `OverviewRequest` messages.
+        ///   - deserializer: A deserializer for `OverviewResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        func overview<Result>(
+            request: GRPCCore.StreamingClientRequest<OverviewRequest>,
+            serializer: some GRPCCore.MessageSerializer<OverviewRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<OverviewResponse>,
+            options: GRPCCore.CallOptions,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<OverviewResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
 
         /// Call the "Describe" method.
@@ -487,6 +594,34 @@ extension RailReader {
             )
         }
 
+        /// Call the "Overview" method.
+        ///
+        /// - Parameters:
+        ///   - request: A streaming request producing `OverviewRequest` messages.
+        ///   - serializer: A serializer for `OverviewRequest` messages.
+        ///   - deserializer: A deserializer for `OverviewResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        public func overview<Result>(
+            request: GRPCCore.StreamingClientRequest<OverviewRequest>,
+            serializer: some GRPCCore.MessageSerializer<OverviewRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<OverviewResponse>,
+            options: GRPCCore.CallOptions = .defaults,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<OverviewResponse>) async throws -> Result
+        ) async throws -> Result where Result: Sendable {
+            try await self.client.bidirectionalStreaming(
+                request: request,
+                descriptor: RailReader.Method.Overview.descriptor,
+                serializer: serializer,
+                deserializer: deserializer,
+                options: options,
+                onResponse: handleResponse
+            )
+        }
+
         /// Call the "Describe" method.
         ///
         /// - Parameters:
@@ -565,6 +700,29 @@ extension RailReader.ClientProtocol {
             request: request,
             serializer: GRPCProtobuf.ProtobufSerializer<SearchRequest>(),
             deserializer: GRPCProtobuf.ProtobufDeserializer<SearchResponse>(),
+            options: options,
+            onResponse: handleResponse
+        )
+    }
+
+    /// Call the "Overview" method.
+    ///
+    /// - Parameters:
+    ///   - request: A streaming request producing `OverviewRequest` messages.
+    ///   - options: Options to apply to this RPC.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    public func overview<Result>(
+        request: GRPCCore.StreamingClientRequest<OverviewRequest>,
+        options: GRPCCore.CallOptions = .defaults,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<OverviewResponse>) async throws -> Result
+    ) async throws -> Result where Result: Sendable {
+        try await self.overview(
+            request: request,
+            serializer: GRPCProtobuf.ProtobufSerializer<OverviewRequest>(),
+            deserializer: GRPCProtobuf.ProtobufDeserializer<OverviewResponse>(),
             options: options,
             onResponse: handleResponse
         )
@@ -649,6 +807,34 @@ extension RailReader.ClientProtocol {
             metadata: metadata
         )
         return try await self.search(
+            request: request,
+            options: options,
+            onResponse: handleResponse
+        )
+    }
+
+    /// Call the "Overview" method.
+    ///
+    /// - Parameters:
+    ///   - metadata: Additional metadata to send, defaults to empty.
+    ///   - options: Options to apply to this RPC, defaults to `.defaults`.
+    ///   - producer: A closure producing request messages to send to the server. The request
+    ///       stream is closed when the closure returns.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    public func overview<Result>(
+        metadata: GRPCCore.Metadata = [:],
+        options: GRPCCore.CallOptions = .defaults,
+        requestProducer producer: @Sendable @escaping (GRPCCore.RPCWriter<OverviewRequest>) async throws -> Void,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.StreamingClientResponse<OverviewResponse>) async throws -> Result
+    ) async throws -> Result where Result: Sendable {
+        let request = GRPCCore.StreamingClientRequest<OverviewRequest>(
+            metadata: metadata,
+            producer: producer
+        )
+        return try await self.overview(
             request: request,
             options: options,
             onResponse: handleResponse
