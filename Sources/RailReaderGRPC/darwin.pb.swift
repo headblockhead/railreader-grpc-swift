@@ -8,6 +8,11 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
+import Foundation
+#endif
 import SwiftProtobuf
 
 // If the compiler emits an error on this type, it is because this file
@@ -571,7 +576,7 @@ public struct ScheduleLocation: @unchecked Sendable {
     set {_uniqueStorage()._scheduleUuid = newValue}
   }
 
-  public var computedID: String {
+  public var computedID: Data {
     get {_storage._computedID}
     set {_uniqueStorage()._computedID = newValue}
   }
@@ -1638,7 +1643,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
 
   fileprivate class _StorageClass {
     var _scheduleUuid: String = String()
-    var _computedID: String = String()
+    var _computedID: Data = Data()
     var _locationID: String = String()
     var _activities: [ActivityType] = []
     var _plannedActivities: [ActivityType] = []
@@ -1702,7 +1707,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
         case 2: try { try decoder.decodeSingularStringField(value: &_storage._scheduleUuid) }()
-        case 3: try { try decoder.decodeSingularStringField(value: &_storage._computedID) }()
+        case 3: try { try decoder.decodeSingularBytesField(value: &_storage._computedID) }()
         case 5: try { try decoder.decodeSingularStringField(value: &_storage._locationID) }()
         case 6: try { try decoder.decodeRepeatedEnumField(value: &_storage._activities) }()
         case 7: try { try decoder.decodeRepeatedEnumField(value: &_storage._plannedActivities) }()
@@ -1735,7 +1740,7 @@ extension ScheduleLocation: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
         try visitor.visitSingularStringField(value: _storage._scheduleUuid, fieldNumber: 2)
       }
       if !_storage._computedID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._computedID, fieldNumber: 3)
+        try visitor.visitSingularBytesField(value: _storage._computedID, fieldNumber: 3)
       }
       if !_storage._locationID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._locationID, fieldNumber: 5)

@@ -8,6 +8,11 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
+import Foundation
+#endif
 import SwiftProtobuf
 
 // If the compiler emits an error on this type, it is because this file
@@ -25,7 +30,7 @@ public struct DescribeRequest: Sendable {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var scheduleLocationComputedID: String = String()
+  public var scheduleLocationComputedID: Data = Data()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -44,7 +49,7 @@ extension DescribeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleLocationComputedID) }()
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.scheduleLocationComputedID) }()
       default: break
       }
     }
@@ -52,7 +57,7 @@ extension DescribeRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplemen
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.scheduleLocationComputedID.isEmpty {
-      try visitor.visitSingularStringField(value: self.scheduleLocationComputedID, fieldNumber: 1)
+      try visitor.visitSingularBytesField(value: self.scheduleLocationComputedID, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }

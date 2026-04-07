@@ -8,6 +8,11 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
+import Foundation
+#endif
 import SwiftProtobuf
 
 // If the compiler emits an error on this type, it is because this file
@@ -145,7 +150,7 @@ public struct RouteLocation: @unchecked Sendable {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      public var scheduleLocationComputedID: String = String()
+      public var scheduleLocationComputedID: Data = Data()
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -157,7 +162,7 @@ public struct RouteLocation: @unchecked Sendable {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      public var scheduleLocationComputedID: String = String()
+      public var scheduleLocationComputedID: Data = Data()
 
       public var associationCategory: AssociationCategory = .unknown
 
@@ -388,7 +393,7 @@ extension RouteLocation.Edge.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleLocationComputedID) }()
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.scheduleLocationComputedID) }()
       default: break
       }
     }
@@ -396,7 +401,7 @@ extension RouteLocation.Edge.Schedule: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.scheduleLocationComputedID.isEmpty {
-      try visitor.visitSingularStringField(value: self.scheduleLocationComputedID, fieldNumber: 1)
+      try visitor.visitSingularBytesField(value: self.scheduleLocationComputedID, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -418,7 +423,7 @@ extension RouteLocation.Edge.Association: SwiftProtobuf.Message, SwiftProtobuf._
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.scheduleLocationComputedID) }()
+      case 1: try { try decoder.decodeSingularBytesField(value: &self.scheduleLocationComputedID) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.associationCategory) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.isCancelled) }()
       default: break
@@ -428,7 +433,7 @@ extension RouteLocation.Edge.Association: SwiftProtobuf.Message, SwiftProtobuf._
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.scheduleLocationComputedID.isEmpty {
-      try visitor.visitSingularStringField(value: self.scheduleLocationComputedID, fieldNumber: 1)
+      try visitor.visitSingularBytesField(value: self.scheduleLocationComputedID, fieldNumber: 1)
     }
     if self.associationCategory != .unknown {
       try visitor.visitSingularEnumField(value: self.associationCategory, fieldNumber: 2)
