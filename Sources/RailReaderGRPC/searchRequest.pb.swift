@@ -52,7 +52,10 @@ public struct SearchRequest: Sendable {
   /// Clears the value of `type`. Subsequent reads from it will return its default value.
   public mutating func clearType() {self._type = nil}
 
-  /// If any are specified, only services that include all of these TIPLOCs in their route will be returned. If unspecified, all services will be included.
+  /// If any are specified, only services that have a passenger stop at all of these TIPLOCs in their route (onward if type=DEPARTURES OR type=PASSING, backward if type=ARRIVALS, both directions otherwise) will be returned. If unspecified, all services will be included.
+  public var mustStopAtPassengerTiplocs: [String] = []
+
+  /// If any are specified, only services that visit all of these TIPLOCs in their route (onward if type=DEPARTURES OR type=PASSING, backward if type=ARRIVALS, both directions otherwise) will be returned. If unspecified, all services will be included.
   public var mustVisitTiplocs: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -108,7 +111,7 @@ public struct SearchRequest: Sendable {
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}tiploc\0\u{4}\u{2}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{1}type\0\u{3}must_visit_tiplocs\0\u{c}\u{2}\u{1}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}tiploc\0\u{4}\u{2}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{1}type\0\u{3}must_stop_at_passenger_tiplocs\0\u{3}must_visit_tiplocs\0\u{c}\u{2}\u{1}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -123,7 +126,8 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       case 6: try { try decoder.decodeSingularBoolField(value: &self.excludeNonActiveServices) }()
       case 7: try { try decoder.decodeSingularBoolField(value: &self.includeCharteredServices) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self._type) }()
-      case 9: try { try decoder.decodeRepeatedStringField(value: &self.mustVisitTiplocs) }()
+      case 9: try { try decoder.decodeRepeatedStringField(value: &self.mustStopAtPassengerTiplocs) }()
+      case 10: try { try decoder.decodeRepeatedStringField(value: &self.mustVisitTiplocs) }()
       default: break
       }
     }
@@ -155,8 +159,11 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     try { if let v = self._type {
       try visitor.visitSingularEnumField(value: v, fieldNumber: 8)
     } }()
+    if !self.mustStopAtPassengerTiplocs.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.mustStopAtPassengerTiplocs, fieldNumber: 9)
+    }
     if !self.mustVisitTiplocs.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.mustVisitTiplocs, fieldNumber: 9)
+      try visitor.visitRepeatedStringField(value: self.mustVisitTiplocs, fieldNumber: 10)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -169,6 +176,7 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if lhs.excludeNonActiveServices != rhs.excludeNonActiveServices {return false}
     if lhs.includeCharteredServices != rhs.includeCharteredServices {return false}
     if lhs._type != rhs._type {return false}
+    if lhs.mustStopAtPassengerTiplocs != rhs.mustStopAtPassengerTiplocs {return false}
     if lhs.mustVisitTiplocs != rhs.mustVisitTiplocs {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
