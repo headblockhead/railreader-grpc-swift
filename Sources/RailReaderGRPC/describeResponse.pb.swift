@@ -8,6 +8,11 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
+#if canImport(FoundationEssentials)
+import FoundationEssentials
+#else
+import Foundation
+#endif
 import SwiftProtobuf
 
 // If the compiler emits an error on this type, it is because this file
@@ -40,6 +45,10 @@ public struct DescribeResponse: Sendable {
 
   public var route: [RouteLocation] = []
 
+  public var originComputedIds: [Data] = []
+
+  public var destinationComputedIds: [Data] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -51,7 +60,7 @@ public struct DescribeResponse: Sendable {
 
 extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "DescribeResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}request\0\u{1}schedules\0\u{1}formations\0\u{1}route\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}request\0\u{1}schedules\0\u{1}formations\0\u{1}route\0\u{3}origin_computed_ids\0\u{3}destination_computed_ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -63,6 +72,8 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.schedules) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.formations) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.route) }()
+      case 5: try { try decoder.decodeRepeatedBytesField(value: &self.originComputedIds) }()
+      case 6: try { try decoder.decodeRepeatedBytesField(value: &self.destinationComputedIds) }()
       default: break
       }
     }
@@ -85,6 +96,12 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if !self.route.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.route, fieldNumber: 4)
     }
+    if !self.originComputedIds.isEmpty {
+      try visitor.visitRepeatedBytesField(value: self.originComputedIds, fieldNumber: 5)
+    }
+    if !self.destinationComputedIds.isEmpty {
+      try visitor.visitRepeatedBytesField(value: self.destinationComputedIds, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -93,6 +110,8 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs.schedules != rhs.schedules {return false}
     if lhs.formations != rhs.formations {return false}
     if lhs.route != rhs.route {return false}
+    if lhs.originComputedIds != rhs.originComputedIds {return false}
+    if lhs.destinationComputedIds != rhs.destinationComputedIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
