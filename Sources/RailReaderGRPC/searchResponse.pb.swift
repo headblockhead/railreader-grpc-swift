@@ -114,6 +114,12 @@ public struct SearchResponse: Sendable {
     /// The route location(s) in the service matching the "must_visit_location_ids" set in the request (if any) are given here.
     public var mustVisitRouteLocations: [RouteLocation] = []
 
+    public var arrival: Bool = false
+
+    public var passing: Bool = false
+
+    public var departure: Bool = false
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -227,7 +233,7 @@ extension SearchResponse.Metadata: SwiftProtobuf.Message, SwiftProtobuf._Message
 
 extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = SearchResponse.protoMessageName + ".ServiceOverview"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}route_location\0\u{1}schedule\0\u{1}formation\0\u{3}origin_route_locations\0\u{3}destination_route_locations\0\u{3}must_stop_at_passenger_route_locations\0\u{3}must_visit_route_locations\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}route_location\0\u{1}schedule\0\u{1}formation\0\u{3}origin_route_locations\0\u{3}destination_route_locations\0\u{3}must_stop_at_passenger_route_locations\0\u{3}must_visit_route_locations\0\u{1}arrival\0\u{1}passing\0\u{1}departure\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -242,6 +248,9 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.destinationRouteLocations) }()
       case 6: try { try decoder.decodeRepeatedMessageField(value: &self.mustStopAtPassengerRouteLocations) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.mustVisitRouteLocations) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.arrival) }()
+      case 9: try { try decoder.decodeSingularBoolField(value: &self.passing) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.departure) }()
       default: break
       }
     }
@@ -273,6 +282,15 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.mustVisitRouteLocations.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.mustVisitRouteLocations, fieldNumber: 7)
     }
+    if self.arrival != false {
+      try visitor.visitSingularBoolField(value: self.arrival, fieldNumber: 8)
+    }
+    if self.passing != false {
+      try visitor.visitSingularBoolField(value: self.passing, fieldNumber: 9)
+    }
+    if self.departure != false {
+      try visitor.visitSingularBoolField(value: self.departure, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -284,6 +302,9 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.destinationRouteLocations != rhs.destinationRouteLocations {return false}
     if lhs.mustStopAtPassengerRouteLocations != rhs.mustStopAtPassengerRouteLocations {return false}
     if lhs.mustVisitRouteLocations != rhs.mustVisitRouteLocations {return false}
+    if lhs.arrival != rhs.arrival {return false}
+    if lhs.passing != rhs.passing {return false}
+    if lhs.departure != rhs.departure {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
