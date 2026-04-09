@@ -20,43 +20,45 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// SearchRequest is sent once.
 public struct SearchRequest: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var tiploc: String = String()
+  /// Must be provided. Only services that visit this location_id in their route will be returned.
+  public var atLocationID: String = String()
 
-  /// Services scheduled up to 2 hours before the from_time may be included if they are delayed.
+  /// Services scheduled up to 2 hours before the from_time may be returned if they are delayed.
   public var fromTime: String = String()
 
-  /// Services scheduled up to 2 hours after the to_time may be included if they are early.
+  /// Services scheduled up to 2 hours after the to_time may be returned if they are early.
   public var toTime: String = String()
 
-  /// If true, all services will be included. If false or unspecified, only passenger services will be included.
+  /// If true, all services will be returned. If false or unspecified, only passenger services will be returned.
   public var includeNonPassengerServices: Bool = false
 
-  /// If true, only active services will be included. If false or unspecified, all services will be included. A service being "inactive" indicates that it is unlikely to recieve any future data updates (altough this is not a guarentee), and/or that the train is not expected to run.
+  /// If true, only active services will be returned. If false or unspecified, all services will be returned. A service being "inactive" indicates that it is unlikely to recieve any future data updates (altough this is not a guarentee), and/or that the train is not expected to run.
   public var excludeNonActiveServices: Bool = false
 
-  /// If true, all services will be included. If false or unspecified, only non-chartered services will be included. 
+  /// If true, all services will be returned. If false or unspecified, only non-chartered services will be returned. 
   public var includeCharteredServices: Bool = false
 
-  /// If specified, only services that arrival/pass/depart the location will be included. If unspecified, all services will be included
-  public var type: SearchRequest.TypeEnum {
-    get {_type ?? .unknown}
-    set {_type = newValue}
+  /// If specified, only services that arrive/pass/depart the requested location will be returned. If unspecified, all services will be returned.
+  public var includeOnlyType: SearchRequest.TypeEnum {
+    get {_includeOnlyType ?? .unknown}
+    set {_includeOnlyType = newValue}
   }
-  /// Returns true if `type` has been explicitly set.
-  public var hasType: Bool {self._type != nil}
-  /// Clears the value of `type`. Subsequent reads from it will return its default value.
-  public mutating func clearType() {self._type = nil}
+  /// Returns true if `includeOnlyType` has been explicitly set.
+  public var hasIncludeOnlyType: Bool {self._includeOnlyType != nil}
+  /// Clears the value of `includeOnlyType`. Subsequent reads from it will return its default value.
+  public mutating func clearIncludeOnlyType() {self._includeOnlyType = nil}
 
-  /// If any are specified, only services that have a passenger stop at all of these TIPLOCs in their route (onward if type=DEPARTURES OR type=PASSING, backward if type=ARRIVALS, both directions otherwise) will be returned. If unspecified, all services will be included.
-  public var mustStopAtPassengerTiplocs: [String] = []
+  /// TODO: use CRS instead here?
+  public var mustStopAtPassengerLocationIds: [String] = []
 
-  /// If any are specified, only services that visit all of these TIPLOCs in their route (onward if type=DEPARTURES OR type=PASSING, backward if type=ARRIVALS, both directions otherwise) will be returned. If unspecified, all services will be included.
-  public var mustVisitTiplocs: [String] = []
+  /// This is affected by the include_only_type field: ARRIVALS will only consider stops that come before the requested location, DEPARTURES will only consider stops that come after the requested location, PASSING and unspecified type will consider stops in both directions.
+  public var mustVisitLocationIds: [String] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -104,14 +106,14 @@ public struct SearchRequest: Sendable {
 
   public init() {}
 
-  fileprivate var _type: SearchRequest.TypeEnum? = nil
+  fileprivate var _includeOnlyType: SearchRequest.TypeEnum? = nil
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}tiploc\0\u{4}\u{2}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{1}type\0\u{3}must_stop_at_passenger_tiplocs\0\u{3}must_visit_tiplocs\0\u{c}\u{2}\u{1}")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}at_location_id\0\u{4}\u{2}from_time\0\u{3}to_time\0\u{3}include_non_passenger_services\0\u{3}exclude_non_active_services\0\u{3}include_chartered_services\0\u{3}include_only_type\0\u{3}must_stop_at_passenger_location_ids\0\u{3}must_visit_location_ids\0\u{c}\u{2}\u{1}")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -119,15 +121,15 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.tiploc) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.atLocationID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.fromTime) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.toTime) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.includeNonPassengerServices) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.excludeNonActiveServices) }()
       case 7: try { try decoder.decodeSingularBoolField(value: &self.includeCharteredServices) }()
-      case 8: try { try decoder.decodeSingularEnumField(value: &self._type) }()
-      case 9: try { try decoder.decodeRepeatedStringField(value: &self.mustStopAtPassengerTiplocs) }()
-      case 10: try { try decoder.decodeRepeatedStringField(value: &self.mustVisitTiplocs) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self._includeOnlyType) }()
+      case 9: try { try decoder.decodeRepeatedStringField(value: &self.mustStopAtPassengerLocationIds) }()
+      case 10: try { try decoder.decodeRepeatedStringField(value: &self.mustVisitLocationIds) }()
       default: break
       }
     }
@@ -138,8 +140,8 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.tiploc.isEmpty {
-      try visitor.visitSingularStringField(value: self.tiploc, fieldNumber: 1)
+    if !self.atLocationID.isEmpty {
+      try visitor.visitSingularStringField(value: self.atLocationID, fieldNumber: 1)
     }
     if !self.fromTime.isEmpty {
       try visitor.visitSingularStringField(value: self.fromTime, fieldNumber: 3)
@@ -156,28 +158,28 @@ extension SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementa
     if self.includeCharteredServices != false {
       try visitor.visitSingularBoolField(value: self.includeCharteredServices, fieldNumber: 7)
     }
-    try { if let v = self._type {
+    try { if let v = self._includeOnlyType {
       try visitor.visitSingularEnumField(value: v, fieldNumber: 8)
     } }()
-    if !self.mustStopAtPassengerTiplocs.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.mustStopAtPassengerTiplocs, fieldNumber: 9)
+    if !self.mustStopAtPassengerLocationIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.mustStopAtPassengerLocationIds, fieldNumber: 9)
     }
-    if !self.mustVisitTiplocs.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.mustVisitTiplocs, fieldNumber: 10)
+    if !self.mustVisitLocationIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.mustVisitLocationIds, fieldNumber: 10)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: SearchRequest, rhs: SearchRequest) -> Bool {
-    if lhs.tiploc != rhs.tiploc {return false}
+    if lhs.atLocationID != rhs.atLocationID {return false}
     if lhs.fromTime != rhs.fromTime {return false}
     if lhs.toTime != rhs.toTime {return false}
     if lhs.includeNonPassengerServices != rhs.includeNonPassengerServices {return false}
     if lhs.excludeNonActiveServices != rhs.excludeNonActiveServices {return false}
     if lhs.includeCharteredServices != rhs.includeCharteredServices {return false}
-    if lhs._type != rhs._type {return false}
-    if lhs.mustStopAtPassengerTiplocs != rhs.mustStopAtPassengerTiplocs {return false}
-    if lhs.mustVisitTiplocs != rhs.mustVisitTiplocs {return false}
+    if lhs._includeOnlyType != rhs._includeOnlyType {return false}
+    if lhs.mustStopAtPassengerLocationIds != rhs.mustStopAtPassengerLocationIds {return false}
+    if lhs.mustVisitLocationIds != rhs.mustVisitLocationIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

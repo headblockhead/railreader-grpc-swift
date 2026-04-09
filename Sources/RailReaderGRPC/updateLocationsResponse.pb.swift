@@ -20,6 +20,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// UpdateLocationsResponse is sent once.
 public struct UpdateLocationsResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -28,26 +29,27 @@ public struct UpdateLocationsResponse: Sendable {
   /// All (if any) updates between the current_reference_file_id in UpdateLocationsRequest and the new_reference_file_id in this response.
   public var updates: [UpdateLocationsResponse.LocationUpdate] = []
 
-  /// The lastest reference_file_id equivalent you will have after applying all updates.
+  /// The lastest reference_file_id equivalent you will have after applying all updates given.
   public var newReferenceFileID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  /// An update made to a location at a point in time.
-  /// Provides the new state for a given location_id, and the reference_file_id at which this change occurred.
+  /// Describes an update made to a location at a point in time.
   public struct LocationUpdate: Sendable {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// The location_id affected
+    /// The location_id affected by this update.
     public var locationID: String = String()
 
-    /// The reference_file_id at which this change occurred. 
+    /// The reference_file_id at which this update occurred. 
     public var referenceFileID: String = String()
 
+    /// The new deletion status of the location after this update.
     public var isDeleted: Bool = false
 
+    /// The new crs_id of the location after this update. If not provided, the crs_id is null after this update.
     public var crsID: String {
       get {_crsID ?? String()}
       set {_crsID = newValue}
@@ -57,6 +59,7 @@ public struct UpdateLocationsResponse: Sendable {
     /// Clears the value of `crsID`. Subsequent reads from it will return its default value.
     public mutating func clearCrsID() {self._crsID = nil}
 
+    /// The new toc_id of the location after this update. If not provided, the toc_id is null after this update.
     public var tocID: String {
       get {_tocID ?? String()}
       set {_tocID = newValue}
@@ -66,6 +69,7 @@ public struct UpdateLocationsResponse: Sendable {
     /// Clears the value of `tocID`. Subsequent reads from it will return its default value.
     public mutating func clearTocID() {self._tocID = nil}
 
+    /// The new name of the location after this update.
     public var name: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()

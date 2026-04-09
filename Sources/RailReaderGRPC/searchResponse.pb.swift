@@ -8,11 +8,6 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/apple/swift-protobuf/
 
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
-import Foundation
-#endif
 import SwiftProtobuf
 
 // If the compiler emits an error on this type, it is because this file
@@ -25,14 +20,97 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// SearchResponse is sent n+1 times, where n represents the number of results found by the search query.
 public struct SearchResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var scheduleLocationComputedIds: [Data] = []
+  public var response: SearchResponse.OneOf_Response? = nil
+
+  public var metadata: SearchResponse.Metadata {
+    get {
+      if case .metadata(let v)? = response {return v}
+      return SearchResponse.Metadata()
+    }
+    set {response = .metadata(newValue)}
+  }
+
+  public var serviceOverview: SearchResponse.ServiceOverview {
+    get {
+      if case .serviceOverview(let v)? = response {return v}
+      return SearchResponse.ServiceOverview()
+    }
+    set {response = .serviceOverview(newValue)}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum OneOf_Response: Equatable, Sendable {
+    case metadata(SearchResponse.Metadata)
+    case serviceOverview(SearchResponse.ServiceOverview)
+
+  }
+
+  /// Metadata is sent once at the start of the SearchResponse stream.
+  public struct Metadata: Sendable {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// The number of results to expect from the stream.
+    public var numberOfResults: UInt32 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  /// ServiceOverview is sent for each matching search result, and provides a small amount of data about each service.
+  public struct ServiceOverview: Sendable {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// The entry in the service's route that matches the "at" location in the request.
+    public var routeLocation: RouteLocation {
+      get {_routeLocation ?? RouteLocation()}
+      set {_routeLocation = newValue}
+    }
+    /// Returns true if `routeLocation` has been explicitly set.
+    public var hasRouteLocation: Bool {self._routeLocation != nil}
+    /// Clears the value of `routeLocation`. Subsequent reads from it will return its default value.
+    public mutating func clearRouteLocation() {self._routeLocation = nil}
+
+    /// The schedule data for the route location.
+    public var schedule: Schedule {
+      get {_schedule ?? Schedule()}
+      set {_schedule = newValue}
+    }
+    /// Returns true if `schedule` has been explicitly set.
+    public var hasSchedule: Bool {self._schedule != nil}
+    /// Clears the value of `schedule`. Subsequent reads from it will return its default value.
+    public mutating func clearSchedule() {self._schedule = nil}
+
+    /// The route location(s) that the service has as origins. Multiple origins may be provided when two schedules have joined previously in the service's route.
+    public var originRouteLocations: [RouteLocation] = []
+
+    /// The route location(s) that the service has as destinations. Multiple destinations may be provided when a schedule will divide later in the service's route.
+    public var destinationRouteLocations: [RouteLocation] = []
+
+    /// The route locations(s) in the service matching the "must_stop_at_passenger_location_ids" set in the request (if any) are given here.
+    public var mustStopAtPassengerRouteLocations: [RouteLocation] = []
+
+    /// The route location(s) in the service matching the "must_visit_location_ids" set in the request (if any) are given here.
+    public var mustVisitRouteLocations: [RouteLocation] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _routeLocation: RouteLocation? = nil
+    fileprivate var _schedule: Schedule? = nil
+  }
 
   public init() {}
 }
@@ -41,7 +119,7 @@ public struct SearchResponse: Sendable {
 
 extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "SearchResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}schedule_location_computed_ids\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}metadata\0\u{3}service_overview\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -49,21 +127,147 @@ extension SearchResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedBytesField(value: &self.scheduleLocationComputedIds) }()
+      case 1: try {
+        var v: SearchResponse.Metadata?
+        var hadOneofValue = false
+        if let current = self.response {
+          hadOneofValue = true
+          if case .metadata(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.response = .metadata(v)
+        }
+      }()
+      case 2: try {
+        var v: SearchResponse.ServiceOverview?
+        var hadOneofValue = false
+        if let current = self.response {
+          hadOneofValue = true
+          if case .serviceOverview(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.response = .serviceOverview(v)
+        }
+      }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.scheduleLocationComputedIds.isEmpty {
-      try visitor.visitRepeatedBytesField(value: self.scheduleLocationComputedIds, fieldNumber: 1)
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    switch self.response {
+    case .metadata?: try {
+      guard case .metadata(let v)? = self.response else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }()
+    case .serviceOverview?: try {
+      guard case .serviceOverview(let v)? = self.response else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: SearchResponse, rhs: SearchResponse) -> Bool {
-    if lhs.scheduleLocationComputedIds != rhs.scheduleLocationComputedIds {return false}
+    if lhs.response != rhs.response {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SearchResponse.Metadata: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = SearchResponse.protoMessageName + ".Metadata"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}number_of_results\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.numberOfResults) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.numberOfResults != 0 {
+      try visitor.visitSingularUInt32Field(value: self.numberOfResults, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: SearchResponse.Metadata, rhs: SearchResponse.Metadata) -> Bool {
+    if lhs.numberOfResults != rhs.numberOfResults {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = SearchResponse.protoMessageName + ".ServiceOverview"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}route_location\0\u{1}schedule\0\u{3}origin_route_locations\0\u{3}destination_route_locations\0\u{3}must_stop_at_passenger_route_locations\0\u{3}must_visit_route_locations\0")
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._routeLocation) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._schedule) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.originRouteLocations) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.destinationRouteLocations) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.mustStopAtPassengerRouteLocations) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.mustVisitRouteLocations) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._routeLocation {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._schedule {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if !self.originRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.originRouteLocations, fieldNumber: 3)
+    }
+    if !self.destinationRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.destinationRouteLocations, fieldNumber: 4)
+    }
+    if !self.mustStopAtPassengerRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mustStopAtPassengerRouteLocations, fieldNumber: 5)
+    }
+    if !self.mustVisitRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mustVisitRouteLocations, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: SearchResponse.ServiceOverview, rhs: SearchResponse.ServiceOverview) -> Bool {
+    if lhs._routeLocation != rhs._routeLocation {return false}
+    if lhs._schedule != rhs._schedule {return false}
+    if lhs.originRouteLocations != rhs.originRouteLocations {return false}
+    if lhs.destinationRouteLocations != rhs.destinationRouteLocations {return false}
+    if lhs.mustStopAtPassengerRouteLocations != rhs.mustStopAtPassengerRouteLocations {return false}
+    if lhs.mustVisitRouteLocations != rhs.mustVisitRouteLocations {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

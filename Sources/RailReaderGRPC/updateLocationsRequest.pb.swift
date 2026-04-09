@@ -20,12 +20,13 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// UpdateLocationsRequest is sent once.
 public struct UpdateLocationsRequest: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// If not specified, all updates will be returned.
+  /// If specified, only location updates occurring after this file_id will be returned. If unspecified, all updates will be returned.
   public var currentReferenceFileID: String {
     get {_currentReferenceFileID ?? String()}
     set {_currentReferenceFileID = newValue}

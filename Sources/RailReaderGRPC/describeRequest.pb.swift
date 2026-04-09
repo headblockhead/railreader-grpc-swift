@@ -25,11 +25,13 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// DescribeRequest is sent for each service that the client would like to be described.
 public struct DescribeRequest: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// The computed_id of a ScheduleLocation within the service to be described.
   public var scheduleLocationComputedID: Data = Data()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()

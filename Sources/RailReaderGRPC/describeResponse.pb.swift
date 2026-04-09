@@ -25,11 +25,13 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// DescribeResponse is sent n times, where n represents the number of DescribeRequests received.
 public struct DescribeResponse: Sendable {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// The request being answered.
   public var request: DescribeRequest {
     get {_request ?? DescribeRequest()}
     set {_request = newValue}
@@ -39,15 +41,20 @@ public struct DescribeResponse: Sendable {
   /// Clears the value of `request`. Subsequent reads from it will return its default value.
   public mutating func clearRequest() {self._request = nil}
 
+  /// All schedules that form the service being described. A service may have multiple schedules if a schedule joins, divides, or links with other schedules.
   public var schedules: [Schedule] = []
 
+  /// All formation data (if any) that is given about the service being described. A service may have multiple formations if it loses or gains coaches during its route, or if multiple schedules that form the service have different formations.
   public var formations: [Formation] = []
 
+  /// A graph of all route entries that form the service being described.
   public var route: [RouteLocation] = []
 
-  public var originComputedIds: [Data] = []
+  /// The schedule_location.computed_ids of the RouteLocations that the service has as origins. Multiple origins may be provided when two schedules have joined previously in the service's route.
+  public var originScheduleLocationComputedIds: [Data] = []
 
-  public var destinationComputedIds: [Data] = []
+  /// The schedule_location.computed_ids of the RouteLocations that the service has as destinations. Multiple destinations may be provided when a schedule will divide later in the service's route.
+  public var destinationScheduleLocationComputedIds: [Data] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -60,7 +67,7 @@ public struct DescribeResponse: Sendable {
 
 extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = "DescribeResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}request\0\u{1}schedules\0\u{1}formations\0\u{1}route\0\u{3}origin_computed_ids\0\u{3}destination_computed_ids\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}request\0\u{1}schedules\0\u{1}formations\0\u{1}route\0\u{3}origin_schedule_location_computed_ids\0\u{3}destination_schedule_location_computed_ids\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -72,8 +79,8 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.schedules) }()
       case 3: try { try decoder.decodeRepeatedMessageField(value: &self.formations) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.route) }()
-      case 5: try { try decoder.decodeRepeatedBytesField(value: &self.originComputedIds) }()
-      case 6: try { try decoder.decodeRepeatedBytesField(value: &self.destinationComputedIds) }()
+      case 5: try { try decoder.decodeRepeatedBytesField(value: &self.originScheduleLocationComputedIds) }()
+      case 6: try { try decoder.decodeRepeatedBytesField(value: &self.destinationScheduleLocationComputedIds) }()
       default: break
       }
     }
@@ -96,11 +103,11 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if !self.route.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.route, fieldNumber: 4)
     }
-    if !self.originComputedIds.isEmpty {
-      try visitor.visitRepeatedBytesField(value: self.originComputedIds, fieldNumber: 5)
+    if !self.originScheduleLocationComputedIds.isEmpty {
+      try visitor.visitRepeatedBytesField(value: self.originScheduleLocationComputedIds, fieldNumber: 5)
     }
-    if !self.destinationComputedIds.isEmpty {
-      try visitor.visitRepeatedBytesField(value: self.destinationComputedIds, fieldNumber: 6)
+    if !self.destinationScheduleLocationComputedIds.isEmpty {
+      try visitor.visitRepeatedBytesField(value: self.destinationScheduleLocationComputedIds, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -110,8 +117,8 @@ extension DescribeResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs.schedules != rhs.schedules {return false}
     if lhs.formations != rhs.formations {return false}
     if lhs.route != rhs.route {return false}
-    if lhs.originComputedIds != rhs.originComputedIds {return false}
-    if lhs.destinationComputedIds != rhs.destinationComputedIds {return false}
+    if lhs.originScheduleLocationComputedIds != rhs.originScheduleLocationComputedIds {return false}
+    if lhs.destinationScheduleLocationComputedIds != rhs.destinationScheduleLocationComputedIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
