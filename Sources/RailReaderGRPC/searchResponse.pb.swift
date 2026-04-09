@@ -92,6 +92,16 @@ public struct SearchResponse: Sendable {
     /// Clears the value of `schedule`. Subsequent reads from it will return its default value.
     public mutating func clearSchedule() {self._schedule = nil}
 
+    /// The formation data for the route location.
+    public var formation: Formation {
+      get {_formation ?? Formation()}
+      set {_formation = newValue}
+    }
+    /// Returns true if `formation` has been explicitly set.
+    public var hasFormation: Bool {self._formation != nil}
+    /// Clears the value of `formation`. Subsequent reads from it will return its default value.
+    public mutating func clearFormation() {self._formation = nil}
+
     /// The route location(s) that the service has as origins. Multiple origins may be provided when two schedules have joined previously in the service's route.
     public var originRouteLocations: [RouteLocation] = []
 
@@ -110,6 +120,7 @@ public struct SearchResponse: Sendable {
 
     fileprivate var _routeLocation: RouteLocation? = nil
     fileprivate var _schedule: Schedule? = nil
+    fileprivate var _formation: Formation? = nil
   }
 
   public init() {}
@@ -216,7 +227,7 @@ extension SearchResponse.Metadata: SwiftProtobuf.Message, SwiftProtobuf._Message
 
 extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = SearchResponse.protoMessageName + ".ServiceOverview"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}route_location\0\u{1}schedule\0\u{3}origin_route_locations\0\u{3}destination_route_locations\0\u{3}must_stop_at_passenger_route_locations\0\u{3}must_visit_route_locations\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}route_location\0\u{1}schedule\0\u{1}formation\0\u{3}origin_route_locations\0\u{3}destination_route_locations\0\u{3}must_stop_at_passenger_route_locations\0\u{3}must_visit_route_locations\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -226,10 +237,11 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._routeLocation) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._schedule) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.originRouteLocations) }()
-      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.destinationRouteLocations) }()
-      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.mustStopAtPassengerRouteLocations) }()
-      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.mustVisitRouteLocations) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._formation) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.originRouteLocations) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.destinationRouteLocations) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.mustStopAtPassengerRouteLocations) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.mustVisitRouteLocations) }()
       default: break
       }
     }
@@ -246,17 +258,20 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
     try { if let v = self._schedule {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
+    try { if let v = self._formation {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     if !self.originRouteLocations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.originRouteLocations, fieldNumber: 3)
+      try visitor.visitRepeatedMessageField(value: self.originRouteLocations, fieldNumber: 4)
     }
     if !self.destinationRouteLocations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.destinationRouteLocations, fieldNumber: 4)
+      try visitor.visitRepeatedMessageField(value: self.destinationRouteLocations, fieldNumber: 5)
     }
     if !self.mustStopAtPassengerRouteLocations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.mustStopAtPassengerRouteLocations, fieldNumber: 5)
+      try visitor.visitRepeatedMessageField(value: self.mustStopAtPassengerRouteLocations, fieldNumber: 6)
     }
     if !self.mustVisitRouteLocations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.mustVisitRouteLocations, fieldNumber: 6)
+      try visitor.visitRepeatedMessageField(value: self.mustVisitRouteLocations, fieldNumber: 7)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -264,6 +279,7 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
   public static func ==(lhs: SearchResponse.ServiceOverview, rhs: SearchResponse.ServiceOverview) -> Bool {
     if lhs._routeLocation != rhs._routeLocation {return false}
     if lhs._schedule != rhs._schedule {return false}
+    if lhs._formation != rhs._formation {return false}
     if lhs.originRouteLocations != rhs.originRouteLocations {return false}
     if lhs.destinationRouteLocations != rhs.destinationRouteLocations {return false}
     if lhs.mustStopAtPassengerRouteLocations != rhs.mustStopAtPassengerRouteLocations {return false}
