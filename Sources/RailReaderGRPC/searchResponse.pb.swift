@@ -109,10 +109,14 @@ public struct SearchResponse: Sendable {
     public var destinationRouteLocations: [RouteLocation] = []
 
     /// The route locations(s) in the service matching the "must_stop_at_passenger_location_ids" set in the request (if any) are given here.
-    public var mustStopAtPassengerRouteLocations: [RouteLocation] = []
+    public var mustStopAtNextPassengerRouteLocations: [RouteLocation] = []
+
+    public var mustStopAtPreviousPassengerRouteLocations: [RouteLocation] = []
 
     /// The route location(s) in the service matching the "must_visit_location_ids" set in the request (if any) are given here.
-    public var mustVisitRouteLocations: [RouteLocation] = []
+    public var mustVisitNextRouteLocations: [RouteLocation] = []
+
+    public var mustVisitPreviousRouteLocations: [RouteLocation] = []
 
     public var arrival: Bool = false
 
@@ -233,7 +237,7 @@ extension SearchResponse.Metadata: SwiftProtobuf.Message, SwiftProtobuf._Message
 
 extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = SearchResponse.protoMessageName + ".ServiceOverview"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}route_location\0\u{1}schedule\0\u{1}formation\0\u{3}origin_route_locations\0\u{3}destination_route_locations\0\u{3}must_stop_at_passenger_route_locations\0\u{3}must_visit_route_locations\0\u{1}arrival\0\u{1}passing\0\u{1}departure\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{3}route_location\0\u{1}schedule\0\u{1}formation\0\u{3}origin_route_locations\0\u{3}destination_route_locations\0\u{3}must_stop_at_next_passenger_route_locations\0\u{3}must_stop_at_previous_passenger_route_locations\0\u{3}must_visit_next_route_locations\0\u{3}must_visit_previous_route_locations\0\u{1}arrival\0\u{1}passing\0\u{1}departure\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -246,11 +250,13 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
       case 3: try { try decoder.decodeSingularMessageField(value: &self._formation) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.originRouteLocations) }()
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.destinationRouteLocations) }()
-      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.mustStopAtPassengerRouteLocations) }()
-      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.mustVisitRouteLocations) }()
-      case 8: try { try decoder.decodeSingularBoolField(value: &self.arrival) }()
-      case 9: try { try decoder.decodeSingularBoolField(value: &self.passing) }()
-      case 10: try { try decoder.decodeSingularBoolField(value: &self.departure) }()
+      case 6: try { try decoder.decodeRepeatedMessageField(value: &self.mustStopAtNextPassengerRouteLocations) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.mustStopAtPreviousPassengerRouteLocations) }()
+      case 8: try { try decoder.decodeRepeatedMessageField(value: &self.mustVisitNextRouteLocations) }()
+      case 9: try { try decoder.decodeRepeatedMessageField(value: &self.mustVisitPreviousRouteLocations) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.arrival) }()
+      case 11: try { try decoder.decodeSingularBoolField(value: &self.passing) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.departure) }()
       default: break
       }
     }
@@ -276,20 +282,26 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.destinationRouteLocations.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.destinationRouteLocations, fieldNumber: 5)
     }
-    if !self.mustStopAtPassengerRouteLocations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.mustStopAtPassengerRouteLocations, fieldNumber: 6)
+    if !self.mustStopAtNextPassengerRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mustStopAtNextPassengerRouteLocations, fieldNumber: 6)
     }
-    if !self.mustVisitRouteLocations.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.mustVisitRouteLocations, fieldNumber: 7)
+    if !self.mustStopAtPreviousPassengerRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mustStopAtPreviousPassengerRouteLocations, fieldNumber: 7)
+    }
+    if !self.mustVisitNextRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mustVisitNextRouteLocations, fieldNumber: 8)
+    }
+    if !self.mustVisitPreviousRouteLocations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.mustVisitPreviousRouteLocations, fieldNumber: 9)
     }
     if self.arrival != false {
-      try visitor.visitSingularBoolField(value: self.arrival, fieldNumber: 8)
+      try visitor.visitSingularBoolField(value: self.arrival, fieldNumber: 10)
     }
     if self.passing != false {
-      try visitor.visitSingularBoolField(value: self.passing, fieldNumber: 9)
+      try visitor.visitSingularBoolField(value: self.passing, fieldNumber: 11)
     }
     if self.departure != false {
-      try visitor.visitSingularBoolField(value: self.departure, fieldNumber: 10)
+      try visitor.visitSingularBoolField(value: self.departure, fieldNumber: 12)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -300,8 +312,10 @@ extension SearchResponse.ServiceOverview: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs._formation != rhs._formation {return false}
     if lhs.originRouteLocations != rhs.originRouteLocations {return false}
     if lhs.destinationRouteLocations != rhs.destinationRouteLocations {return false}
-    if lhs.mustStopAtPassengerRouteLocations != rhs.mustStopAtPassengerRouteLocations {return false}
-    if lhs.mustVisitRouteLocations != rhs.mustVisitRouteLocations {return false}
+    if lhs.mustStopAtNextPassengerRouteLocations != rhs.mustStopAtNextPassengerRouteLocations {return false}
+    if lhs.mustStopAtPreviousPassengerRouteLocations != rhs.mustStopAtPreviousPassengerRouteLocations {return false}
+    if lhs.mustVisitNextRouteLocations != rhs.mustVisitNextRouteLocations {return false}
+    if lhs.mustVisitPreviousRouteLocations != rhs.mustVisitPreviousRouteLocations {return false}
     if lhs.arrival != rhs.arrival {return false}
     if lhs.passing != rhs.passing {return false}
     if lhs.departure != rhs.departure {return false}
